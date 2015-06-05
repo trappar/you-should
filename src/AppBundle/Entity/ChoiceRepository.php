@@ -4,14 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class TaskRepository extends EntityRepository
+class ChoiceRepository extends EntityRepository
 {
-    public function getTaskCount()
+    public function getChoiceCount()
     {
         $dbh = $this->getEntityManager()->getConnection();
         $sth = $dbh->query("
             SELECT COUNT(*)
-            FROM task
+            FROM choice
         ");
         return $sth->fetchColumn();
     }

@@ -23,19 +23,19 @@ class Activity
     private $id;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
-     * @var \stdClass
+     * @var Choice
      *
-     * @ORM\ManyToOne(targetEntity="Task")
-     * @ORM\JoinColumn(name="task_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Choice")
+     * @ORM\JoinColumn(name="choice_id", referencedColumnName="id")
      */
-    private $task;
+    private $choice;
 
     public function __construct()
     {
@@ -55,7 +55,7 @@ class Activity
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param DateTime $date
      * @return Activity
      */
     public function setDate($date)
@@ -68,7 +68,7 @@ class Activity
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return DateTime
      */
     public function getDate()
     {
@@ -78,12 +78,12 @@ class Activity
     /**
      * Set task
      *
-     * @param \stdClass $task
+     * @param Choice $choice
      * @return Activity
      */
-    public function setTask($task)
+    public function setChoice($choice)
     {
-        $this->task = $task;
+        $this->choice = $choice;
 
         return $this;
     }
@@ -91,10 +91,10 @@ class Activity
     /**
      * Get task
      *
-     * @return \stdClass 
+     * @return Choice
      */
-    public function getTask()
+    public function getChoice()
     {
-        return $this->task;
+        return $this->choice;
     }
 }

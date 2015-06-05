@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Task;
+use AppBundle\Entity\Choice;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -13,7 +13,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-//        $taskRepo = $this->getDoctrine()->getRepository('AppBundle:Task');
+//        $taskRepo = $this->getDoctrine()->getRepository('AppBundle:Choice');
 //
 //        $tasks = $taskRepo->findAll();
 //        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->getActivitiesByDate(10);

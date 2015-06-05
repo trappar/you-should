@@ -2,18 +2,18 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Task;
-use AppBundle\Entity\TaskRepository;
+use AppBundle\Entity\Choice;
+use AppBundle\Entity\ChoiceRepository;
 use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation AS DI;
 
 /**
- * Class TaskManager
+ * Class ChoiceManager
  * @package AppBundle\Manager
  *
  * @DI\Service("manager.task")
  */
-class TaskManager
+class ChoiceManager
 {
     /**
      * @var EntityManager
@@ -21,9 +21,9 @@ class TaskManager
     private $em;
 
     /**
-     * @var TaskRepository
+     * @var ChoiceRepository
      */
-    private $taskRepo;
+    private $choiceRepo;
 
     /**
      * @param EntityManager $em
@@ -38,25 +38,25 @@ class TaskManager
     }
 
     /**
-     * @param Task[] $tasks
-     * @return Task
+     * @param Choice[] $choices
+     * @return Choice
      */
-    public function pickRandomTaskByPriority($tasks)
+    public function pickRandomTaskByPriority($choices)
     {
-        $totalPriority = array_reduce($tasks, function($total, $task){
-            /** @var Task $task */
-            return $total + $task->getAdjustedPriority();
+        $totalPriority = array_reduce($choices, function($total, $choice){
+            /** @var Choice $choice */
+            return $total + $choice->getAdjustedPriority();
         }, 0);
 
         $random = rand() / getrandmax() * $totalPriority;
         $current = 0;
         $chosenTask = null;
-        foreach ($tasks as $task) {
-            if ($random > $current && $random <= $current + $task->getAdjustedPriority()) {
-                $chosenTask = $task;
+        foreach ($choices as $choice) {
+            if ($random > $current && $random <= $current + $choice->getAdjustedPriority()) {
+                $chosenTask = $choice;
                 break;
             } else {
-                $current += $task->getAdjustedPriority();
+                $current += $choice->getAdjustedPriority();
             }
         }
 

@@ -1,13 +1,13 @@
-AppBundle\Entity\Task:
-    task1:
+AppBundle\Entity\Choice:
+    choice1:
         name: Playing Guitar
         description: not important
         priority: 5
-    task2:
+    choice2:
         name: Playing Drums
         description: blah
         priority: 5
-    task3:
+    choice3:
         name: Playing Piano
         description: stuff
         priority: 1
@@ -15,7 +15,7 @@ AppBundle\Entity\Task:
 AppBundle\Entity\Activity:
     activity{1..5}:
         date: <dateTimeBetween('-1 week', 'now')>
-        task: @task1
+        choice: @choice1
     activity{6..10}:
         date: <dateTimeBetween('-1 week', 'now')>
-        task: @task2
+        choice: @choice2

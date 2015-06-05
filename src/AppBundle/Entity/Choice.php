@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Task
+ * Choice
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="TaskRepository")
+ * @ORM\Entity(repositoryClass="ChoiceRepository")
  */
-class Task
+class Choice
 {
     /**
      * @var integer
@@ -72,7 +72,7 @@ class Task
      * Set name
      *
      * @param string $name
-     * @return Task
+     * @return Choice
      */
     public function setName($name)
     {
@@ -95,7 +95,7 @@ class Task
      * Set description
      *
      * @param string $description
-     * @return Task
+     * @return Choice
      */
     public function setDescription($description)
     {
@@ -118,7 +118,7 @@ class Task
      * Set priority
      *
      * @param integer $priority
-     * @return Task
+     * @return Choice
      */
     public function setPriority($priority)
     {
