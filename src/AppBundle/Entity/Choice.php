@@ -45,11 +45,19 @@ class Choice
     private $priority;
 
     /**
+     * @var Decision
+     *
+     * @ORM\ManyToOne(targetEntity="Decision")
+     * @ORM\JoinColumn(name="decision_id", referencedColumnName="id")
+     */
+    private $decision;
+
+    /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice")
      */
-    private $activities = null;
+    private $activities;
 
     private $adjustedPriority;
 
@@ -138,19 +146,27 @@ class Choice
     }
 
     /**
+     * @return Decision
+     */
+    public function getDecision()
+    {
+        return $this->decision;
+    }
+
+    /**
+     * @param Decision $decision
+     */
+    public function setDecision($decision)
+    {
+        $this->decision = $decision;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getActivities()
     {
         return $this->activities;
-    }
-
-    /**
-     * @param ArrayCollection $activities
-     */
-    public function setActivities($activities)
-    {
-        $this->activities = $activities;
     }
 
     /**

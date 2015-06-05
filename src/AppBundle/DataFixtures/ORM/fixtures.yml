@@ -1,16 +1,28 @@
+AppBundle\Entity\Decision:
+    decision1:
+        question: What should I do?
+
 AppBundle\Entity\Choice:
     choice1:
-        name: Playing Guitar
+        name: Play Guitar
         description: not important
         priority: 5
+        decision: @decision1
     choice2:
-        name: Playing Drums
+        name: Play Drums
         description: blah
         priority: 5
+        decision: @decision1
     choice3:
-        name: Playing Piano
+        name: Play Piano
         description: stuff
+        priority: 3
+        decision: @decision1
+    choice4:
+        name: Go outside
+        description: bleh
         priority: 1
+        decision: @decision1
 
 AppBundle\Entity\Activity:
     activity{1..5}:
