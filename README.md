@@ -1,4 +1,8 @@
-symfonyReact
+U Should Be...
 ============
 
-A Symfony project created on June 3, 2015, 9:59 pm.
+####Playing guitar! :)
+
+A service that aims to take the guesswork out of learning new skills.
+
+This repository is currently a work in progress and is non-functional.
