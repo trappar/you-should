@@ -23,30 +23,18 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', [
         'clean',
-        'copy',
-        'less:tracker',
-        'less:review_sites',
-        'webpack-dev',
-        'webpack',
-        'webpack-save-stats'
+        'less:dev',
+        'webpack:dev'
     ]);
 
     grunt.registerTask('dev:watch', [
-        //'clean',
-        //'copy',
-        //'webpack-dev',
+        'clean',
         'watch'
     ]);
 
     grunt.registerTask('prod', [
         'clean',
-        'copy',
-        'less:tracker_prod',
-        'less:review_sites_prod',
-        'webpack-prod',
-        'webpack'
+        'less:prod',
+        'webpack:prod'
     ]);
-
-    grunt.registerTask('dev:db', ['shell:drop_database', 'shell:vagrant_provision']);
-    grunt.registerTask('dev:db:new', ['concurrent:remove_cached_database', 'shell:vagrant_provision']);
 };

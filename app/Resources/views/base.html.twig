@@ -4,11 +4,17 @@
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('style/main.css') }}"/>
-    {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    {% block stylesheets %}{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+<script src="{{ asset('js/commons.js') }}"></script>
 {% block javascripts %}{% endblock %}
+{% if app.environment == 'dev' %}
+    <script src="http://localhost:35729/livereload.js"></script>
+{% endif %}
 </body>
 </html>
