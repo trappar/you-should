@@ -1,6 +1,6 @@
 {
-    "name": "trappar/symfony-react",
-    "license": "proprietary",
+    "name": "trappar/you-should",
+    "license": "GPLv3",
     "type": "project",
     "autoload": {
         "psr-4": {
