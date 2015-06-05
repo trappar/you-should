@@ -1,0 +1,21 @@
+AppBundle\Entity\Task:
+    task1:
+        name: Playing Guitar
+        description: not important
+        priority: 5
+    task2:
+        name: Playing Drums
+        description: blah
+        priority: 5
+    task3:
+        name: Playing Piano
+        description: stuff
+        priority: 1
+
+AppBundle\Entity\Activity:
+    activity{1..5}:
+        date: <dateTimeBetween('-1 week', 'now')>
+        task: @task1
+    activity{6..10}:
+        date: <dateTimeBetween('-1 week', 'now')>
+        task: @task2
