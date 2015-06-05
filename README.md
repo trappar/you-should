@@ -1,9 +1,9 @@
-U Should Be...
+You Should...
 ============
 
-#### Playing guitar! :)
+#### Play guitar! :)
 
-A service that aims to take the guesswork out of learning new skills.
+A service that helps you make decisions based on your priorities, while keeping things fresh.
 
 This repository is currently a work in progress and is non-functional.
 
@@ -24,7 +24,7 @@ The remainder of the vendor files are installed with the following commands:
 
 Once the project is ready, you can use the following commands to compile dev assets and boot a dev server:
 
-* `grunt dev:watch` (this watch task will monitor static assets for changes and automatically recompile them)
+* `grunt` (this watch task will monitor static assets for changes and automatically recompile them)
 * `app/console server:start` (this will launch PHP's built in server - accessable at localhost:8000)
 
 #### Publishing changes
