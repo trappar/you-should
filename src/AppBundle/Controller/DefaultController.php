@@ -9,20 +9,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/")
      */
     public function indexAction()
     {
-//        $taskRepo = $this->getDoctrine()->getRepository('AppBundle:Choice');
+        return $this->render('default/index.html.twig');
+    }
+
+//    /**
+//     * @Route("/", name="homepage")
+//     */
+//    public function indexAction()
+//    {
+//        $decisionRepo = $this->getDoctrine()->getRepository('AppBundle:Decision');
+//        $decisions = $decisionRepo->findAll();
+//        $decision = $decisions[0];
 //
-//        $tasks = $taskRepo->findAll();
+//        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->findActivitiesByDecision($decision);
+//
+//        dump($decision);
+//        dump($activities);
+//        exit;
+//
+//        $tasks = $choiceRepo->findAll();
 //        $activities = $this->getDoctrine()->getRepository('AppBundle:Activity')->getActivitiesByDate(10);
 //
 //        $doThisTask = $this->get('manager.task')->pickRandomTaskByPriority($tasks);
-
-        return $this->render('default/index.html.twig', [
+//
+//        return $this->render('default/index.html.twig', [
 //            'activities' => $activities,
 //            'doThis' => $doThisTask
-        ]);
-    }
+//        ]);
+//    }
 }
