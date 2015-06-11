@@ -1,11 +1,6 @@
 @import 'mixins/decision';
 @import 'colors';
 
-@keyframes loading {
-    0%{background-position:100% 50%}
-    100%{background-position:0 50%}
-}
-
 .decision {
     max-width: 600px;
 
@@ -20,7 +15,6 @@
     }
 
     .question {
-        color: white;
         font-size: 1.5em;
         user-select: none;
 
@@ -31,7 +25,6 @@
 
     .answer {
         position: relative;
-        color: white;
         font-size: 1.2em;
         line-height: 2em;
         display: none;
@@ -43,6 +36,11 @@
         &.answer-loading {
             text-align: center;
 
+            span {
+                position: relative;
+                z-index: 1;
+            }
+
             &::before {
                 display: block;
                 width: 100%;
@@ -50,8 +48,6 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: 0;
-                background: linear-gradient(110deg, rgba(0,0,0,0) 33%, rgba(0,0,0,.05) 33%, rgba(0,0,0,.05) 66%, rgba(0,0,0,0) 66%);
                 background-size: 400% 100%;
                 animation: loading 1s linear infinite normal;
             }
@@ -77,22 +73,21 @@
     }
 }
 
-.decision-red { .decision-variant(@red-500; @red-600; @red-300); }
-.decision-pink { .decision-variant(@pink-500; @pink-600; @pink-300); }
-.decision-purple { .decision-variant(@purple-500; @purple-600; @purple-300); }
-.decision-deep-purple { .decision-variant(@deep-purple-500; @deep-purple-600; @deep-purple-300); }
-.decision-indigo { .decision-variant(@indigo-500; @indigo-600; @indigo-300); }
-.decision-blue { .decision-variant(@blue-500; @blue-600; @blue-300); }
-.decision-light-blue { .decision-variant(@light-blue-500; @light-blue-600; @light-blue-300); }
-.decision-cyan { .decision-variant(@cyan-500; @cyan-600; @cyan-300); }
-.decision-teal { .decision-variant(@teal-500; @teal-600; @teal-300); }
-.decision-green { .decision-variant(@green-500; @green-600; @green-300); }
-.decision-light-green { .decision-variant(@light-green-500; @light-green-600; @light-green-300); }
-.decision-lime { .decision-variant(@lime-500; @lime-600; @lime-300); }
-.decision-yellow { .decision-variant(@yellow-500; @yellow-600; @yellow-300); }
-.decision-amber { .decision-variant(@amber-500; @amber-600; @amber-300); }
-.decision-orange { .decision-variant(@orange-500; @orange-600; @orange-300); }
-.decision-deep-orange { .decision-variant(@deep-orange-500; @deep-orange-600; @deep-orange-300); }
-.decision-brown { .decision-variant(@brown-500; @brown-600; @brown-300); }
-.decision-grey { .decision-variant(@grey-500; @grey-600; @grey-300); }
-.decision-blue-grey { .decision-variant(@blue-grey-500; @blue-grey-600; @blue-grey-300); }
+.decision-red { .decision-variant(#ffffff; @red-500; @red-600; @red-300; @red-900); }
+.decision-pink { .decision-variant(#ffffff; @pink-500; @pink-600; @pink-300; @pink-800); }
+.decision-purple { .decision-variant(#ffffff; @purple-500; @purple-600; @purple-300; @purple-900); }
+.decision-deep-purple { .decision-variant(#ffffff; @deep-purple-500; @deep-purple-600; @deep-purple-300; @deep-purple-900); }
+.decision-indigo { .decision-variant(#ffffff; @indigo-500; @indigo-600; @indigo-300; @indigo-900); }
+.decision-blue { .decision-variant(#ffffff; @blue-500; @blue-600; @blue-300; @blue-900); }
+.decision-cyan { .decision-variant(#ffffff; @cyan-500; @cyan-600; @cyan-300; @cyan-900); }
+.decision-teal { .decision-variant(#ffffff; @teal-500; @teal-600; @teal-300; @teal-900); }
+.decision-green { .decision-variant(#ffffff; @green-500; @green-600; @green-300; @green-900); }
+.decision-light-green { .decision-variant(#ffffff; @light-green-500; @light-green-600; @light-green-300; @light-green-900); }
+.decision-lime { .decision-variant(#333333; @lime-300; @lime-400; @lime-100; @lime-600); }
+.decision-yellow { .decision-variant(#333333; @yellow-300; @yellow-400; @yellow-100; @yellow-700); }
+.decision-amber { .decision-variant(#333333; @amber-300; @amber-400; @amber-100; @amber-700); }
+.decision-orange { .decision-variant(#ffffff; @orange-600; @orange-700; @orange-400; @orange-900); }
+.decision-deep-orange { .decision-variant(#ffffff; @deep-orange-500; @deep-orange-600; @deep-orange-300; @deep-orange-900); }
+.decision-brown { .decision-variant(#ffffff; @brown-500; @brown-600; @brown-300; @brown-900); }
+.decision-grey { .decision-variant(#ffffff; @grey-600; @grey-700; @grey-500; @grey-800); }
+.decision-blue-grey { .decision-variant(#ffffff; @blue-grey-500; @blue-grey-600; @blue-grey-300; @blue-grey-900); }

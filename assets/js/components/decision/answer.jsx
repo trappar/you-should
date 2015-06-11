@@ -35,7 +35,7 @@ export default React.createClass({
         } else {
             contents = (
                 <div className={answerClasses}>
-                    Loading...
+                    <span>Loading...</span>
                 </div>
             );
         }
