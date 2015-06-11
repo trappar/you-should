@@ -7,7 +7,21 @@ module.exports = {
         relativeUrls: false,
         strictImports: true,
         strictUnits: true,
-        strictMath: true
+        strictMath: true,
+        plugins: [
+            new (require('less-plugin-autoprefix'))({
+                browsers: [
+                    "Android 2.3",
+                    "Android >= 4",
+                    "Chrome >= 20",
+                    "Firefox >= 24",
+                    "Explorer >= 8",
+                    "iOS >= 6",
+                    "Opera >= 12",
+                    "Safari >= 6"
+                ]
+            })
+        ]
     },
     dev: {
         expand: true,
@@ -25,18 +39,6 @@ module.exports = {
         options: {
             sourceMap: false,
             plugins: [
-                new (require('less-plugin-autoprefix'))({
-                    browsers: [
-                        "Android 2.3",
-                        "Android >= 4",
-                        "Chrome >= 20",
-                        "Firefox >= 24",
-                        "Explorer >= 8",
-                        "iOS >= 6",
-                        "Opera >= 12",
-                        "Safari >= 6"
-                    ]
-                }),
                 new (require('less-plugin-clean-css'))()
             ]
         }
