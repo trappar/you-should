@@ -5,10 +5,21 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('style/main.css') }}"/>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     {% block stylesheets %}{% endblock %}
 </head>
-<body>
+<body role="document">
+{% include "ui/header.html.twig" %}
+<div class="container" role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Theme example</h1>
+
+        <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point
+            to create something more unique by building on or modifying it.</p>
+    </div>
 {% block body %}{% endblock %}
+</div>
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 <script src="{{ asset('js/commons.js') }}"></script>

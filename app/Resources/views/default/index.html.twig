@@ -1,11 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/index.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/index.js') }}"></script>
+{% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Test</h1>
+    <h1>Your decisions</h1>
 
-            <p>Homepage.</p>
-        </div>
-    </div>
+    <div id="container"></div>
 {% endblock %}
