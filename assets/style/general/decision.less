@@ -1,0 +1,98 @@
+@import 'mixins/decision';
+@import 'colors';
+
+@keyframes loading {
+    0%{background-position:100% 50%}
+    100%{background-position:0 50%}
+}
+
+.decision {
+    max-width: 600px;
+
+    > div {
+        height: auto;
+        box-shadow: 0 15px 45px -15px rgba(0, 0, 0, 0.5);
+        margin: 0;
+        padding: 20px;
+        > div {
+            padding: 0;
+        }
+    }
+
+    .question {
+        color: white;
+        font-size: 1.5em;
+        user-select: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .answer {
+        position: relative;
+        color: white;
+        font-size: 1.2em;
+        line-height: 2em;
+        display: none;
+
+        &.answer-open {
+            display: block;
+        }
+
+        &.answer-loading {
+            text-align: center;
+
+            &::before {
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+                background: linear-gradient(110deg, rgba(0,0,0,0) 33%, rgba(0,0,0,.05) 33%, rgba(0,0,0,.05) 66%, rgba(0,0,0,0) 66%);
+                background-size: 400% 100%;
+                animation: loading 1s linear infinite normal;
+            }
+        }
+    }
+
+    .config {
+        background: white;
+        color: #444;
+        display: none;
+
+        ul {
+            list-style: none;
+        }
+
+        &.config-open {
+            display: block;
+        }
+    }
+
+    .controls > button{
+        margin-left: 5px;
+    }
+}
+
+.decision-red { .decision-variant(@red-500; @red-600; @red-300); }
+.decision-pink { .decision-variant(@pink-500; @pink-600; @pink-300); }
+.decision-purple { .decision-variant(@purple-500; @purple-600; @purple-300); }
+.decision-deep-purple { .decision-variant(@deep-purple-500; @deep-purple-600; @deep-purple-300); }
+.decision-indigo { .decision-variant(@indigo-500; @indigo-600; @indigo-300); }
+.decision-blue { .decision-variant(@blue-500; @blue-600; @blue-300); }
+.decision-light-blue { .decision-variant(@light-blue-500; @light-blue-600; @light-blue-300); }
+.decision-cyan { .decision-variant(@cyan-500; @cyan-600; @cyan-300); }
+.decision-teal { .decision-variant(@teal-500; @teal-600; @teal-300); }
+.decision-green { .decision-variant(@green-500; @green-600; @green-300); }
+.decision-light-green { .decision-variant(@light-green-500; @light-green-600; @light-green-300); }
+.decision-lime { .decision-variant(@lime-500; @lime-600; @lime-300); }
+.decision-yellow { .decision-variant(@yellow-500; @yellow-600; @yellow-300); }
+.decision-amber { .decision-variant(@amber-500; @amber-600; @amber-300); }
+.decision-orange { .decision-variant(@orange-500; @orange-600; @orange-300); }
+.decision-deep-orange { .decision-variant(@deep-orange-500; @deep-orange-600; @deep-orange-300); }
+.decision-brown { .decision-variant(@brown-500; @brown-600; @brown-300); }
+.decision-grey { .decision-variant(@grey-500; @grey-600; @grey-300); }
+.decision-blue-grey { .decision-variant(@blue-grey-500; @blue-grey-600; @blue-grey-300); }
