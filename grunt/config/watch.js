@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             tasks: ['less:dev']
         },
         js: {
-            files: ['assets/**/*.js'],
+            files: ['assets/**/*.js', 'assets/**/*.jsx'],
             tasks: ['webpack:dev']
         }
     };

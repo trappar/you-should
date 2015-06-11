@@ -6,7 +6,8 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 var settings = {
     module: {
         loaders: [
-            {test: /\.js$/, loader: 'babel-loader'}
+            {test: /\.js$/, include: "assets/js",  loader: 'babel-loader'},
+            {test: /\.jsx$/, loader: 'babel-loader'}
         ]
     },
     entry: require('../module/buildEntries')(),
@@ -17,6 +18,12 @@ var settings = {
         chunkFilename: 'chunk/[name].js'
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            React: "expose?React!react"
+        }),
         new CommonsChunkPlugin({
             name: 'commons',
             minChunks: 3
