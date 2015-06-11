@@ -10,5 +10,6 @@
 /node_modules/
 /vendor/
 /web/bundles/
+/web/fonts/
 /web/js/
 /web/style/

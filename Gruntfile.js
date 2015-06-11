@@ -23,17 +23,20 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', [
         'clean',
+        'copy',
         'less:dev',
         'webpack:dev'
     ]);
 
     grunt.registerTask('dev:watch', [
         'clean',
+        'copy',
         'watch'
     ]);
 
     grunt.registerTask('prod', [
         'clean',
+        'copy',
         'less:prod',
         'webpack:prod'
     ]);
