@@ -1,4 +1,4 @@
-import Decision from '../components/decision/decision.jsx';
+import Decision from '../components/decision/Decision.jsx';
 
 React.render(
     <Decision theme="indigo" />,

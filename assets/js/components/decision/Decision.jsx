@@ -1,6 +1,6 @@
-import Question from './question.jsx'
-import Answer from './answer.jsx'
-import Config from './config.jsx'
+import Question from './Question.jsx'
+import Answer from './Answer.jsx'
+import Config from './Config.jsx'
 
 export default React.createClass({
     propTypes: {
