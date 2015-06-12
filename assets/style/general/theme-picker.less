@@ -1,0 +1,79 @@
+@import 'colors';
+
+.theme-picker {
+    position: relative;
+    float: right;
+}
+
+.swatch-container {
+    @bg-color: rgba(100,100,100,0.5);
+
+    background: @bg-color;
+    position: absolute;
+    width: 180px;
+    top: 40px;
+    left: -120px;
+    padding: 5px;
+    border-radius: 10px;
+    z-index: 1;
+
+    &:after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 0 7px 7px;
+        border-color: @bg-color transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+        top: -7px;
+        right: 37px;
+    }
+
+    display: none;
+    &.open {
+        display: inline-block;
+    }
+
+    .swatch {
+        float: left;
+        margin: 2px;
+        border: 2px solid #eeeeee;
+    }
+}
+
+.swatch-variant(@color) {
+    background: @color;
+}
+
+.swatch {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #666666;
+    user-select: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.red { .swatch-variant(@red-500); }
+    &.pink { .swatch-variant(@pink-500); }
+    &.purple { .swatch-variant(@purple-500); }
+    &.deep-purple { .swatch-variant(@deep-purple-500); }
+    &.indigo { .swatch-variant(@indigo-500); }
+    &.blue { .swatch-variant(@blue-500); }
+    &.cyan { .swatch-variant(@cyan-500); }
+    &.teal { .swatch-variant(@teal-500); }
+    &.green { .swatch-variant(@green-500); }
+    &.light-green { .swatch-variant(@light-green-500); }
+    &.lime { .swatch-variant(@lime-500); }
+    &.yellow { .swatch-variant(@yellow-500); }
+    &.amber { .swatch-variant(@amber-500); }
+    &.orange { .swatch-variant(@orange-500); }
+    &.deep-orange { .swatch-variant(@deep-orange-500); }
+    &.brown { .swatch-variant(@brown-500); }
+    &.grey { .swatch-variant(@grey-500); }
+    &.blue-grey { .swatch-variant(@blue-grey-500); }
+}
