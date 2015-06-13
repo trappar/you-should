@@ -46,7 +46,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
                 $url = $targetPath;
             } else {
                 // Otherwise, redirect him to wherever you want
-                $url = $this->router->generate('app_default_index');
+                $url = $this->router->generate('homepage');
             }
 
             return new RedirectResponse($url);
