@@ -1,26 +1,30 @@
+AppBundle\Entity\User:
+    user1:
+        username: user
+        password: <encodePassword('test')>
+        email: user@test.com
+        roles: [ROLE_USER, ROLE_ADMIN]
+
 AppBundle\Entity\Decision:
     decision1:
         question: What should I do?
+        user: @user1
 
 AppBundle\Entity\Choice:
     choice1:
         name: Play Guitar
-        description: not important
         priority: 5
         decision: @decision1
     choice2:
         name: Play Drums
-        description: blah
         priority: 5
         decision: @decision1
     choice3:
         name: Play Piano
-        description: stuff
         priority: 3
         decision: @decision1
     choice4:
         name: Go outside
-        description: bleh
         priority: 1
         decision: @decision1
 
