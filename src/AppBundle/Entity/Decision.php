@@ -32,6 +32,13 @@ class Decision
     private $question;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="theme", type="string", length=20)
+     */
+    private $theme;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision")
@@ -83,6 +90,22 @@ class Decision
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * @param string $theme
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
     }
 
     /**

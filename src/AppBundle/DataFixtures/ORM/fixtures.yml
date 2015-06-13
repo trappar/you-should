@@ -9,6 +9,7 @@ AppBundle\Entity\Decision:
     decision1:
         question: What should I do?
         user: @user1
+        theme: indigo
 
 AppBundle\Entity\Choice:
     choice1:
