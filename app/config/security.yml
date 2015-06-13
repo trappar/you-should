@@ -1,7 +1,13 @@
 security:
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
     providers:
-        in_memory:
-            memory: ~
+        db_users:
+            entity:
+                class: AppBundle:User
 
     firewalls:
         dev:
@@ -10,3 +16,4 @@ security:
 
         default:
             anonymous: ~
+            provider: db_users
