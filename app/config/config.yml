@@ -81,4 +81,6 @@ swiftmailer:
 
 jms_di_extra:
     locations:
-        directories: ["%kernel.root_dir%/../src/AppBundle/Manager"]
+        directories:
+            - "%kernel.root_dir%/../src/AppBundle/Manager"
+            - "%kernel.root_dir%/../src/AppBundle/Security"
