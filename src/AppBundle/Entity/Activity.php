@@ -97,4 +97,12 @@ class Activity
     {
         return $this->choice;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as SER;
 
 /**
  * Choice
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="ChoiceRepository")
+ * @SER\ExclusionPolicy("none")
  */
 class Choice
 {
@@ -31,13 +33,6 @@ class Choice
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="priority", type="integer")
@@ -49,6 +44,7 @@ class Choice
      *
      * @ORM\ManyToOne(targetEntity="Decision")
      * @ORM\JoinColumn(name="decision_id", referencedColumnName="id")
+     * @SER\Exclude()
      */
     private $decision;
 
@@ -56,6 +52,7 @@ class Choice
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice")
+     * @SER\Exclude()
      */
     private $activities;
 
@@ -97,29 +94,6 @@ class Choice
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Choice
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

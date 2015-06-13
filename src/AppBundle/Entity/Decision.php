@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as SER;
 
 /**
  * Decision
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\DecisionRepository")
+ * @SER\ExclusionPolicy("none")
  */
 class Decision
 {
@@ -35,6 +37,15 @@ class Decision
      * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision")
      */
     private $choices;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @SER\Exclude()
+     */
+    private $user;
 
     public function __construct()
     {
@@ -80,5 +91,21 @@ class Decision
     public function getChoices()
     {
         return $this->choices;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }

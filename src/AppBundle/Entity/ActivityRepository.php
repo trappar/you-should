@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ActivityRepository extends EntityRepository
 {
-    public function findActivitiesByDecision(Decision $decision, $maxResults = null)
+    public function findByDecisionForUser(Decision $decision, User $user, $maxResults = null)
     {
         $qb = $this->createQueryBuilder('a')
             ->join('a.choice', 'c')
