@@ -1,0 +1,24 @@
+@import "../colors";
+@import "buttons";
+@import "question";
+@import "answer";
+@import "config";
+
+.decision {
+    max-width: 600px;
+    margin: 10px auto;
+
+    > div {
+        height: auto;
+        box-shadow: 0 15px 45px -15px rgba(0, 0, 0, 0.5);
+        margin: 0;
+        padding: 20px;
+        > div {
+            padding: 0;
+        }
+    }
+
+    .controls > button{
+        margin-left: 5px;
+    }
+}

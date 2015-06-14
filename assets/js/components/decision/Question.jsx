@@ -14,6 +14,7 @@ export default React.createClass({
 
         var classes = classNames(
             'question', 'row',
+            this.props.theme,
             { clickable: !this.props.editing }
         );
 

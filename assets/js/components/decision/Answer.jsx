@@ -9,10 +9,15 @@ export default React.createClass({
         };
     },
     render: function() {
-        var answerClasses = classNames('answer', 'row', {
-            'answer-open': this.props.open,
-            'answer-loading': this.props.loading
-        });
+        var answerClasses = classNames(
+            'answer',
+            'row',
+            this.props.theme,
+            {
+                open: this.props.open,
+                loading: this.props.loading
+            }
+        );
 
         var answer = (this.props.answer) ? this.props.answer.name : 'No choices have been defined yet';
         var controls = (this.props.answer) ?

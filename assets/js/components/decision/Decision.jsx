@@ -33,13 +33,15 @@ export default React.createClass({
         console.log('remove');
     },
     render: function() {
-        var classes = classNames('decision', `decision-${this.props.theme}`, 'col-lg-6');
+        var classes = classNames('decision', 'col-lg-6');
 
         return (
             <div className={classes}>
                 <Question text={this.props.question} editing={this.state.configuring} theme={this.props.theme}
                     onAnswer={this.handleAnswer} onEdit={this.handleEdit} onRemove={this.handleRemove} />
-                <Answer open={this.state.answering} answer={this.props.answer} loading={false} />
+
+                <Answer open={this.state.answering} answer={this.props.answer} loading={false} theme={this.props.theme}/>
+
                 <Config open={this.state.configuring} choices={this.props.choices}
                     theme={this.props.theme} onThemeChange={this.props.onThemeChange} />
             </div>

@@ -21,7 +21,7 @@ export default React.createClass({
         this.setState({changed: true});
     },
     render: function() {
-        var configClasses = classNames('config', 'row', {'config-open': this.props.open});
+        var configClasses = classNames('config', 'row', {open: this.props.open});
 
         var choices = this.props.choices.map(function(choice) {
             return <Choice key={choice.id} priority={choice.priority} value={choice.name}/>
