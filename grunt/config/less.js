@@ -1,3 +1,20 @@
+var merge = require('../module/merge');
+
+var commonPlugins = [
+    new (require('less-plugin-autoprefix'))({
+        browsers: [
+            "Android 2.3",
+            "Android >= 4",
+            "Chrome >= 20",
+            "Firefox >= 24",
+            "Explorer >= 8",
+            "iOS >= 6",
+            "Opera >= 12",
+            "Safari >= 6"
+        ]
+    })
+];
+
 module.exports = {
     options: {
         paths: ['node_modules'],
@@ -7,28 +24,17 @@ module.exports = {
         relativeUrls: false,
         strictImports: true,
         strictUnits: true,
-        strictMath: true,
-        plugins: [
-            new (require('less-plugin-autoprefix'))({
-                browsers: [
-                    "Android 2.3",
-                    "Android >= 4",
-                    "Chrome >= 20",
-                    "Firefox >= 24",
-                    "Explorer >= 8",
-                    "iOS >= 6",
-                    "Opera >= 12",
-                    "Safari >= 6"
-                ]
-            })
-        ]
+        strictMath: true
     },
     dev: {
         expand: true,
         cwd: 'assets/style/page',
         src: ['**/*.less'],
         dest: 'web/style/',
-        ext: '.css'
+        ext: '.css',
+        options: {
+            plugins: commonPlugins
+        }
     },
     prod: {
         expand: true,
@@ -38,9 +44,9 @@ module.exports = {
         ext: '.css',
         options: {
             sourceMap: false,
-            plugins: [
+            plugins: merge(commonPlugins, [
                 new (require('less-plugin-clean-css'))()
-            ]
+            ])
         }
     }
 };
