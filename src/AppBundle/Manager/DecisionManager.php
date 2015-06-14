@@ -17,6 +17,17 @@ use JMS\DiExtraBundle\Annotation AS DI;
  */
 class DecisionManager
 {
+    public function getDecisionsForUserWithAnswers(User $user)
+    {
+        $decisions = $user->getDecisions();
+
+        foreach ($decisions as $decision) {
+            $decision->setAnswer($this->pickChoice($decision));
+        }
+
+        return $decisions;
+    }
+
     /**
      * @param Decision $decision
      * @return Choice
