@@ -54,6 +54,11 @@ class Decision
      */
     private $user;
 
+    /**
+     * @var Choice
+     */
+    private $answer;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
@@ -130,5 +135,21 @@ class Decision
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return Choice
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @param Choice|null $answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
     }
 }
