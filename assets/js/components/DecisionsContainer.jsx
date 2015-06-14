@@ -1,4 +1,4 @@
-import Decision from '/decision/Decision.jsx';
+import Decision from './decision/Decision.jsx';
 
 export default React.createClass({
     getInitialState: function() {
