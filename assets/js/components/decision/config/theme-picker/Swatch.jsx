@@ -13,7 +13,8 @@ export default React.createClass({
     render: function() {
         var classes = classNames(
             'swatch',
-            this.props.theme
+            this.props.theme,
+            { clickable: this.props.onThemeChange }
         );
 
         return (

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Button from '../primitives/Button.jsx';
 
 export default React.createClass({
@@ -11,8 +12,13 @@ export default React.createClass({
             ? <input type="text" className="form-control" defaultValue={this.props.text} />
             : this.props.text;
 
+        var classes = classNames(
+            'question', 'row',
+            { clickable: !this.props.editing }
+        );
+
         return (
-            <div className="question row" onClick={this.props.onAnswer}>
+            <div className={classes} onClick={this.props.editing ? null : this.props.onAnswer}>
                 <div className="col-xs-8">
                     {questionControl}
                 </div>

@@ -19,12 +19,6 @@ export default React.createClass({
         this.setState({
             answering: !this.state.answering
         });
-        //this.props.onAnswer();
-        //window.setTimeout(function() {
-        //    this.setState({
-        //        answer: 'Play guitar!'
-        //    })
-        //}.bind(this), 700)
     },
     handleEdit: function(event) {
         event.stopPropagation();
@@ -45,7 +39,7 @@ export default React.createClass({
             <div className={classes}>
                 <Question text={this.props.question} editing={this.state.configuring} theme={this.props.theme}
                     onAnswer={this.handleAnswer} onEdit={this.handleEdit} onRemove={this.handleRemove} />
-                <Answer open={this.state.configuring ? false : this.state.answering} answer={this.props.answer} loading={false} />
+                <Answer open={this.state.answering} answer={this.props.answer} loading={false} />
                 <Config open={this.state.configuring} choices={this.props.choices}
                     theme={this.props.theme} onThemeChange={this.props.onThemeChange} />
             </div>
