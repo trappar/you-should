@@ -4,42 +4,41 @@ export default React.createClass({
     getDefaultProps: function() {
         return {
             open: false,
-            answer: false
+            answer: false,
+            loading: false
         };
     },
     render: function() {
         var answerClasses = classNames('answer', 'row', {
             'answer-open': this.props.open,
-            'answer-loading': !this.props.answer
+            'answer-loading': this.props.loading
         });
 
-        var contents;
-        if (this.props.answer) {
-            contents = (
-                <div className={answerClasses}>
-                    <div className="col-xs-8">
-                        {this.props.answer}
-                    </div>
-                    <div className="controls pull-right">
-                        <button className="btn btn-success">
-                            <span className="glyphicon glyphicon-ok"></span>
-                        &nbsp;OK!
-                        </button>
-                        <button className="btn btn-danger">
-                            <span className="glyphicon glyphicon-remove"></span>
-                        &nbsp;No way!
-                        </button>
-                    </div>
-                </div>
-            );
-        } else {
-            contents = (
-                <div className={answerClasses}>
-                    <span>Loading...</span>
-                </div>
-            );
-        }
+        var answer = (this.props.answer) ? this.props.answer.name : 'No choices have been defined yet';
+        var controls = (this.props.answer) ?
+            <div className="controls pull-right">
+                <button className="btn btn-success">
+                    <span className="glyphicon glyphicon-ok"></span>
+                &nbsp;OK!
+                </button>
+                <button className="btn btn-danger">
+                    <span className="glyphicon glyphicon-remove"></span>
+                &nbsp;No way!
+                </button>
+            </div>
+            : null;
 
-        return contents;
+        return (this.props.loading)
+            ?
+            <div className={answerClasses}>
+                <span>Loading...</span>
+            </div>
+            :
+            <div className={answerClasses}>
+                <div className="pull-left">
+                    {answer}
+                </div>
+                {controls}
+            </div>;
     }
 });

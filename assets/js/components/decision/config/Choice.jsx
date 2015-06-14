@@ -1,11 +1,11 @@
 export default React.createClass({
     propTypes: {
-        text: React.PropTypes.string.isRequired
+        value: React.PropTypes.string.isRequired
     },
     render: function() {
         return (
-            <div class="form-group">
-                <input type="text" className="form-control" defaultValue={this.props.text} />
+            <div className="form-group">
+                <input type="text" className="form-control" defaultValue={this.props.value} />
             </div>
         );
     }

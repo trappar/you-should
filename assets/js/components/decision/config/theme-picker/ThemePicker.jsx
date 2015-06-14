@@ -2,20 +2,32 @@ import classNames from 'classnames';
 import Swatch from './Swatch.jsx';
 
 var themes = [
-    'red','pink','purple','deep-purple','indigo','blue','cyan','teal','green','light-green',
-    'lime','yellow','amber','orange','deep-orange','brown','grey','blue-grey'
+    'red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'cyan', 'teal', 'green', 'light-green',
+    'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey'
 ];
 
 export default React.createClass({
+    propTypes: {
+        currentTheme: React.PropTypes.string.isRequired
+    },
     getInitialState: function() {
         return {
             open: false
         };
     },
-    handleOpenContainer: function() {
+    openContainer: function() {
+        this.closeContainer.cancel();
         this.setState({
-            open: !this.state.open
-        })
+            open: true
+        });
+    },
+    closeContainer: function() {
+        this.setState({
+            open: false
+        });
+    },
+    componentWillMount: function() {
+        this.closeContainer = _.debounce(this.closeContainer, 300)
     },
     render: function() {
         var containerClasses = classNames(
@@ -23,15 +35,20 @@ export default React.createClass({
             {open: this.state.open}
         );
 
-        var allSwatches = themes.map(function(theme){
-            return <Swatch theme={theme} key={theme} bordered="true" />
-        });
+        var allSwatches = themes.map(function(theme) {
+            return <Swatch theme={theme} key={theme} bordered="true" onThemeChange={this.props.onThemeChange} />
+        }, this);
 
         return (
-            <div className="theme-picker">
-                <Swatch theme="yellow" bordered="true" onClick={this.handleOpenContainer} />
-                <div className={containerClasses}>
+            <div className="form-inline">
+                <div className="form-group">
+                    <label className="control-label">Theme</label>
+                    <div className="theme-picker" onMouseEnter={this.openContainer} onMouseLeave={this.closeContainer}>
+                        <Swatch theme={this.props.currentTheme} bordered="true" />
+                        <div className={containerClasses}>
                     {allSwatches}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

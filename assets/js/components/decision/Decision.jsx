@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Config from './config/Config.jsx'
@@ -5,29 +6,31 @@ import Config from './config/Config.jsx'
 export default React.createClass({
     propTypes: {
         theme: React.PropTypes.string.isRequired,
+        question: React.PropTypes.string.isRequired,
         choices: React.PropTypes.array.isRequired
     },
     getInitialState: function() {
         return {
-            answerOpen: false,
-            answer: false,
-            configOpen: false
+            answering: false,
+            configuring: false
         }
     },
     handleAnswer: function(event) {
         this.setState({
-            answerOpen: !this.state.answerOpen
+            answering: !this.state.answering
         });
-        window.setTimeout(function(){
-            this.setState({
-                answer: 'Play guitar!'
-            })
-        }.bind(this), 700)
+        //this.props.onAnswer();
+        //window.setTimeout(function() {
+        //    this.setState({
+        //        answer: 'Play guitar!'
+        //    })
+        //}.bind(this), 700)
     },
     handleEdit: function(event) {
         event.stopPropagation();
         this.setState({
-            configOpen: !this.state.configOpen
+            configuring: true,
+            answering: false
         });
     },
     handleRemove: function(event) {
@@ -36,13 +39,15 @@ export default React.createClass({
         console.log('remove');
     },
     render: function() {
-        var classes = `decision decision-${this.props.theme}`;
+        var classes = classNames('decision', `decision-${this.props.theme}`, 'col-lg-6');
 
         return (
             <div className={classes}>
-                <Question theme={this.props.theme} onAnswer={this.handleAnswer} onEdit={this.handleEdit} onRemove={this.handleRemove} />
-                <Answer open={this.state.answerOpen} answer={this.state.answer} />
-                <Config open={this.state.configOpen} choices={this.props.choices} />
+                <Question text={this.props.question} editing={this.state.configuring} theme={this.props.theme}
+                    onAnswer={this.handleAnswer} onEdit={this.handleEdit} onRemove={this.handleRemove} />
+                <Answer open={this.state.configuring ? false : this.state.answering} answer={this.props.answer} loading={false} />
+                <Config open={this.state.configuring} choices={this.props.choices}
+                    theme={this.props.theme} onThemeChange={this.props.onThemeChange} />
             </div>
         );
     }
