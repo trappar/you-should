@@ -10,6 +10,14 @@ AppBundle\Entity\Decision:
         question: What should I do?
         user: @user1
         theme: indigo
+    decision2:
+        question: What should I eat?
+        user: @user1
+        theme: red
+    decision3:
+        question: What board game should I play?
+        user: @user1
+        theme: blue-grey
 
 AppBundle\Entity\Choice:
     choice1:
