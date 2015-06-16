@@ -1,42 +1,47 @@
 @import 'bootstrap/less/mixins';
 @import '../colors';
 
-.btn-red { .button-variant(#ffffff; @red-500; @red-500); }
-.btn-pink { .button-variant(#ffffff; @pink-500; @pink-500); }
-.btn-purple { .button-variant(#ffffff; @purple-500; @purple-500); }
-.btn-deep-purple { .button-variant(#ffffff; @deep-purple-500; @deep-purple-500); }
-.btn-indigo { .button-variant(#ffffff; @indigo-500; @indigo-500); }
-.btn-blue { .button-variant(#ffffff; @blue-500; @blue-500); }
-.btn-light-blue { .button-variant(#ffffff; @light-blue-500; @light-blue-500); }
-.btn-cyan { .button-variant(#ffffff; @cyan-500; @cyan-500); }
-.btn-teal { .button-variant(#ffffff; @teal-500; @teal-500); }
-.btn-green { .button-variant(#ffffff; @green-500; @green-500); }
-.btn-light-green { .button-variant(#ffffff; @light-green-500; @light-green-500); }
-.btn-lime { .button-variant(#ffffff; @lime-600; @lime-600); }
-.btn-yellow { .button-variant(#ffffff; @yellow-700; @yellow-700); }
-.btn-amber { .button-variant(#ffffff; @amber-600; @amber-600); }
-.btn-orange { .button-variant(#ffffff; @orange-A200; @orange-A200); }
-.btn-deep-orange { .button-variant(#ffffff; @deep-orange-500; @deep-orange-500); }
-.btn-brown { .button-variant(#ffffff; @brown-500; @brown-500); }
-.btn-grey { .button-variant(#ffffff; @grey-500; @grey-500); }
-.btn-blue-grey { .button-variant(#ffffff; @blue-grey-500; @blue-grey-500); }
+.decision-button-variant(@color, @background, @border) {
+  .button-variant(@color; @background; @border);
+  transition: color 1s, background 1s, border 1s;
+}
 
-.btn-alt-red { .button-variant(#ffffff; @red-300; @red-300); }
-.btn-alt-pink { .button-variant(#ffffff; @pink-300; @pink-300); }
-.btn-alt-purple { .button-variant(#ffffff; @purple-300; @purple-300); }
-.btn-alt-deep-purple { .button-variant(#ffffff; @deep-purple-300; @deep-purple-300); }
-.btn-alt-indigo { .button-variant(#ffffff; @indigo-300; @indigo-300); }
-.btn-alt-blue { .button-variant(#ffffff; @blue-300; @blue-300); }
-.btn-alt-light-blue { .button-variant(#ffffff; @light-blue-300; @light-blue-300); }
-.btn-alt-cyan { .button-variant(#ffffff; @cyan-300; @cyan-300); }
-.btn-alt-teal { .button-variant(#ffffff; @teal-300; @teal-300); }
-.btn-alt-green { .button-variant(#ffffff; @green-300; @green-300); }
-.btn-alt-light-green { .button-variant(#ffffff; @light-green-300; @light-green-300); }
-.btn-alt-lime { .button-variant(#ffffff; @lime-600; @lime-600); }
-.btn-alt-yellow { .button-variant(#ffffff; @yellow-700; @yellow-700); }
-.btn-alt-amber { .button-variant(#ffffff; @amber-600; @amber-600); }
-.btn-alt-orange { .button-variant(#ffffff; @orange-A200; @orange-A200); }
-.btn-alt-deep-orange { .button-variant(#ffffff; @deep-orange-300; @deep-orange-300); }
-.btn-alt-brown { .button-variant(#ffffff; @brown-300; @brown-300); }
-.btn-alt-grey { .button-variant(#ffffff; @grey-500; @grey-500); }
-.btn-alt-blue-grey { .button-variant(#ffffff; @blue-grey-300; @blue-grey-300); }
+.btn-red { .decision-button-variant(#ffffff; @red-500; @red-500); }
+.btn-pink { .decision-button-variant(#ffffff; @pink-500; @pink-500); }
+.btn-purple { .decision-button-variant(#ffffff; @purple-500; @purple-500); }
+.btn-deep-purple { .decision-button-variant(#ffffff; @deep-purple-500; @deep-purple-500); }
+.btn-indigo { .decision-button-variant(#ffffff; @indigo-500; @indigo-500); }
+.btn-blue { .decision-button-variant(#ffffff; @blue-500; @blue-500); }
+.btn-light-blue { .decision-button-variant(#ffffff; @light-blue-500; @light-blue-500); }
+.btn-cyan { .decision-button-variant(#ffffff; @cyan-500; @cyan-500); }
+.btn-teal { .decision-button-variant(#ffffff; @teal-500; @teal-500); }
+.btn-green { .decision-button-variant(#ffffff; @green-500; @green-500); }
+.btn-light-green { .decision-button-variant(#ffffff; @light-green-500; @light-green-500); }
+.btn-lime { .decision-button-variant(#ffffff; @lime-600; @lime-600); }
+.btn-yellow { .decision-button-variant(#ffffff; @yellow-700; @yellow-700); }
+.btn-amber { .decision-button-variant(#ffffff; @amber-600; @amber-600); }
+.btn-orange { .decision-button-variant(#ffffff; @orange-A200; @orange-A200); }
+.btn-deep-orange { .decision-button-variant(#ffffff; @deep-orange-500; @deep-orange-500); }
+.btn-brown { .decision-button-variant(#ffffff; @brown-500; @brown-500); }
+.btn-grey { .decision-button-variant(#ffffff; @grey-500; @grey-500); }
+.btn-blue-grey { .decision-button-variant(#ffffff; @blue-grey-500; @blue-grey-500); }
+
+.btn-alt-red { .decision-button-variant(#ffffff; @red-300; @red-300); }
+.btn-alt-pink { .decision-button-variant(#ffffff; @pink-300; @pink-300); }
+.btn-alt-purple { .decision-button-variant(#ffffff; @purple-300; @purple-300); }
+.btn-alt-deep-purple { .decision-button-variant(#ffffff; @deep-purple-300; @deep-purple-300); }
+.btn-alt-indigo { .decision-button-variant(#ffffff; @indigo-300; @indigo-300); }
+.btn-alt-blue { .decision-button-variant(#ffffff; @blue-300; @blue-300); }
+.btn-alt-light-blue { .decision-button-variant(#ffffff; @light-blue-300; @light-blue-300); }
+.btn-alt-cyan { .decision-button-variant(#ffffff; @cyan-300; @cyan-300); }
+.btn-alt-teal { .decision-button-variant(#ffffff; @teal-300; @teal-300); }
+.btn-alt-green { .decision-button-variant(#ffffff; @green-300; @green-300); }
+.btn-alt-light-green { .decision-button-variant(#ffffff; @light-green-300; @light-green-300); }
+.btn-alt-lime { .decision-button-variant(#ffffff; @lime-600; @lime-600); }
+.btn-alt-yellow { .decision-button-variant(#ffffff; @yellow-700; @yellow-700); }
+.btn-alt-amber { .decision-button-variant(#ffffff; @amber-600; @amber-600); }
+.btn-alt-orange { .decision-button-variant(#ffffff; @orange-A200; @orange-A200); }
+.btn-alt-deep-orange { .decision-button-variant(#ffffff; @deep-orange-300; @deep-orange-300); }
+.btn-alt-brown { .decision-button-variant(#ffffff; @brown-300; @brown-300); }
+.btn-alt-grey { .decision-button-variant(#ffffff; @grey-500; @grey-500); }
+.btn-alt-blue-grey { .decision-button-variant(#ffffff; @blue-grey-300; @blue-grey-300); }
