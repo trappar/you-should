@@ -14,7 +14,7 @@ export default React.createClass({
         var classes = classNames(
             'swatch',
             this.props.theme,
-            { clickable: this.props.onThemeChange }
+            { clickable: this.props.themeChanged }
         );
 
         return (
