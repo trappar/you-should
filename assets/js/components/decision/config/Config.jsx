@@ -18,14 +18,16 @@ export default React.createClass({
             changed: false
         };
     },
+    configChanged: function() {
+        this.setState({changed: true});
+    },
     handleChoiceChange: function(choice, event) {
         choice.name = event.target.value;
-
-        this.setState({changed: true});
+        this.configChanged();
     },
     handleThemeChange: function(newTheme) {
         this.props.themeChanged(newTheme);
-        this.setState({changed: true});
+        this.configChanged();
     },
     handleCancel: function() {
         this.props.configCancel();

@@ -11,7 +11,6 @@ function initialState() {
         choices: [{name: "", priority: 5}],
         answering: false,
         configuring: false,
-        newQuestion: ''
     }
 }
 
@@ -53,6 +52,10 @@ export default React.createClass({
         event.stopPropagation();
         console.log('remove');
     },
+    handleQuestionChanged: function(value) {
+        this.refs.config.configChanged();
+        this.setState({question: value})
+    },
     cancelConfiguring: function() {
         this.setState(_.merge(initialState(), getStateFromStores(this.props.id)));
     },
@@ -66,7 +69,7 @@ export default React.createClass({
         var question = (
             <Question configuring={this.state.configuring} theme={this.state.theme}
                       onClick={() => this.setState({answering: !this.state.answering})}
-                      onNewQuestionChanged={(value) => this.setState({newQuestion: value})}
+                      onQuestionChanged={this.handleQuestionChanged}
                       onEdit={this.configure} onRemove={this.remove}>
                 {this.state.question}
             </Question>
@@ -82,7 +85,7 @@ export default React.createClass({
         var config;
         if (this.state.configuring) {
             config = (
-                <Config decision_id={this.props.id} theme={this.state.theme} choices={this.state.choices}
+                <Config ref="config" decision_id={this.props.id} theme={this.state.theme} choices={this.state.choices}
                         themeChanged={(theme) => this.setState({theme: theme})}
                         configCancel={this.cancelConfiguring}
                         configSave={this.saveConfiguration} />

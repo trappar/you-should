@@ -16,7 +16,7 @@ export default React.createClass({
         var questionControl = (this.props.configuring)
             ? <input type="text" className="form-control"
                      defaultValue={this.props.children}
-                     onChange={(evt) => this.props.onNewQuestionChanged(evt.target.value)}/>
+                     onChange={(evt) => this.props.onQuestionChanged(evt.target.value)}/>
             : this.props.children;
 
         var editButton = (!this.props.configuring) ? (
