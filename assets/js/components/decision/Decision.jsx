@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Config from './config/Config.jsx'
+import DecisionWebApiUtils from '../../utils/DecisionWebApiUtils.js';
 import DecisionStore from '../../stores/DecisionStore.js';
 
 function initialState() {
@@ -56,6 +57,7 @@ export default React.createClass({
         this.setState(_.merge(initialState(), getStateFromStores(this.props.id)));
     },
     saveConfiguration: function() {
+        DecisionWebApiUtils.saveDecision(this.state);
         this.setState({configuring: false});
     },
     render: function() {

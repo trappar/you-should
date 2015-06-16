@@ -55,6 +55,10 @@ class DecisionStore extends BaseStore {
         this.decisionOrder.push(decision.id)
     }
 
+    _setDecision(decision) {
+        this.decisions[decision.id] = decision;
+    }
+
     _removeDecision(id) {
         delete this.decisions[id];
         var index = _.indexOf(this.decisionOrder, id);
@@ -76,6 +80,10 @@ class DecisionStore extends BaseStore {
                     _.map(payload.decisions, (decision) => {
                         this._addDecision(decision);
                     });
+                    this.emitChange();
+                    break;
+                case DecisionConstants.UPDATE_DECISION:
+                    _setDecision(payload.decision);
                     this.emitChange();
                     break;
             }
