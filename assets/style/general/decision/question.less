@@ -3,7 +3,6 @@
 .question-variant(@color, @background, @background-hover) {
     color: @color;
     background: @background;
-    transition: background 1s, color 1s;
 
     &.clickable:hover {
         background: @background-hover;
@@ -13,6 +12,7 @@
 .question {
     font-size: 1.5em;
     user-select: none;
+    transition: background 1s, color 1s;
 
     &.clickable:hover {
         cursor: pointer;
