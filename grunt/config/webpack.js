@@ -6,7 +6,7 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 var settings = {
     module: {
         loaders: [
-            {test: /\.js$/, include: "assets/js",  loader: 'babel-loader'},
+            {test: /\.js$/, include: /assets\/js/,  loader: 'babel-loader'},
             {test: /\.jsx$/, loader: 'babel-loader'}
         ]
     },
