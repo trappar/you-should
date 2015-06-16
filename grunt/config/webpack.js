@@ -22,7 +22,7 @@ var settings = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",
-            React: "expose?React!react",
+            React: "expose?React!react/addons",
             _: "lodash"
         }),
         new CommonsChunkPlugin({
