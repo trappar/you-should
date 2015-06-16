@@ -55,8 +55,7 @@ export default React.createClass({
     cancelConfiguring: function() {
         this.setState(_.merge(initialState(), getStateFromStores(this.props.id)));
     },
-    saveConfiguration: function(choices) {
-        this.props.configSave();
+    saveConfiguration: function() {
         this.setState({configuring: false});
     },
     render: function() {
