@@ -6,8 +6,8 @@ export default React.createClass({
         onThemeChange: React.PropTypes.func
     },
     handleClick: function(event) {
-        if (this.props.onThemeChange) {
-            this.props.onThemeChange(this.props.theme);
+        if (this.props.themeChanged) {
+            this.props.themeChanged(this.props.theme);
         }
     },
     render: function() {

@@ -56,6 +56,9 @@ class Choice
      */
     private $activities;
 
+    /**
+     * @SER\Exclude()
+     */
     private $adjustedPriority;
 
     public function __construct()

@@ -14,25 +14,45 @@ export default React.createClass({
         };
     },
     getInitialState: function() {
-        return {changed: false}
+        return {
+            changed: false
+        };
     },
-    onThemeChange: function(newTheme) {
-        this.props.onThemeChange(newTheme);
+    handleChoiceChange: function(choice, event) {
+        choice.name = event.target.value;
+
         this.setState({changed: true});
+    },
+    handleThemeChange: function(newTheme) {
+        this.props.themeChanged(newTheme);
+        this.setState({changed: true});
+    },
+    handleCancel: function() {
+        this.props.configCancel();
+        this.setState({changed: false});
+    },
+    handleSave: function() {
+        this.props.configSave(this.state.choices);
+        this.setState({changed: false});
     },
     render: function() {
         var configClasses = classNames('config', 'row', {open: this.props.open});
 
         var choices = this.props.choices.map(function(choice) {
-            return <Choice key={choice.id} priority={choice.priority} value={choice.name}/>
+            return <Choice key={choice.id} priority={choice.priority} value={choice.name}
+                onChange={this.handleChoiceChange.bind(null, choice)}/>
         }, this);
 
         return (
             <div className={configClasses}>
                 <h3>Choices</h3>
+
                 {choices}
-                <ThemePicker currentTheme={this.props.theme} onThemeChange={this.onThemeChange} />
-                <ConfigSaveControl theme={this.props.theme} changed={this.state.changed} />
+
+                <ThemePicker currentTheme={this.props.theme} themeChanged={this.handleThemeChange} />
+
+                <ConfigSaveControl theme={this.props.theme} changed={this.state.changed}
+                    onCancel={this.handleCancel} onSave={this.handleSave} />
             </div>
         );
     }
