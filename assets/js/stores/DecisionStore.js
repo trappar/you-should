@@ -1,11 +1,24 @@
-import DecisionConstants from '../constants/DecisionConstants.js';
-import BaseStore from './BaseDecisionStore.js';
+import {EventEmitter} from 'events';
+import AppDispatcher from '../dispatchers/AppDispatcher.js';
+import AppConstants from '../constants/AppConstants.js';
 
-class DecisionStore extends BaseStore {
+class DecisionStore extends EventEmitter {
     constructor() {
         super();
         this.decisions = {};
         this.decisionOrder = [];
+    }
+
+    emitChange() {
+        this.emit('CHANGE');
+    }
+
+    addChangeListener(cb) {
+        this.on('CHANGE', cb);
+    }
+
+    removeChangeListener(cb) {
+        this.removeListener('CHANGE', cb);
     }
 
     getDecisionOrder() {
@@ -23,7 +36,6 @@ class DecisionStore extends BaseStore {
             question: this.getQuestion(decision_id),
             answer: this.getAnswer(decision_id),
             theme: this.getTheme(decision_id),
-            choices: _.clone(this.getChoices(decision_id), true)
         } : {};
     }
 
@@ -42,20 +54,17 @@ class DecisionStore extends BaseStore {
             : null;
     }
 
-    getChoices(decision_id) {
-        return this._getDecision(decision_id).choices;
-    }
-
     _getDecision(id) {
         return (this.decisions.hasOwnProperty(id)) ? this.decisions[id] : null;
     }
 
     _addDecision(decision) {
+        decision = _.omit(decision, 'choices');
         this.decisions[decision.id] = decision;
         this.decisionOrder.push(decision.id)
     }
 
-    _setDecision(decision) {
+    _updateDecision(decision) {
         this.decisions[decision.id] = decision;
     }
 
@@ -71,24 +80,31 @@ class DecisionStore extends BaseStore {
         this.decisions = {};
         this.decisionOrder = [];
     }
-
-    _getDispatcherCallBack() {
-        return (payload) => {
-            switch (payload.type) {
-                case DecisionConstants.RECEIVE_DECISIONS:
-                    this._clearAll();
-                    _.map(payload.decisions, (decision) => {
-                        this._addDecision(decision);
-                    });
-                    this.emitChange();
-                    break;
-                case DecisionConstants.UPDATE_DECISION:
-                    _setDecision(payload.decision);
-                    this.emitChange();
-                    break;
-            }
-        };
-    }
 }
 
-export default new DecisionStore();
+let _DecisionStore = new DecisionStore();
+export default _DecisionStore;
+
+_DecisionStore.dispatchToken = AppDispatcher.register((payload) => {
+    switch (payload.type) {
+        case AppConstants.RECEIVE_DECISIONS:
+            _DecisionStore._clearAll();
+            _.map(payload.decisions, (decision) => {
+                _DecisionStore._addDecision(decision);
+            });
+            _DecisionStore.emitChange();
+            break;
+        case AppConstants.UPDATE_DECISION:
+            _DecisionStore._updateDecision(payload.decision);
+            _DecisionStore.emitChange();
+            break;
+        case AppConstants.ADD_DECISION:
+            _DecisionStore._addDecision(payload.decision);
+            _DecisionStore.emitChange();
+            break;
+        case AppConstants.REMOVE_DECISION:
+            _DecisionStore._removeDecision(payload.id);
+            _DecisionStore.emitChange();
+            break;
+    }
+});

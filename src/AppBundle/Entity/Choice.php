@@ -166,4 +166,13 @@ class Choice
 
         return $this->adjustedPriority;
     }
+
+    /**
+     * @SER\VirtualProperty()
+     * @return int
+     */
+    public function getDecisionId()
+    {
+        return $this->getDecision()->getId();
+    }
 }

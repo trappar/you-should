@@ -27,7 +27,7 @@ export default React.createClass({
         });
     },
     componentWillMount: function() {
-        this.closeContainer = _.debounce(this.closeContainer, 300)
+        this.closeContainer = _.debounce(this.closeContainer, 300);
     },
     render: function() {
         var containerClasses = classNames(

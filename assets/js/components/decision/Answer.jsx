@@ -19,7 +19,7 @@ export default React.createClass({
             }
         );
 
-        var answer = (this.props.answer) ? this.props.answer : 'No choices have been defined yet';
+        var answer = (this.props.answer) ? this.props.answer.name : 'No choices have been defined yet.';
         var controls = (this.props.answer) ?
             <div className="controls pull-right">
                 <button className="btn btn-success">

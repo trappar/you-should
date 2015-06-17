@@ -1,9 +1,10 @@
-import Decision from './decision/Decision.jsx';
+import DecisionBox from './decision/DecisionBox.jsx';
 import DecisionStore from '../stores/DecisionStore.js';
+import DecisionWebApiUtils from '../utils/DecisionWebApiUtils.js';
 
 function getStateFromStores() {
     return {
-        decisions: DecisionStore.getDecisionOrder()
+        decisions: DecisionStore.getAllDecisions()
     };
 }
 
@@ -17,57 +18,28 @@ export default React.createClass({
     componentWillUnmount: function() {
         DecisionStore.removeChangeListener(this._onChange);
     },
-    _onChange: function() {
-        this.setState(getStateFromStores());
+    addDecision: function() {
+        DecisionWebApiUtils.add();
     },
-    //refreshDecisions: function() {
-    //    /*
-    //     * Currently this is disabled since the data is dumped to javascript through the twig template.
-    //     * I'm keeping it here so it can be used in the future to implement refresh from server functionality
-    //     */
-    //    $.ajax({
-    //        accepts: "json",
-    //        dataType: "json",
-    //        url: Routing.generate('decisions_list', {'_format': 'json'}),
-    //        success: function(data) {
-    //            this.setState({
-    //                decisions: data
-    //            });
-    //        }.bind(this),
-    //        error: function() {
-    //            console.log('error');
-    //        }
-    //    });
-    //},
-    //handleConfigChanged: function() {
-    //    this.setState({decisions: this.state.decisions});
-    //},
-    //handleThemeChange: function(decision, theme) {
-    //    decision.theme = theme;
-    //
-    //    this.setState({ decisions: this.state.decisions })
-    //},
-    //handleConfigCancel: function(decision) {
-    //    // Assign properties into decision from backed up version
-    //    //decision = _.assign(decision, initialDecisions.getDecision(decision));
-    //
-    //    //this.setState({decisions: this.state.decisions});
-    //},
-    //handleConfigSave: function(decision) {
-    //    // TODO: Make ajax request to server
-    //
-    //    // Set new initial state for this decision
-    //    initialDecisions.setDecision(decision);
-    //},
     render: function() {
-        var decisions = this.state.decisions.map(function(id) {
-            return <Decision key={id} id={id} />
+        var decisions = this.state.decisions.map(function(decision) {
+            return <DecisionBox key={decision.id} decision={decision} />
         }, this);
 
         return (
-            <div className="decisions-container row">
-                {decisions}
+            <div>
+                <h1>Your Decisions</h1>
+                <a className="add-decision" href="#" onClick={this.addDecision}>
+                    <span className="glyphicon glyphicon-plus"></span> Decision
+                </a>
+
+                <div className="decisions-container row">
+                    {decisions}
+                </div>
             </div>
         );
+    },
+    _onChange: function() {
+        this.setState(getStateFromStores());
     }
 });

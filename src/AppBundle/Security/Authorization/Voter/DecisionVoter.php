@@ -2,6 +2,7 @@
 
 namespace AppBundle\Security\Authorization\Voter;
 
+use AppBundle\Entity\Choice;
 use AppBundle\Entity\Decision;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -39,7 +40,10 @@ class DecisionVoter implements VoterInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'AppBundle\Entity\Decision';
+        return in_array($class, [
+            Decision::class,
+            Choice::class
+        ]);
     }
 
     /**
@@ -49,14 +53,14 @@ class DecisionVoter implements VoterInterface
      * ACCESS_GRANTED, ACCESS_DENIED, or ACCESS_ABSTAIN.
      *
      * @param TokenInterface $token      A TokenInterface instance
-     * @param Decision|null  $decision   The object to secure
+     * @param Decision|Choice|null  $object   The object to secure
      * @param array          $attributes An array of attributes associated with the method being invoked
      *
      * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
      */
-    public function vote(TokenInterface $token, $decision, array $attributes)
+    public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if (!$this->supportsClass(get_class($decision))) {
+        if (!$this->supportsClass(get_class($object))) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
@@ -73,7 +77,11 @@ class DecisionVoter implements VoterInterface
             );
         }
 
-        if ($decision->getUser() === $user) {
+        if (is_a($object, Choice::class)) {
+            $object = $object->getDecision();
+        }
+
+        if ($object->getUser() === $user) {
             return VoterInterface::ACCESS_GRANTED;
         } else {
             return VoterInterface::ACCESS_DENIED;

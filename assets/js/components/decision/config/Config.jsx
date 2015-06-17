@@ -1,60 +1,52 @@
 import classNames from 'classnames';
-import Choice from './Choice.jsx';
+import Button from '../../primitives/Button.jsx';
 import ThemePicker from './theme-picker/ThemePicker.jsx';
-import ConfigSaveControl from './ConfigSaveControl.jsx';
+import ChoiceControl from './ChoiceControl.jsx';
+import ChoiceActions from '../../../actions/ChoiceActions.js';
+import ChoiceStore from '../../../stores/ChoiceStore.js';
+import ChoiceWebApiUtils from '../../../utils/ChoiceWebApiUtils.js';
+
+function getStateFromStores(decision_id) {
+    return {
+        choices: ChoiceStore.getChoicesByDecisionId(decision_id)
+    };
+}
 
 export default React.createClass({
     propTypes: {
-        theme: React.PropTypes.string.isRequired,
-        choices: React.PropTypes.array.isRequired
-    },
-    getDefaultProps: function() {
-        return {
-            open: false
-        };
+        decision_id: React.PropTypes.number.isRequired,
+        theme: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
-        return {
-            changed: false
-        };
+        return getStateFromStores(this.props.decision_id);
     },
-    configChanged: function() {
-        this.setState({changed: true});
+    componentWillMount: function() {
+        ChoiceStore.addChangeListener(this._onStoreChange);
     },
-    handleChoiceChange: function(choice, event) {
-        choice.name = event.target.value;
-        this.configChanged();
+    componentWillUnmount: function() {
+        ChoiceStore.removeChangeListener(this._onStoreChange);
     },
-    handleThemeChange: function(newTheme) {
-        this.props.themeChanged(newTheme);
-        this.configChanged();
-    },
-    handleCancel: function() {
-        this.props.configCancel();
-        this.setState({changed: false});
-    },
-    handleSave: function() {
-        this.props.configSave(this.state.choices);
-        this.setState({changed: false});
+    _onStoreChange: function() {
+        this.setState(getStateFromStores(this.props.decision_id));
     },
     render: function() {
         var configClasses = classNames('config', 'row', {open: this.props.open});
-
-        var choices = this.props.choices.map(function(choice) {
-            return <Choice key={choice.id} priority={choice.priority} value={choice.name}
-                onChange={this.handleChoiceChange.bind(null, choice)}/>
-        }, this);
-
+        var choicesControls = this.state.choices.map((choice) => {
+            return <ChoiceControl key={choice.id} choice={choice} />
+        });
         return (
             <div className={configClasses}>
                 <h3>Choices</h3>
+                {choicesControls}
+                <ThemePicker currentTheme={this.props.theme} themeChanged={this.props.themeChanged}/>
 
-                {choices}
-
-                <ThemePicker currentTheme={this.props.theme} themeChanged={this.handleThemeChange} />
-
-                <ConfigSaveControl theme={this.props.theme} changed={this.state.changed}
-                    onCancel={this.handleCancel} onSave={this.handleSave} />
+                <div className="row">
+                    <div className="col-xs-offset-2 col-xs-8">
+                        <Button extraClasses={`btn-${this.props.theme} form-control`} onClick={this.props.closeConfig}>
+                            Close
+                        </Button>
+                    </div>
+                </div>
             </div>
         );
     }

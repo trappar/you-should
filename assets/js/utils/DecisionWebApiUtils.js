@@ -1,7 +1,7 @@
 import DecisionActions from '../actions/DecisionActions.js';
 
 export default {
-    refreshDecisions: function() {
+    refresh: function() {
         $.ajax({
             accepts: "json",
             dataType: "json",
@@ -14,26 +14,46 @@ export default {
             }
         });
     },
-    saveDecision: function(rawDecisionState) {
-        var data = {
-            theme: rawDecisionState.theme,
-            question: rawDecisionState.question,
-            choices: rawDecisionState.choices
-        };
-
-        //$.ajax({
-        //    accepts: "json",
-        //    dataType: "json",
-        //    method: "POST",
-        //    url: Routing.generate('decisions_list', {'_format': 'json'}),
-        //    success: function(data) {
-        //        DecisionActions.receiveMultiple(data);
-        //    },
-        //    error: function() {
-        //        console.log('error');
-        //    }
-        //});
-        console.log(data);
-        // Do some ajax call here
+    update: _.debounce((decision) => {
+        $.ajax({
+            accepts: "json",
+            dataType: "json",
+            method: "PUT",
+            data: decision,
+            url: Routing.generate('decision_update', {
+                '_format': 'json', id: decision.id
+            }),
+            success: function(data) {
+                console.log('Decision updated', data);
+            }
+        });
+    }, 800),
+    add: _.throttle(() => {
+        $.ajax({
+            dataType: "json",
+            method: "GET",
+            url: Routing.generate('decision_new', {
+                '_format': 'json'
+            }),
+            success: function(decision) {
+                DecisionActions.add(decision);
+            }
+        })
+    }, 2000, {trailing: false}),
+    remove: (decision) => {
+        $.ajax({
+            dataType: "json",
+            method: "DELETE",
+            data: decision,
+            url: Routing.generate('decision_delete', {
+                id: decision.id,
+                '_format': 'json'
+            }),
+            success: function(data) {
+                if (data.id) {
+                    DecisionActions.remove(data.id);
+                }
+            }
+        })
     }
 };
