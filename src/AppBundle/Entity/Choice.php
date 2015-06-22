@@ -42,7 +42,7 @@ class Choice
     /**
      * @var Decision
      *
-     * @ORM\ManyToOne(targetEntity="Decision")
+     * @ORM\ManyToOne(targetEntity="Decision", inversedBy="choices")
      * @ORM\JoinColumn(name="decision_id", referencedColumnName="id")
      * @SER\Exclude()
      */

@@ -48,7 +48,7 @@ class Decision
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="decisions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @SER\Exclude()
      */

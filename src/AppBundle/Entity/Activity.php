@@ -32,7 +32,7 @@ class Activity
     /**
      * @var Choice
      *
-     * @ORM\ManyToOne(targetEntity="Choice")
+     * @ORM\ManyToOne(targetEntity="Choice", inversedBy="activities")
      * @ORM\JoinColumn(name="choice_id", referencedColumnName="id")
      */
     private $choice;
