@@ -10,12 +10,41 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ChoiceController
+ * @Route(
+ *   "/choice/{id}",
+ *   defaults={"_format": "json"},
+ *   requirements={
+ *     "id": "\d+",
+ *     "_format": "json|xml|yml"
+ *   },
+ *   options={"expose"=true}
+ * )
+ * @Security("is_granted('manage', choice.getDecision())")
+ */
 class ChoiceController extends SerializerController
 {
     /**
-     * @Route("/choice/{id}.{_format}", name="choice_update", options={"expose"=true})
+     * @Route(".{_format}", name="choice_get")
+     * @Method({"GET"})
+     *
+     * @param Choice  $choice
+     * @param Request $request
+     * @return Response
+     */
+    public function getAction(Choice $choice, Request $request)
+    {
+        return $this->serialize(
+            $choice,
+            $request->getRequestFormat(),
+            ['Content-Type' => 'application/json']
+        );
+    }
+
+    /**
+     * @Route(".{_format}", name="choice_update")
      * @Method({"PUT"})
-     * @Security("is_granted('manage', choice)")
      *
      * @param Choice  $choice
      * @param Request $request

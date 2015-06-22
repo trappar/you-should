@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Choice;
 use AppBundle\Entity\Decision;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -68,7 +69,11 @@ class DecisionController extends SerializerController
     }
 
     /**
-     * @Route("/decision/{id}.{_format}", name="decision_update")
+     * @Route(
+     *   "/decision/{id}.{_format}",
+     *   name="decision_update",
+     *   requirements={"id": "\d+"}
+     * )
      * @Method({"PUT"})
      * @Security("is_granted('manage', decision)")
      *
@@ -117,7 +122,11 @@ class DecisionController extends SerializerController
     }
 
     /**
-     * @Route("/decision/{id}.{_format}", name="decision_delete")
+     * @Route(
+     *   "/decision/{id}.{_format}",
+     *   name="decision_delete",
+     *   requirements={"id": "\d+"}
+     * )
      * @Method({"DELETE"})
      * @Security("is_granted('manage', decision)")
      *
