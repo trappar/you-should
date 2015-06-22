@@ -41,7 +41,7 @@ class Decision
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision")
+     * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision", cascade={"remove"})
      */
     private $choices;
 
