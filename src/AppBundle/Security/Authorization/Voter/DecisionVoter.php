@@ -4,6 +4,7 @@ namespace AppBundle\Security\Authorization\Voter;
 
 use AppBundle\Entity\Choice;
 use AppBundle\Entity\Decision;
+use Doctrine\Common\Util\ClassUtils;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -34,16 +35,13 @@ class DecisionVoter implements VoterInterface
     /**
      * Checks if the voter supports the given class.
      *
-     * @param string $class A class name
+     * @param object $object
      *
      * @return bool true if this Voter can process the class
      */
-    public function supportsClass($class)
+    public function supportsClass($object)
     {
-        return in_array($class, [
-            Decision::class,
-            Choice::class
-        ]);
+        return ClassUtils::getClass($object) === Decision::class;
     }
 
     /**
@@ -60,7 +58,7 @@ class DecisionVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if (!$this->supportsClass(get_class($object))) {
+        if (!$this->supportsClass($object)) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
@@ -75,10 +73,6 @@ class DecisionVoter implements VoterInterface
             throw new \InvalidArgumentException(
                 'Only the manage attribute is allowed'
             );
-        }
-
-        if (is_a($object, Choice::class)) {
-            $object = $object->getDecision();
         }
 
         if ($object->getUser() === $user) {
