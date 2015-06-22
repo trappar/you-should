@@ -2,33 +2,31 @@
 @import "buttons";
 @import "question";
 @import "answer";
-@import "config";
+@import "./config/config";
 
 .decision {
-    max-width: 600px;
-    margin: 10px auto;
+  max-width: 600px;
+  margin: 15px auto;
 
+  > div {
+    height: auto;
+    box-shadow: 0 15px 45px -15px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 20px 15px;
     > div {
-        height: auto;
-        box-shadow: 0 15px 45px -15px rgba(0, 0, 0, 0.5);
-        margin: 0;
-        padding: 20px;
-        > div {
-            padding: 0;
-        }
+      padding: 0;
     }
+  }
 
-    .controls > button{
-        margin-left: 5px;
-    }
-}
-
-#container {
-    position: relative;
+  .controls > button {
+    margin-left: 5px;
+  }
 }
 
 .add-decision {
-    position: absolute;
-    top: 18px;
-    right: 0;
+  font-weight: bold;
+  font-size: 110%;
+  margin-top: 15px;
+  margin-bottom: 100px;
+  cursor: pointer;
 }

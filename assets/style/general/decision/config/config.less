@@ -1,5 +1,6 @@
+@import 'choice';
 @import 'theme-picker/theme-picker';
-@import '../fade';
+@import '../../fade';
 
 .config {
     background: white;
@@ -18,7 +19,12 @@
         list-style: none;
     }
 
-    .form-inline {
-        margin-bottom: 15px;
+    label.control-label {
+        text-align: left;
+    }
+    
+    .add-choice {
+        margin-bottom: 20px;
+        cursor: pointer;
     }
 }
