@@ -85,13 +85,8 @@ class DecisionController extends SerializerController
     {
         $post = $request->request;
 
-        if ($post->get('theme')) {
-            $decision->setTheme($post->get('theme'));
-        }
-
-        if ($post->get('question')) {
-            $decision->setQuestion($post->get('question'));
-        }
+        $decision->setTheme($post->get('theme'));
+        $decision->setQuestion($post->get('question'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($decision);
@@ -124,7 +119,7 @@ class DecisionController extends SerializerController
     /**
      * @Route(
      *   "/decision/{id}.{_format}",
-     *   name="decision_delete",
+     *   name="decision_remove",
      *   requirements={"id": "\d+"}
      * )
      * @Method({"DELETE"})

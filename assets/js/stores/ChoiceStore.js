@@ -51,6 +51,15 @@ class ChoiceStore extends EventEmitter {
         this.choices[choice.id] = choice;
     }
 
+    _removeChoice(id) {
+        var decisionChoices = this._getDecisionChoices(this.choices[id].decision_id);
+        var index = _.indexOf(decisionChoices, id);
+        if (index != -1) {
+            decisionChoices.splice(index, 1);
+        }
+        delete this.choices[id];
+    }
+
     _clearChoices() {
         this.decisions = {};
         this.choices = {};
@@ -83,5 +92,8 @@ _ChoiceStore.dispatchToken = AppDispatcher.register((payload) => {
             _ChoiceStore._addChoice(payload.choice);
             _ChoiceStore.emitChange();
             break;
+        case AppConstants.CHOICE.REMOVE:
+            _ChoiceStore._removeChoice(payload.id);
+            _ChoiceStore.emitChange();
     }
 });

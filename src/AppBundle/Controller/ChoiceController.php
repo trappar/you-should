@@ -54,9 +54,8 @@ class ChoiceController extends SerializerController
     {
         $post = $request->request;
 
-        if ($post->get('name')) {
-            $choice->setName($post->get('name'));
-        }
+        $choice->setName($post->get('name'));
+        $choice->setPriority($post->get('priority'));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($choice);
@@ -65,5 +64,26 @@ class ChoiceController extends SerializerController
         return $this->serialize($choice, $request->getRequestFormat());
     }
 
+    /**
+     * @Route(".{_format}", name="choice_remove")
+     * @Method({"DELETE"})
+     *
+     * @param Choice  $choice
+     * @param Request $request
+     * @return Response
+     */
+    public function removeAction(Choice $choice, Request $request)
+    {
+        $response = [
+            'id' => $choice->getId()
+        ];
 
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($choice);
+        $em->flush();
+
+        $response['status'] = 'success';
+
+        return $this->serialize($response, $request->getRequestFormat());
+    }
 }

@@ -17,7 +17,11 @@ export default React.createClass({
         ChoiceActions.update(this.props.choice);
     },
     handleSliderChange: function(value) {
-        console.log(value);
+        this.props.choice.priority = value;
+        ChoiceActions.update(this.props.choice);
+    },
+    handleDelete: function() {
+        ChoiceActions.remove(this.props.choice);
     },
     render: function() {
         var choice = this.props.choice;
@@ -29,7 +33,7 @@ export default React.createClass({
                             <input type="text" className="form-control" value={choice.name}
                                    onChange={this.handleNameChange}/>
                         <span className="input-group-btn">
-                            <DeleteButton extraClasses="btn-default" />
+                            <DeleteButton extraClasses="btn-default" onDelete={this.handleDelete} />
                         </span>
                         </div>
                     </div>

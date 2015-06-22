@@ -45,7 +45,7 @@ var ChoiceActions = {
             dataType: "json",
             method: "DELETE",
             data: choice,
-            url: Routing.generate('choice_delete', {
+            url: Routing.generate('choice_remove', {
                 id: choice.id,
                 '_format': 'json'
             }),

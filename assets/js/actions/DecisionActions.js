@@ -65,7 +65,7 @@ var DecisionActions = {
             dataType: "json",
             method: "DELETE",
             data: decision,
-            url: Routing.generate('decision_delete', {
+            url: Routing.generate('decision_remove', {
                 id: decision.id,
                 '_format': 'json'
             }),
