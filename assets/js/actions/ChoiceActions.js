@@ -27,8 +27,8 @@ var ChoiceActions = {
         $.ajax({
             dataType: "json",
             method: "GET",
-            url: Routing.generate('choice_new', {
-                'decision_id': decision_id,
+            url: Routing.generate('decision_choice_new', {
+                'id': decision_id,
                 '_format': 'json'
             }),
             success: (choice) => {
