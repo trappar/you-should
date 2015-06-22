@@ -4,7 +4,6 @@ import ThemePicker from './theme-picker/ThemePicker.jsx';
 import ChoiceControl from './ChoiceControl.jsx';
 import ChoiceActions from '../../../actions/ChoiceActions.js';
 import ChoiceStore from '../../../stores/ChoiceStore.js';
-import ChoiceWebApiUtils from '../../../utils/ChoiceWebApiUtils.js';
 
 function getStateFromStores(decision_id) {
     return {
@@ -29,16 +28,30 @@ export default React.createClass({
     _onStoreChange: function() {
         this.setState(getStateFromStores(this.props.decision_id));
     },
+    addChoice: function(event) {
+        event.preventDefault();
+        ChoiceActions.add(this.props.decision_id);
+    },
     render: function() {
         var configClasses = classNames('config', 'row', {open: this.props.open});
         var choicesControls = this.state.choices.map((choice) => {
-            return <ChoiceControl key={choice.id} choice={choice} />
+            return <ChoiceControl key={choice.id} choice={choice}/>
         });
         return (
             <div className={configClasses}>
                 <h3>Choices</h3>
-                {choicesControls}
-                <ThemePicker currentTheme={this.props.theme} themeChanged={this.props.themeChanged}/>
+
+                <div className="form-horizontal">
+                    {choicesControls}
+                    <div className="row add-choice">
+                        <div className="col-xs-12">
+                            <a onClick={this.addChoice}>
+                                <span className="glyphicon glyphicon-plus"></span> Add Choice
+                            </a>
+                        </div>
+                    </div>
+                    <ThemePicker currentTheme={this.props.theme} themeChanged={this.props.themeChanged}/>
+                </div>
 
                 <div className="row">
                     <div className="col-xs-offset-2 col-xs-8">

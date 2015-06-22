@@ -36,18 +36,18 @@ export default React.createClass({
         );
 
         var allSwatches = themes.map(function(theme) {
-            return <Swatch theme={theme} key={theme} bordered="true" themeChanged={this.props.themeChanged} />
+            return <Swatch theme={theme} key={theme} bordered="true" themeChanged={this.props.themeChanged}/>
         }, this);
 
         return (
-            <div className="form-inline">
-                <div className="form-group">
-                    <label className="control-label">Theme</label>
-                    <div className="theme-picker" onMouseOver={this.openContainer} onMouseOut={this.closeContainer}>
-                        <Swatch theme={this.props.currentTheme} bordered="true" />
-                        <div className={containerClasses}>
-                    {allSwatches}
-                        </div>
+            <div className="form-group">
+                <label className="col-xs-2 control-label">Theme</label>
+
+                <div className="col-xs-10 theme-picker" onMouseOver={this.openContainer} onMouseOut={this.closeContainer}>
+                    <Swatch theme={this.props.currentTheme} bordered="true"/>
+
+                    <div className={containerClasses}>
+                        {allSwatches}
                     </div>
                 </div>
             </div>

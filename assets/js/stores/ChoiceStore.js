@@ -32,11 +32,12 @@ class ChoiceStore extends EventEmitter {
         });
     }
 
-    _addChoices(choices) {
-        _.map(choices, (choice) => {
-            this._getDecisionChoices(choice.decision_id).push(choice.id);
-            this.choices[choice.id] = choice;
-        });
+    _addChoice(choice) {
+        if (!choice.hasOwnProperty('added')) {
+            choice.added = false;
+        }
+        this._getDecisionChoices(choice.decision_id).push(choice.id);
+        this.choices[choice.id] = choice;
     }
 
     _getDecisionChoices(decision_id) {
@@ -65,15 +66,22 @@ _ChoiceStore.dispatchToken = AppDispatcher.register((payload) => {
     ]);
 
     switch (payload.type) {
-        case AppConstants.RECEIVE_DECISIONS:
+        case AppConstants.DECISION.RECEIVE_MULTIPLE:
             _ChoiceStore._clearChoices();
             _.map(payload.decisions, (decision) => {
-                _ChoiceStore._addChoices(decision.choices);
+                _.map(decision.choices, (choice) => {
+                    _ChoiceStore._addChoice(choice);
+                });
             });
             _ChoiceStore.emitChange();
             break;
-        case AppConstants.UPDATE_CHOICE:
+        case AppConstants.CHOICE.UPDATE:
             _ChoiceStore._updateChoice(payload.choice);
             _ChoiceStore.emitChange();
+            break;
+        case AppConstants.CHOICE.ADD:
+            _ChoiceStore._addChoice(payload.choice);
+            _ChoiceStore.emitChange();
+            break;
     }
 });

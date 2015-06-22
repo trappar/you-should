@@ -1,11 +1,20 @@
 import DecisionBox from './decision/DecisionBox.jsx';
 import DecisionStore from '../stores/DecisionStore.js';
-import DecisionWebApiUtils from '../utils/DecisionWebApiUtils.js';
+import DecisionActions from '../actions/DecisionActions.js';
+import Button from './primitives/Button.jsx';
 
 function getStateFromStores() {
     return {
         decisions: DecisionStore.getAllDecisions()
     };
+}
+
+function getDecision(decision) {
+    return (
+        <div className="col-lg-6" key={`decision-col-${decision.id}`}>
+            <DecisionBox key={`decision-${decision.id}`} decision={decision}/>
+        </div>
+    );
 }
 
 export default React.createClass({
@@ -18,23 +27,36 @@ export default React.createClass({
     componentWillUnmount: function() {
         DecisionStore.removeChangeListener(this._onChange);
     },
-    addDecision: function() {
-        DecisionWebApiUtils.add();
+    addDecision: function(event) {
+        event.preventDefault();
+        DecisionActions.add();
     },
     render: function() {
-        var decisions = this.state.decisions.map(function(decision) {
-            return <DecisionBox key={decision.id} decision={decision} />
-        }, this);
+        // This seems needlessly complex but I couldn't think of a better way to have the decisions render as
+        //   rows with two decisions in each row.
+        var decisionsRows = [];
+        for (var i = 0; i < this.state.decisions.length; i += 2) {
+            var decisionsInRow = [getDecision(this.state.decisions[i])];
+            if (i + 1 in this.state.decisions) {
+                decisionsInRow.push(getDecision(this.state.decisions[i + 1]));
+            }
+            decisionsRows.push(
+                <div className="row" key={i/2}>
+                    {decisionsInRow}
+                </div>
+            );
+        }
 
         return (
-            <div>
+            <div className="decisions-container">
                 <h1>Your Decisions</h1>
-                <a className="add-decision" href="#" onClick={this.addDecision}>
-                    <span className="glyphicon glyphicon-plus"></span> Decision
-                </a>
 
-                <div className="decisions-container row">
-                    {decisions}
+                {decisionsRows}
+
+                <div className="add-decision">
+                    <a onClick={this.addDecision}>
+                        <span className="glyphicon glyphicon-plus"></span> Add Decision
+                    </a>
                 </div>
             </div>
         );

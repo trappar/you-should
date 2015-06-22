@@ -1,9 +1,7 @@
-import classNames from 'classnames';
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Config from './config/Config.jsx'
 import DecisionActions from '../../actions/DecisionActions.js';
-import DecisionWebApiUtils from '../../utils/DecisionWebApiUtils.js';
 
 export default React.createClass({
     propTypes: {
@@ -12,7 +10,12 @@ export default React.createClass({
     getInitialState: function() {
         return {
             answering: false,
-            configuring: false
+            configuring: this.props.decision.added
+        }
+    },
+    componentDidMount: function() {
+        if (this.props.decision.added) {
+            this.refs.question.focus();
         }
     },
     configure: function() {
@@ -22,7 +25,7 @@ export default React.createClass({
         });
     },
     remove: function() {
-        DecisionWebApiUtils.remove(this.props.decision);
+        DecisionActions.remove(this.props.decision);
     },
     handleQuestionChange: function(question) {
         this.props.decision.question = question;
@@ -34,17 +37,15 @@ export default React.createClass({
     },
     _saveDecision: function() {
         DecisionActions.update(this.props.decision);
-        DecisionWebApiUtils.update(this.props.decision);
     },
     handleChoiceChange: function() {
         this.setState({answer: null})
     },
     render: function() {
-        var classes = classNames('decision', 'col-lg-6');
         var decision = this.props.decision;
         return (
-            <div className={classes}>
-                <Question configuring={this.state.configuring} theme={decision.theme}
+            <div className="decision">
+                <Question ref="question" configuring={this.state.configuring} theme={decision.theme}
                           onClick={() => this.setState({answering: !this.state.answering})}
                           onQuestionChanged={this.handleQuestionChange}
                           onEdit={this.configure} onRemove={this.remove}>

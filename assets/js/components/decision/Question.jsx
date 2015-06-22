@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import DeleteButton from '../primitives/DeleteButton.jsx';
 import Button from '../primitives/Button.jsx';
 
 export default React.createClass({
@@ -11,24 +12,14 @@ export default React.createClass({
             deleteConfirmation: false
         };
     },
-    componentWillMount: function() {
-        this._removeCountdown = _.debounce(this._removeCountdown, 1500);
-    },
     handleEdit: function(event) {
         event.stopPropagation();
         this.props.onEdit()
     },
-    handleRemove: function(event) {
-        event.stopPropagation();
-        if (this.state.deleteConfirmation === false) {
-            this.setState({deleteConfirmation: true});
-            this._removeCountdown();
-        } else {
-            this.props.onRemove();
+    focus: function() {
+        if (this.props.configuring) {
+            $(this.getDOMNode()).find('input').select().focus();
         }
-    },
-    _removeCountdown: function() {
-        this.setState({deleteConfirmation: false});
     },
     render: function() {
         var classes = classNames(
@@ -43,30 +34,23 @@ export default React.createClass({
                      onChange={(evt) => this.props.onQuestionChanged(evt.target.value)}/>
             : this.props.children;
 
-        var controls;
-        if (!this.state.deleteConfirmation) {
-            controls = <div className="controls pull-right">
-                <Button onClick={this.handleEdit} extraClasses={`btn-alt-${this.props.theme}`}>
-                    <span className="glyphicon glyphicon-pencil"></span>
-                </Button>
-                <Button onClick={this.handleRemove} extraClasses={`btn-alt-${this.props.theme}`}>
-                    <span className="glyphicon glyphicon-trash"></span>
-                </Button>
-            </div>;
-        } else {
-            controls = <div className="controls pull-right">
-                <Button onClick={this.handleRemove} extraClasses={`btn-alt-${this.props.theme}`}>
-                    Are you sure?
-                </Button>
-            </div>;
-        }
+        var editControl = (!this.state.deleteConfirmation) ?
+            <Button onClick={this.handleEdit} extraClasses={`btn-alt-${this.props.theme}`}>
+                <span className="glyphicon glyphicon-pencil"></span>
+            </Button>
+            : null;
 
         return (
             <div className={classes} onClick={this.props.configuring ? null : this.props.onClick}>
-                <div className={this.state.deleteConfirmation ? "col-xs-7" : "col-xs-8"}>
+                <div className={this.state.deleteConfirmation ? "col-xs-8" : "col-xs-8"}>
                     {questionControl}
                 </div>
-                {controls}
+                <div className="controls pull-right">
+                    {editControl}
+                    <DeleteButton extraClasses={`btn-alt-${this.props.theme}`}
+                                  onConfirm={(state) => this.setState({deleteConfirmation: state})}
+                                  onDelete={this.props.onRemove}/>
+                </div>
             </div>
         );
     }

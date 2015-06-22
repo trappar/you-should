@@ -35,7 +35,7 @@ class DecisionStore extends EventEmitter {
         return (this._getDecision(decision_id)) ? {
             question: this.getQuestion(decision_id),
             answer: this.getAnswer(decision_id),
-            theme: this.getTheme(decision_id),
+            theme: this.getTheme(decision_id)
         } : {};
     }
 
@@ -60,6 +60,9 @@ class DecisionStore extends EventEmitter {
 
     _addDecision(decision) {
         decision = _.omit(decision, 'choices');
+        if (!decision.hasOwnProperty('added')) {
+            decision.added = false;
+        }
         this.decisions[decision.id] = decision;
         this.decisionOrder.push(decision.id)
     }
@@ -87,22 +90,22 @@ export default _DecisionStore;
 
 _DecisionStore.dispatchToken = AppDispatcher.register((payload) => {
     switch (payload.type) {
-        case AppConstants.RECEIVE_DECISIONS:
+        case AppConstants.DECISION.RECEIVE_MULTIPLE:
             _DecisionStore._clearAll();
             _.map(payload.decisions, (decision) => {
                 _DecisionStore._addDecision(decision);
             });
             _DecisionStore.emitChange();
             break;
-        case AppConstants.UPDATE_DECISION:
+        case AppConstants.DECISION.UPDATE:
             _DecisionStore._updateDecision(payload.decision);
             _DecisionStore.emitChange();
             break;
-        case AppConstants.ADD_DECISION:
+        case AppConstants.DECISION.ADD:
             _DecisionStore._addDecision(payload.decision);
             _DecisionStore.emitChange();
             break;
-        case AppConstants.REMOVE_DECISION:
+        case AppConstants.DECISION.REMOVE:
             _DecisionStore._removeDecision(payload.id);
             _DecisionStore.emitChange();
             break;
