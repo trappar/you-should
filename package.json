@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
+    "bootstrap-slider": "^4.9.0",
     "classnames": "^2.1.2",
     "flux": "^2.0.3",
     "jquery": "^2.1.4",
