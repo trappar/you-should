@@ -50,10 +50,11 @@ var ChoiceActions = {
                 '_format': 'json'
             }),
             success: function(data) {
-                if (data.id) {
+                if (data.decision_id && data.choice_id) {
                     AppDispatcher.dispatch({
                         type: AppConstants.CHOICE.REMOVE,
-                        id: data.id
+                        choice_id: data.choice_id,
+                        decision_id: data.decision_id
                     });
                 }
             }

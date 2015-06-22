@@ -2,6 +2,9 @@ import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Config from './config/Config.jsx'
 import DecisionActions from '../../actions/DecisionActions.js';
+import AnswerStore from '../../stores/AnswerStore.js';
+import AnswerActions from '../../actions/AnswerActions.js';
+import AppConstants from '../../constants/AppConstants.js';
 
 export default React.createClass({
     propTypes: {
@@ -23,6 +26,14 @@ export default React.createClass({
             configuring: !this.state.configuring,
             answering: false
         });
+    },
+    answer: function() {
+        if (!this.state.answering) {
+            if (AnswerStore.getAnswerStatus(this.props.decision.id) === AppConstants.ANSWER.POSSIBLE) {
+                AnswerActions.new(this.props.decision.id);
+            }
+        }
+        this.setState({answering: !this.state.answering});
     },
     remove: function() {
         DecisionActions.remove(this.props.decision);
@@ -46,13 +57,13 @@ export default React.createClass({
         return (
             <div className="decision">
                 <Question ref="question" configuring={this.state.configuring} theme={decision.theme}
-                          onClick={() => this.setState({answering: !this.state.answering})}
+                          onClick={this.answer}
                           onQuestionChanged={this.handleQuestionChange}
                           onEdit={this.configure} onRemove={this.remove}>
                     {decision.question}
                 </Question>
 
-                <Answer open={this.state.answering} answer={decision.answer} theme={decision.theme} loading={false}/>
+                <Answer open={this.state.answering} decision_id={decision.id} theme={decision.theme}/>
 
                 <Config open={this.state.configuring} decision_id={decision.id} theme={decision.theme}
                         themeChanged={this.handleThemeChange}

@@ -21,6 +21,13 @@ class DecisionStore extends EventEmitter {
         this.removeListener('CHANGE', cb);
     }
 
+    dump() {
+        return {
+            decisions: this.decisions,
+            decisionOrder: this.decisionOrder
+        };
+    }
+
     getDecisionOrder() {
         return this.decisionOrder;
     }

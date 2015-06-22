@@ -22,6 +22,13 @@ class ChoiceStore extends EventEmitter {
         this.removeListener('CHANGE', cb);
     }
 
+    dump() {
+        return {
+            decisions: this.decisions,
+            choices: this.choices
+        };
+    }
+
     getChoice(id) {
         return this.choices[id];
     }
@@ -51,18 +58,25 @@ class ChoiceStore extends EventEmitter {
         this.choices[choice.id] = choice;
     }
 
-    _removeChoice(id) {
-        var decisionChoices = this._getDecisionChoices(this.choices[id].decision_id);
-        var index = _.indexOf(decisionChoices, id);
+    _removeChoice(decision_id, choice_id) {
+        var decisionChoices = this._getDecisionChoices(decision_id);
+        var index = _.indexOf(decisionChoices, choice_id);
         if (index != -1) {
             decisionChoices.splice(index, 1);
         }
-        delete this.choices[id];
+        delete this.choices[choice_id];
     }
 
-    _clearChoices() {
-        this.decisions = {};
-        this.choices = {};
+    _clearChoices(decision_id = false) {
+        if (decision_id) {
+            _.forEach(this.decisions[decision_id], (choice_id) => {
+                delete this.choices[choice_id];
+            });
+            delete this.decisions[decision_id];
+        } else {
+            this.decisions = {};
+            this.choices = {};
+        }
     }
 }
 
@@ -84,6 +98,10 @@ _ChoiceStore.dispatchToken = AppDispatcher.register((payload) => {
             });
             _ChoiceStore.emitChange();
             break;
+        case AppConstants.DECISION.REMOVE:
+            _ChoiceStore._clearChoices(payload.id);
+            _ChoiceStore.emitChange();
+            break;
         case AppConstants.CHOICE.UPDATE:
             _ChoiceStore._updateChoice(payload.choice);
             _ChoiceStore.emitChange();
@@ -93,7 +111,7 @@ _ChoiceStore.dispatchToken = AppDispatcher.register((payload) => {
             _ChoiceStore.emitChange();
             break;
         case AppConstants.CHOICE.REMOVE:
-            _ChoiceStore._removeChoice(payload.id);
+            _ChoiceStore._removeChoice(payload.decision_id, payload.choice_id);
             _ChoiceStore.emitChange();
     }
 });

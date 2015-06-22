@@ -75,7 +75,8 @@ class ChoiceController extends SerializerController
     public function removeAction(Choice $choice, Request $request)
     {
         $response = [
-            'id' => $choice->getId()
+            'choice_id' => $choice->getId(),
+            'decision_id' => $choice->getDecision()->getId()
         ];
 
         $em = $this->getDoctrine()->getManager();

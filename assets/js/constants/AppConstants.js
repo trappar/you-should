@@ -13,6 +13,8 @@ export default {
     },
 
     ANSWER: {
+        NEW: 'ANSWER_NEW',
+        REMOVE: 'ANSWER_REMOVE',
         POSSIBLE: 'ANSWER_POSSIBLE',
         IMPOSSIBLE: 'ANSWER_IMPOSSIBLE',
         EXISTS: 'ANSWER_EXISTS'
