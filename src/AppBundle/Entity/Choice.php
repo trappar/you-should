@@ -35,7 +35,7 @@ class Choice
     /**
      * @var integer
      *
-     * @ORM\Column(name="priority", type="integer")
+     * @ORM\Column(name="priority", type="float")
      */
     private $priority;
 
@@ -102,7 +102,7 @@ class Choice
     /**
      * Set priority
      *
-     * @param integer $priority
+     * @param float $priority
      * @return Choice
      */
     public function setPriority($priority)
@@ -115,7 +115,7 @@ class Choice
     /**
      * Get priority
      *
-     * @return integer
+     * @return float
      */
     public function getPriority()
     {

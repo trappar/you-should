@@ -22,19 +22,19 @@ AppBundle\Entity\Decision:
 AppBundle\Entity\Choice:
     choice1:
         name: Play Guitar
-        priority: 5
+        priority: 5.0
         decision: @decision1
     choice2:
         name: Play Drums
-        priority: 5
+        priority: 5.0
         decision: @decision1
     choice3:
         name: Play Piano
-        priority: 3
+        priority: 3.0
         decision: @decision1
     choice4:
         name: Go outside
-        priority: 1
+        priority: 1.0
         decision: @decision1
 
 AppBundle\Entity\Activity:
