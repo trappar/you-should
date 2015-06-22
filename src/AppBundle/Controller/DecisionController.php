@@ -139,4 +139,29 @@ class DecisionController extends SerializerController
 
         return $this->serialize($response, $request->getRequestFormat());
     }
+
+    /**
+     * @Route(
+     *   "/decision/{id}/choice/new.{_format}",
+     *   name="decision_choice_new",
+     *   requirements={"id": "\d+"}
+     * )
+     * @Method({"GET"})
+     * @Security("is_granted('manage', decision)")
+     *
+     * @param Decision $decision
+     * @return Response
+     */
+    public function newChoiceAction(Decision $decision, Request $request) {
+        $choice = new Choice();
+        $choice->setDecision($decision);
+        $choice->setName("Enter a choice here!");
+        $choice->setPriority(5);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($choice);
+        $em->flush();
+
+        return $this->serialize($choice, $request->getRequestFormat());
+    }
 }

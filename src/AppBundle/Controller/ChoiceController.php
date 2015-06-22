@@ -36,42 +36,5 @@ class ChoiceController extends SerializerController
         return $this->serialize($choice, $request->getRequestFormat());
     }
 
-    /**
-     * @Route(
-     *   "/choice/new.{_format}",
-     *   name="choice_new",
-     *   defaults={"_format": "json"},
-     *   requirements={
-     *     "_format": "json|xml|yml",
-     *     "decision_id": "\d+"
-     *   },
-     *   options={"expose"=true}
-     * )
-     * @ParamConverter()
-     * @Method({"GET"})
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function newAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $decision_id = $request->query->get('decision_id');
 
-        $decision = $this->getDoctrine()->getRepository('AppBundle:Decision')->find($decision_id);
-        if (!$decision) {
-            $this->createNotFoundException("Decision not found with id: ${$decision_id}");
-        }
-        $this->denyAccessUnlessGranted('manage', $decision);
-
-        $choice = new Choice();
-        $choice->setDecision($decision);
-        $choice->setName("Enter a choice here!");
-        $choice->setPriority(5);
-
-        $em->persist($choice);
-        $em->flush();
-
-        return $this->serialize($choice, $request->getRequestFormat());
-    }
 }
