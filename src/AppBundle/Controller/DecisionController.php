@@ -106,7 +106,7 @@ class DecisionController extends SerializerController
     public function newAction(Request $request) {
         $decision = new Decision();
         $decision->setUser($this->getUser());
-        $decision->setQuestion('Enter a question');
+        $decision->setQuestion('Enter a question here!');
         $decision->setTheme('blue');
 
         $em = $this->getDoctrine()->getManager();
