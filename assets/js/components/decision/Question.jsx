@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import DeleteButton from '../primitives/DeleteButton.jsx';
 import Button from '../primitives/Button.jsx';
 
+var PLACEHOLDER_QUESTION = 'Enter a question here!';
+
 export default React.createClass({
     propTypes: {
         theme: React.PropTypes.string.isRequired,
@@ -18,7 +20,7 @@ export default React.createClass({
     },
     focus: function() {
         if (this.props.configuring) {
-            $(this.getDOMNode()).find('input').trigger('click').select();
+            $(this.getDOMNode()).find('input').focus();
         }
     },
     render: function() {
@@ -28,11 +30,17 @@ export default React.createClass({
             {clickable: !this.props.configuring}
         );
 
-        var questionControl = (this.props.configuring)
-            ? <input type="text" className="form-control"
-                     value={this.props.children}
-                     onChange={(evt) => this.props.onQuestionChanged(evt.target.value)}/>
-            : this.props.children;
+        var questionControl;
+        if (this.props.configuring) {
+            questionControl = (
+                <input type="text" className="form-control"
+                       value={this.props.children}
+                       placeholder={PLACEHOLDER_QUESTION}
+                       onChange={(evt) => this.props.onQuestionChanged(evt.target.value)}/>
+            );
+        } else {
+            questionControl = (this.props.children.length > 0) ? this.props.children : PLACEHOLDER_QUESTION;
+        }
 
         var editControl = (!this.state.deleteConfirmation) ?
             <Button onClick={this.handleEdit} extraClasses={`btn-alt-${this.props.theme}`}>

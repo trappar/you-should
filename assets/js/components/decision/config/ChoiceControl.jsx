@@ -3,6 +3,7 @@ import DeleteButton from '../../primitives/DeleteButton.jsx';
 import BootstrapSlider from '../../primitives/BootstrapSlider.jsx';
 
 var ENTER_KEY_CODE = 13;
+var PLACEHOLDER_CHOICE = "Enter an option here!";
 
 export default React.createClass({
     propTypes: {
@@ -39,9 +40,10 @@ export default React.createClass({
                     <div className="col-xs-12">
                         <div className="input-group">
                             <input type="text" className="form-control" value={choice.name}
-                                   onChange={this.handleNameChange} onKeyDown={this._onKeyDown}/>
+                                   onChange={this.handleNameChange} onKeyDown={this._onKeyDown}
+                                   placeholder={PLACEHOLDER_CHOICE}/>
                         <span className="input-group-btn">
-                            <DeleteButton extraClasses="btn-default" onDelete={this.handleDelete} />
+                            <DeleteButton extraClasses="btn-default" onDelete={this.handleDelete}/>
                         </span>
                         </div>
                     </div>

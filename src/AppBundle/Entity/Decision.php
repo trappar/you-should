@@ -61,6 +61,7 @@ class Decision
 
     public function __construct()
     {
+        $this->question = "";
         $this->choices = new ArrayCollection();
     }
 

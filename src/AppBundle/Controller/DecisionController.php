@@ -106,7 +106,6 @@ class DecisionController extends SerializerController
     public function newAction(Request $request) {
         $decision = new Decision();
         $decision->setUser($this->getUser());
-        $decision->setQuestion('Enter a question here!');
         $decision->setTheme('blue');
 
         $em = $this->getDoctrine()->getManager();
@@ -159,8 +158,6 @@ class DecisionController extends SerializerController
     public function newChoiceAction(Decision $decision, Request $request) {
         $choice = new Choice();
         $choice->setDecision($decision);
-        $choice->setName("Enter a choice here!");
-        $choice->setPriority(5);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($choice);

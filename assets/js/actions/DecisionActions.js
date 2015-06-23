@@ -29,20 +29,18 @@ var DecisionActions = {
         DecisionActions._updateApi(decision);
     },
     _updateApi: _.debounce((decision) => {
-        if (decision.question.length != 0) {
-            $.ajax({
-                accepts: "json",
-                dataType: "json",
-                method: "PUT",
-                data: decision,
-                url: Routing.generate('decision_update', {
-                    '_format': 'json', id: decision.id
-                }),
-                success: (data) => {
-                    console.log('Decision updated', data);
-                }
-            });
-        }
+        $.ajax({
+            accepts: "json",
+            dataType: "json",
+            method: "PUT",
+            data: decision,
+            url: Routing.generate('decision_update', {
+                '_format': 'json', id: decision.id
+            }),
+            success: (data) => {
+                console.log('Decision updated', data);
+            }
+        });
     }, 800),
     add: _.throttle(() => {
         $.ajax({

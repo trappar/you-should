@@ -63,6 +63,8 @@ class Choice
 
     public function __construct()
     {
+        $this->name = "";
+        $this->priority = 10;
         $this->activities = new ArrayCollection();
     }
 

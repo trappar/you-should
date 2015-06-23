@@ -10,18 +10,16 @@ var ChoiceActions = {
         ChoiceActions._updateApi(choice);
     },
     _updateApi: _.debounce((choice) => {
-        if (choice.name.length != 0) {
-            $.ajax({
-                accepts: "json",
-                dataType: "json",
-                method: "PUT",
-                data: choice,
-                url: Routing.generate('choice_update', {'_format': 'json', id: choice.id}),
-                success: function(data) {
-                    console.log('Choice updated', data);
-                }
-            });
-        }
+        $.ajax({
+            accepts: "json",
+            dataType: "json",
+            method: "PUT",
+            data: choice,
+            url: Routing.generate('choice_update', {'_format': 'json', id: choice.id}),
+            success: function(data) {
+                console.log('Choice updated', data);
+            }
+        });
     }, 800),
     add: _.throttle((decision_id) => {
         $.ajax({
