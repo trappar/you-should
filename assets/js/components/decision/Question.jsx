@@ -18,7 +18,7 @@ export default React.createClass({
     },
     focus: function() {
         if (this.props.configuring) {
-            $(this.getDOMNode()).find('input').select().focus();
+            $(this.getDOMNode()).find('input').trigger('click').select();
         }
     },
     render: function() {
