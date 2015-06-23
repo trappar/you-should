@@ -2,10 +2,12 @@ import DecisionBox from './decision/DecisionBox.jsx';
 import DecisionStore from '../stores/DecisionStore.js';
 import DecisionActions from '../actions/DecisionActions.js';
 import Button from './primitives/Button.jsx';
+import classNames from 'classnames';
 
 function getStateFromStores() {
     return {
-        decisions: DecisionStore.getAllDecisions()
+        decisions: DecisionStore.getAllDecisions(),
+        addingDecision: false
     };
 }
 
@@ -29,6 +31,7 @@ export default React.createClass({
     },
     addDecision: function(event) {
         event.preventDefault();
+        this.setState({addingDecision: true});
         DecisionActions.add();
     },
     render: function() {
@@ -53,7 +56,7 @@ export default React.createClass({
 
                 {decisionsRows}
 
-                <div className="add-decision">
+                <div className={classNames("add-decision", {loading: this.state.addingDecision})}>
                     <a onClick={this.addDecision}>
                         <span className="glyphicon glyphicon-plus"></span> Add Decision
                     </a>

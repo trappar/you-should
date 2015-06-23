@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Activity;
 use AppBundle\Entity\Choice;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -86,5 +87,25 @@ class ChoiceController extends SerializerController
         $response['status'] = 'success';
 
         return $this->serialize($response, $request->getRequestFormat());
+    }
+
+    /**
+     * @Route("/logActivity.{_format}", name="choice_log_activity")
+     * @Method({"GET"})
+     *
+     * @param Choice  $choice
+     * @param Request $request
+     * @return Response
+     */
+    public function logActivityAction(Choice $choice, Request $request)
+    {
+        $activity = new Activity();
+        $activity->setChoice($choice);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($activity);
+        $em->flush();
+
+        return $this->serialize($choice, $request->getRequestFormat());
     }
 }

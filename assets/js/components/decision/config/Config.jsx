@@ -7,7 +7,8 @@ import ChoiceStore from '../../../stores/ChoiceStore.js';
 
 function getStateFromStores(decision_id) {
     return {
-        choices: ChoiceStore.getChoicesByDecisionId(decision_id)
+        choices: ChoiceStore.getChoicesByDecisionId(decision_id),
+        addingChoice: false
     };
 }
 
@@ -30,6 +31,7 @@ export default React.createClass({
     },
     addChoice: function(event) {
         event.preventDefault();
+        this.setState({addingChoice: true});
         ChoiceActions.add(this.props.decision_id);
     },
     render: function() {
@@ -43,7 +45,7 @@ export default React.createClass({
 
                 <div className="form-horizontal">
                     {choicesControls}
-                    <div className="row add-choice">
+                    <div className={classNames("row","add-choice", {loading: this.state.addingChoice})}>
                         <div className="col-xs-12">
                             <a onClick={this.addChoice}>
                                 <span className="glyphicon glyphicon-plus"></span> Add Choice

@@ -29,60 +29,74 @@ export default React.createClass({
     _onStoreChange: function() {
         this.setState(getStateFromStores(this.props.decision_id));
     },
-    _noWayClick: function() {
+    _logActivity: function() {
+        AnswerActions.logActivity(this.state.answer);
+    },
+    _loadAnotherAnswer: function() {
         AnswerActions.new(this.props.decision_id);
     },
-    render: function() {
-        var answerExists = this.state.status === AppConstants.ANSWER.EXISTS;
-        var loading = this.state.status === AppConstants.ANSWER.POSSIBLE;
-
-        var answerClasses = classNames(
-            'answer',
-            'row',
-            this.props.theme,
-            {
-                open: this.props.open,
-                loading: loading
-            }
-        );
-
-        var answerText;
-        if (answerExists) {
-            answerText = (
-                <div className="pull-left">
-                    {this.state.answer.name}
-                </div>
-            );
-        } else {
-            if (loading) {
-                answerText = 'Loading...';
-            } else {
-                answerText = 'No choices have been defined yet.';
-            }
+    _getTextByState: function() {
+        var text;
+        switch (this.state.status) {
+            case AppConstants.ANSWER.EXISTS:
+            case AppConstants.ANSWER.DONE:
+                text = (
+                    <div className="pull-left">
+                        {this.state.answer.name}
+                    </div>
+                );
+                break;
+            case AppConstants.ANSWER.POSSIBLE:
+                text = 'Loading...';
+                break;
+            case AppConstants.ANSWER.IMPOSSIBLE:
+                text = 'No choices have been defined yet.';
+                break;
         }
 
-        var controls = (answerExists) ?
-            <div className="controls pull-right">
-                <Button extraClasses="btn-success">
-                    <span className="glyphicon glyphicon-ok"></span>
-                    &nbsp;OK!
-                </Button>
-                <Button extraClasses="btn btn-danger" onClick={this._noWayClick}>
-                    <span className="glyphicon glyphicon-remove"></span>
-                    &nbsp;No way!
-                </Button>
-            </div>
-            : null;
+        return text;
+    },
+    _getControlsByState: function() {
+        var controls;
+        switch (this.state.status) {
+            case AppConstants.ANSWER.EXISTS:
+                controls = (
+                    <div className="controls pull-right">
+                        <Button key="okay" extraClasses="btn-success" onClick={this._logActivity}>
+                            <span className="glyphicon glyphicon-ok"></span>
+                            &nbsp;OK!
+                        </Button>
+                        <Button extraClasses="btn btn-danger" onClick={this._loadAnotherAnswer}>
+                            <span className="glyphicon glyphicon-remove"></span>
+                            &nbsp;No way!
+                        </Button>
+                    </div>
+                );
+                break;
+            case AppConstants.ANSWER.DONE:
+                controls = (
+                    <div className="controls pull-right">
+                        <Button key="another" extraClasses="btn-success" onClick={this._loadAnotherAnswer}>
+                            Give me another!
+                        </Button>
+                    </div>
+                );
+                break;
+        }
 
-        return (this.props.loading)
-            ?
+        return controls;
+    },
+    render: function() {
+        var answerClasses = classNames('answer', 'row', this.props.theme, {
+            open: this.props.open,
+            loading: this.state.status === AppConstants.ANSWER.POSSIBLE
+        });
+
+        return (
             <div className={answerClasses}>
-                <span>Loading...</span>
+                {this._getTextByState(this.state)}
+                {this._getControlsByState(this.state)}
             </div>
-            :
-            <div className={answerClasses}>
-                {answerText}
-                {controls}
-            </div>;
+        );
     }
 });

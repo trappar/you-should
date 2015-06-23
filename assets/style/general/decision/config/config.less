@@ -1,6 +1,6 @@
-@import 'choice';
-@import 'theme-picker/theme-picker';
-@import '../../fade';
+@import "choice";
+@import "theme-picker/theme-picker";
+@import "../../animations";
 
 .config {
     background: white;
@@ -26,5 +26,12 @@
     .add-choice {
         margin-bottom: 20px;
         cursor: pointer;
+
+        &.loading {
+            cursor: default;
+            .glyphicon {
+                .spinning-animation()
+            }
+        }
     }
 }

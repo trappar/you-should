@@ -1,6 +1,8 @@
 import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
+import ChoiceStore from './ChoiceStore.js';
+import AnswerStore from './AnswerStore.js';
 
 class DecisionStore extends EventEmitter {
     constructor() {
@@ -96,6 +98,11 @@ let _DecisionStore = new DecisionStore();
 export default _DecisionStore;
 
 _DecisionStore.dispatchToken = AppDispatcher.register((payload) => {
+    AppDispatcher.waitFor([
+        ChoiceStore.dispatchToken,
+        AnswerStore.dispatchToken
+    ]);
+
     switch (payload.type) {
         case AppConstants.DECISION.RECEIVE_MULTIPLE:
             _DecisionStore._clearAll();

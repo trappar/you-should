@@ -51,7 +51,7 @@ class Choice
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice", cascade={"remove"})
      * @SER\Exclude()
      */
     private $activities;

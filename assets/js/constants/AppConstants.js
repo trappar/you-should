@@ -15,8 +15,11 @@ export default {
     ANSWER: {
         NEW: 'ANSWER_NEW',
         REMOVE: 'ANSWER_REMOVE',
+        ISDONE: 'ANSWER_ISDONE',
+
         POSSIBLE: 'ANSWER_POSSIBLE',
         IMPOSSIBLE: 'ANSWER_IMPOSSIBLE',
-        EXISTS: 'ANSWER_EXISTS'
+        EXISTS: 'ANSWER_EXISTS',
+        DONE: 'ANSWER_DONE'
     }
 }

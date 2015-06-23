@@ -52,9 +52,10 @@ export default React.createClass({
                     <div className="col-xs-10">
                         <BootstrapSlider sliderOpts={{
                             min: 1,
-                            max: 9,
-                            step: 0.1,
+                            max: 100,
+                            step: 0.05,
                             value: choice.priority,
+                            scale: 'logarithmic',
                             tooltip: 'hide'
                         }} onChange={this.handleSliderChange}/>
                     </div>

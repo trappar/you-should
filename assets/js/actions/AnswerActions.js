@@ -23,6 +23,24 @@ var AnswerActions = {
                 });
             }
         })
+    },
+    logActivity: (choice) => {
+        AppDispatcher.dispatch({
+            type: AppConstants.ANSWER.ISDONE,
+            answer: choice
+        });
+
+        $.ajax({
+            dataType: "json",
+            method: "GET",
+            url: Routing.generate('choice_log_activity', {
+                'id': choice.id,
+                '_format': 'json'
+            }),
+            success: (data) => {
+                console.log('Activity logged', data);
+            }
+        })
     }
 };
 

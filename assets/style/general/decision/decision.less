@@ -3,6 +3,7 @@
 @import "question";
 @import "answer";
 @import "./config/config";
+@import "../animations";
 
 .decision {
   max-width: 600px;
@@ -29,4 +30,11 @@
   margin-top: 15px;
   margin-bottom: 100px;
   cursor: pointer;
+
+  &.loading {
+    cursor: default;
+    .glyphicon {
+      .spinning-animation()
+    }
+  }
 }
