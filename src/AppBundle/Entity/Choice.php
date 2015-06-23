@@ -171,6 +171,7 @@ class Choice
 
     /**
      * @SER\VirtualProperty()
+     * @SER\SerializedName("decisionId")
      * @return int
      */
     public function getDecisionId()
