@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
@@ -5,123 +6,123 @@ import ChoiceStore from './ChoiceStore.js';
 import AnswerStore from './AnswerStore.js';
 
 class DecisionStore extends EventEmitter {
-    constructor() {
-        super();
-        this.decisions = {};
-        this.decisionOrder = [];
-    }
+  constructor() {
+    super();
+    this.decisions = {};
+    this.decisionOrder = [];
+  }
 
-    emitChange() {
-        this.emit('CHANGE');
-    }
+  emitChange() {
+    this.emit('CHANGE');
+  }
 
-    addChangeListener(cb) {
-        this.on('CHANGE', cb);
-    }
+  addChangeListener(cb) {
+    this.on('CHANGE', cb);
+  }
 
-    removeChangeListener(cb) {
-        this.removeListener('CHANGE', cb);
-    }
+  removeChangeListener(cb) {
+    this.removeListener('CHANGE', cb);
+  }
 
-    dump() {
-        return {
-            decisions: this.decisions,
-            decisionOrder: this.decisionOrder
-        };
-    }
+  dump() {
+    return {
+      decisions: this.decisions,
+      decisionOrder: this.decisionOrder
+    };
+  }
 
-    getDecisionOrder() {
-        return this.decisionOrder;
-    }
+  getDecisionOrder() {
+    return this.decisionOrder;
+  }
 
-    getAllDecisions() {
-        return _.map(this.decisionOrder, (id) => {
-            return this.decisions[id];
-        });
-    }
+  getAllDecisions() {
+    return _.map(this.decisionOrder, (id) => {
+      return this.decisions[id];
+    });
+  }
 
-    getDecisionState(decision_id) {
-        return (this._getDecision(decision_id)) ? {
-            question: this.getQuestion(decision_id),
-            answer: this.getAnswer(decision_id),
-            theme: this.getTheme(decision_id)
-        } : {};
-    }
+  getDecisionState(decisionId) {
+    return (this._getDecision(decisionId)) ? {
+      question: this.getQuestion(decisionId),
+      answer: this.getAnswer(decisionId),
+      theme: this.getTheme(decisionId)
+    } : {};
+  }
 
-    getTheme(decision_id) {
-        return this._getDecision(decision_id).theme;
-    }
+  getTheme(decisionId) {
+    return this._getDecision(decisionId).theme;
+  }
 
-    getQuestion(decision_id) {
-        return this._getDecision(decision_id).question;
-    }
+  getQuestion(decisionId) {
+    return this._getDecision(decisionId).question;
+  }
 
-    getAnswer(decision_id) {
-        var decision = this._getDecision(decision_id);
-        return (decision.answer)
-            ? decision.answer.name
-            : null;
-    }
+  getAnswer(decisionId) {
+    let decision = this._getDecision(decisionId);
+    return (decision.answer)
+      ? decision.answer.name
+      : null;
+  }
 
-    _getDecision(id) {
-        return (this.decisions.hasOwnProperty(id)) ? this.decisions[id] : null;
-    }
+  _getDecision(id) {
+    return (this.decisions.hasOwnProperty(id)) ? this.decisions[id] : null;
+  }
 
-    _addDecision(decision) {
-        decision = _.omit(decision, 'choices');
-        if (!decision.hasOwnProperty('added')) {
-            decision.added = false;
-        }
-        this.decisions[decision.id] = decision;
-        this.decisionOrder.push(decision.id)
+  _addDecision(decision) {
+    decision = _.omit(decision, 'choices');
+    if (!decision.hasOwnProperty('added')) {
+      decision.added = false;
     }
+    this.decisions[decision.id] = decision;
+    this.decisionOrder.push(decision.id);
+  }
 
-    _updateDecision(decision) {
-        this.decisions[decision.id] = decision;
-    }
+  _updateDecision(decision) {
+    this.decisions[decision.id] = decision;
+  }
 
-    _removeDecision(id) {
-        delete this.decisions[id];
-        var index = _.indexOf(this.decisionOrder, id);
-        if (index != -1) {
-            this.decisionOrder.splice(index, 1);
-        }
+  _removeDecision(id) {
+    delete this.decisions[id];
+    let index = _.indexOf(this.decisionOrder, id);
+    if (index !== -1) {
+      this.decisionOrder.splice(index, 1);
     }
+  }
 
-    _clearAll() {
-        this.decisions = {};
-        this.decisionOrder = [];
-    }
+  _clearAll() {
+    this.decisions = {};
+    this.decisionOrder = [];
+  }
 }
 
 let _DecisionStore = new DecisionStore();
 export default _DecisionStore;
 
 _DecisionStore.dispatchToken = AppDispatcher.register((payload) => {
-    AppDispatcher.waitFor([
-        ChoiceStore.dispatchToken,
-        AnswerStore.dispatchToken
-    ]);
+  AppDispatcher.waitFor([
+    ChoiceStore.dispatchToken,
+    AnswerStore.dispatchToken
+  ]);
 
-    switch (payload.type) {
-        case AppConstants.DECISION.RECEIVE_MULTIPLE:
-            _DecisionStore._clearAll();
-            _.map(payload.decisions, (decision) => {
-                _DecisionStore._addDecision(decision);
-            });
-            _DecisionStore.emitChange();
-            break;
-        case AppConstants.DECISION.UPDATE:
-            _DecisionStore._updateDecision(payload.decision);
-            _DecisionStore.emitChange();
-            break;
-        case AppConstants.DECISION.ADD:
-            _DecisionStore._addDecision(payload.decision);
-            _DecisionStore.emitChange();
-            break;
-        case AppConstants.DECISION.REMOVE:
-            _DecisionStore._removeDecision(payload.id);
-            _DecisionStore.emitChange();
-            break;
-    }
+  switch (payload.type) {
+    case AppConstants.DECISION.RECEIVE_MULTIPLE:
+      _DecisionStore._clearAll();
+      _.map(payload.decisions, (decision) => {
+        _DecisionStore._addDecision(decision);
+      });
+      _DecisionStore.emitChange();
+      break;
+    case AppConstants.DECISION.UPDATE:
+      _DecisionStore._updateDecision(payload.decision);
+      _DecisionStore.emitChange();
+      break;
+    case AppConstants.DECISION.ADD:
+      _DecisionStore._addDecision(payload.decision);
+      _DecisionStore.emitChange();
+      break;
+    case AppConstants.DECISION.REMOVE:
+      _DecisionStore._removeDecision(payload.id);
+      _DecisionStore.emitChange();
+      break;
+  }
 });
