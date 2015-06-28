@@ -35,6 +35,11 @@ class DecisionManager
     public function pickChoice(Decision $decision)
     {
         $choices = $decision->getChoices();
+        $choices = $choices->filter(function($choice){
+            /** @var Choice $choice */
+            return strlen($choice->getName());
+        });
+
         $totalPriority = array_reduce($choices->getValues(), function($total, $choice){
             /** @var Choice $choice */
             return $total + $choice->getAdjustedPriority();
