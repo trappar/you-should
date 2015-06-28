@@ -46,7 +46,7 @@ export default React.createClass({
   render: function() {
     let configClasses = classNames('config', 'row', {open: this.props.open});
     let choicesControls = this.state.choices.map((choice) => {
-      return <ChoiceControl key={choice.id} choice={choice}/>;
+      return <ChoiceControl key={choice.id} choice={choice} addChoice={this.addChoice}/>;
     });
     return (
       <div className={configClasses}>

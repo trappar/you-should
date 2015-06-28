@@ -8,7 +8,8 @@ let PLACEHOLDER_CHOICE = 'Enter an option here!';
 
 export default React.createClass({
   propTypes: {
-    choice: PropTypes.object.isRequired
+    choice: PropTypes.object.isRequired,
+    addChoice: PropTypes.func.isRequired
   },
   componentDidMount: function() {
     if (this.props.choice.added) {
@@ -29,8 +30,7 @@ export default React.createClass({
   },
   _onKeyDown: function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      event.preventDefault();
-      ChoiceActions.add(this.props.choice.decisionId);
+      this.props.addChoice(event);
     }
   },
   render: function() {
