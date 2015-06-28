@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ChoiceController
  * @Route(
  *   "/choice/{id}",
- *   defaults={"_format": "json"},
  *   requirements={
  *     "id": "\d+",
  *     "_format": "json|xml|yml"

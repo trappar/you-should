@@ -22,6 +22,8 @@ security:
                 check_path: login_check
                 success_handler: authentication_handler
                 failure_handler: authentication_handler
+                username_parameter: username
+                password_parameter: password
             logout:
                 path:   /logout
-                target: /
+                success_handler: authentication_handler

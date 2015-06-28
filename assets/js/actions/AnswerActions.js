@@ -3,7 +3,7 @@ import $ from 'jquery';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
-let _AnswerActions = {
+export default {
   new: (decisionId) => {
     AppDispatcher.dispatch({
       type: AppConstants.ANSWER.REMOVE,
@@ -14,8 +14,8 @@ let _AnswerActions = {
       dataType: 'json',
       method: 'GET',
       url: Routing.generate('decision_answer', {
-        'id': decisionId,
-        '_format': 'json'
+        '_format': 'json',
+        'id': decisionId
       }),
       success: (choice) => {
         AppDispatcher.dispatch({
@@ -36,8 +36,8 @@ let _AnswerActions = {
       dataType: 'json',
       method: 'GET',
       url: Routing.generate('choice_log_activity', {
-        'id': choice.id,
-        '_format': 'json'
+        '_format': 'json',
+        'id': choice.id
       }),
       success: (data) => {
         console.log('Activity logged', data);
@@ -45,5 +45,3 @@ let _AnswerActions = {
     });
   }
 };
-
-export default _AnswerActions;

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as SER;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="UserRepository")
+ * @SER\ExclusionPolicy("none")
  */
 class User implements UserInterface, \Serializable
 {
@@ -29,6 +31,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @SER\Exclude()
      */
     private $password;
 
@@ -39,6 +42,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="simple_array")
+     * @SER\Exclude()
      */
     private $roles;
 

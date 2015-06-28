@@ -1,7 +1,7 @@
 import React from 'react';
-import DecisionBox from './decision/DecisionBox.jsx';
-import DecisionStore from '../stores/DecisionStore.js';
-import DecisionActions from '../actions/DecisionActions.js';
+import DecisionBox from './DecisionBox.jsx';
+import DecisionStore from '../../stores/DecisionStore.js';
+import DecisionActions from '../../actions/DecisionActions.js';
 import classNames from 'classnames';
 
 function getStateFromStores() {
@@ -52,8 +52,6 @@ export default React.createClass({
 
     return (
       <div className="decisions-container">
-        <h1>Your Decisions</h1>
-
         {decisionsRows}
 
         <div className={classNames('add-decision', {loading: this.state.addingDecision})}>

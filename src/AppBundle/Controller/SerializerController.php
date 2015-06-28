@@ -9,10 +9,10 @@ abstract class SerializerController extends Controller
 {
     public function serialize($data, $format, Array $headers = [])
     {
-        $json = $this->get('jms_serializer')->serialize($data, $format);
-
-        return new Response($json, 200, array_merge([
-            'Content-Type' => 'application/json'
-        ], $headers));
+        return new Response(
+            $this->get('jms_serializer')->serialize($data, $format),
+            200,
+            $headers
+        );
     }
 }

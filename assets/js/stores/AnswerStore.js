@@ -46,7 +46,16 @@ class AnswerStore extends EventEmitter {
   }
 
   _addAnswerByDecision(decision) {
-    let status = (decision.choices.length > 0) ? AppConstants.ANSWER.EXISTS : AppConstants.ANSWER.IMPOSSIBLE;
+    let status;
+    if (decision.hasOwnProperty('answer')) {
+      status = AppConstants.ANSWER.EXISTS;
+    } else {
+      if (decision.choices.length > 0) {
+        status = AppConstants.ANSWER.POSSIBLE;
+      } else {
+        status = AppConstants.ANSWER.IMPOSSIBLE;
+      }
+    }
 
     let ourDecision = this._getDecision(decision.id);
     ourDecision.status = status;

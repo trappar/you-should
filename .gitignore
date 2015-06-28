@@ -9,7 +9,7 @@
 /composer.phar
 /node_modules/
 /vendor/
+/web/bundle.js
 /web/bundles/
 /web/fonts/
-/web/js/
-/web/style/
+/web/main.css

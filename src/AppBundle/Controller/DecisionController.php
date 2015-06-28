@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
  * Class DecisionController
  * @Route(
  *   "/",
- *   defaults={"_format": "json"},
  *   requirements={
  *     "_format": "json|xml|yml"
  *   },
@@ -25,12 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DecisionController extends SerializerController
 {
     /**
-     * @Route(
-     *   "/decisions.{_format}",
-     *   name="decisions_list",
-     *   defaults={"_format": "html"},
-     *   requirements={"_format": "html|json|xml|yml"}
-     * )
+     * @Route("/decisions.{_format}", name="decisions_list")
      * @Method({"GET"})
      * @Security("has_role('ROLE_USER')")
      *

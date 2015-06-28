@@ -8,14 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction()
+    public function reactRouterAction($url)
     {
-        return $this->render('default/index.html.twig');
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(13);
+        $this->get('manager.user')->setCurrentUser($user);
+
+        return $this->render('react_router.html.twig');
     }
 }

@@ -21,5 +21,10 @@ export default {
     IMPOSSIBLE: 'ANSWER_IMPOSSIBLE',
     EXISTS: 'ANSWER_EXISTS',
     DONE: 'ANSWER_DONE'
+  },
+
+  USER: {
+    LOGIN: 'USER_LOGIN',
+    LOGOUT: 'USER_LOGOUT'
   }
-}
+};

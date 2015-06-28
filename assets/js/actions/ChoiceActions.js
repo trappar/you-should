@@ -4,13 +4,13 @@ import _ from 'lodash';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
-let ChoiceActions = {
+export default {
   update: (choice) => {
     AppDispatcher.dispatch({
       type: AppConstants.CHOICE.UPDATE,
       choice: choice
     });
-    ChoiceActions._updateApi(choice);
+    this._updateApi(choice);
   },
   _updateApi: _.debounce((choice) => {
     $.ajax({
@@ -18,7 +18,10 @@ let ChoiceActions = {
       dataType: 'json',
       method: 'PUT',
       data: choice,
-      url: Routing.generate('choice_update', {'_format': 'json', id: choice.id}),
+      url: Routing.generate('choice_update', {
+        '_format': 'json',
+        id: choice.id
+      }),
       success: function(data) {
         console.log('Choice updated', data);
       }
@@ -29,8 +32,8 @@ let ChoiceActions = {
       dataType: 'json',
       method: 'GET',
       url: Routing.generate('decision_choice_new', {
-        'id': decisionId,
-        '_format': 'json'
+        '_format': 'json',
+        'id': decisionId
       }),
       success: (choice) => {
         choice.added = true;
@@ -47,8 +50,8 @@ let ChoiceActions = {
       method: 'DELETE',
       data: choice,
       url: Routing.generate('choice_remove', {
-        id: choice.id,
-        '_format': 'json'
+        '_format': 'json',
+        id: choice.id
       }),
       success: function(data) {
         if (data.decisionId && data.choiceId) {
@@ -62,5 +65,3 @@ let ChoiceActions = {
     });
   }
 };
-
-export default ChoiceActions;

@@ -1,0 +1,20 @@
+{% spaceless %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=0.87, minimum-scale=0.87, maximum-scale=0.87, user-scalable=no"/>
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('style/main.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    </head>
+    <body role="document">
+    <div id="root"></div>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script>var appState={user:{{ app.user|serialize|raw}}};</script>
+    <script src="{{ asset('bundle.js') }}"></script>
+    </body>
+    </html>
+{% endspaceless %}

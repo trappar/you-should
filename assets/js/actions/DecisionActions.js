@@ -4,7 +4,7 @@ import _ from 'lodash';
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
-let _DecisionActions = {
+export default {
   receiveMultiple: (decisions) => {
     AppDispatcher.dispatch({
       type: AppConstants.DECISION.RECEIVE_MULTIPLE,
@@ -15,9 +15,11 @@ let _DecisionActions = {
     $.ajax({
       accepts: 'json',
       dataType: 'json',
-      url: Routing.generate('decisions_list', {'_format': 'json'}),
+      url: Routing.generate('decisions_list', {
+        '_format': 'json'
+      }),
       success: (data) => {
-        _DecisionActions.receiveMultiple(data);
+        this.receiveMultiple(data);
       },
       error: () => {
         console.log('error');
@@ -29,7 +31,7 @@ let _DecisionActions = {
       type: AppConstants.DECISION.UPDATE,
       decision: decision
     });
-    _DecisionActions._updateApi(decision);
+    this._updateApi(decision);
   },
   _updateApi: _.debounce((decision) => {
     $.ajax({
@@ -38,7 +40,8 @@ let _DecisionActions = {
       method: 'PUT',
       data: decision,
       url: Routing.generate('decision_update', {
-        '_format': 'json', id: decision.id
+        '_format': 'json',
+        id: decision.id
       }),
       success: (data) => {
         console.log('Decision updated', data);
@@ -67,8 +70,8 @@ let _DecisionActions = {
       method: 'DELETE',
       data: decision,
       url: Routing.generate('decision_remove', {
-        id: decision.id,
-        '_format': 'json'
+        '_format': 'json',
+        id: decision.id
       }),
       success: function(data) {
         if (data.id) {
@@ -81,5 +84,3 @@ let _DecisionActions = {
     });
   }
 };
-
-export default _DecisionActions;

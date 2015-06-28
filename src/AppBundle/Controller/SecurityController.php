@@ -2,27 +2,37 @@
 
 namespace AppBundle\Controller;
 
+use JMS\DiExtraBundle\Annotation\Service;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class SecurityController extends Controller
+/**
+ * Class SecurityController
+ *
+ * @Route(
+ *   "/",
+ *   defaults={"_format": "json"},
+ *   requirements={
+ *     "_format": "json|xml|yml"
+ *   },
+ *   options={"expose"=true}
+ * )
+ */
+class SecurityController extends SerializerController
 {
     /**
-     * @Route("/login", name="login")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(
+     *   "/user/me.{_format}",
+     *   name="security_user_current"
+     * )
+     * @Method({"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function loginAction()
+    public function getCurrentUserAction(Request $request)
     {
-        $helper = $this->get('security.authentication_utils');
-
-        return $this->render(
-            'security/login.html.twig',
-            array(
-                // last username entered by the user
-                'last_username' => $helper->getLastUsername(),
-                'error'         => $helper->getLastAuthenticationError(),
-            )
-        );
+        return $this->serialize($this->getUser(), $request->getRequestFormat());
     }
 }

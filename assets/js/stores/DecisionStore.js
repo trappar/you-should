@@ -68,6 +68,13 @@ class DecisionStore extends EventEmitter {
     return (this.decisions.hasOwnProperty(id)) ? this.decisions[id] : null;
   }
 
+  _setDecisions(decisions) {
+    this._clearAll();
+    _.map(decisions, (decision) => {
+      this._addDecision(decision);
+    });
+  }
+
   _addDecision(decision) {
     decision = _.omit(decision, 'choices');
     if (!decision.hasOwnProperty('added')) {

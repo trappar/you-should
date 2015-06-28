@@ -1,4 +1,4 @@
+/*eslint-disable */
 module.exports = [
-    "web/style",
-    "web/js"
+  "web/style"
 ];
