@@ -5,13 +5,13 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
 export default {
-  receiveMultiple: (decisions) => {
+  receiveMultiple: function(decisions) {
     AppDispatcher.dispatch({
       type: AppConstants.DECISION.RECEIVE_MULTIPLE,
       decisions: decisions
     });
   },
-  refresh: () => {
+  refresh: function() {
     $.ajax({
       accepts: 'json',
       dataType: 'json',
@@ -26,14 +26,14 @@ export default {
       }
     });
   },
-  update: (decision) => {
+  update: function(decision) {
     AppDispatcher.dispatch({
       type: AppConstants.DECISION.UPDATE,
       decision: decision
     });
     this._updateApi(decision);
   },
-  _updateApi: _.debounce((decision) => {
+  _updateApi: _.debounce(function(decision) {
     $.ajax({
       accepts: 'json',
       dataType: 'json',
@@ -48,7 +48,7 @@ export default {
       }
     });
   }, 800),
-  add: _.throttle(() => {
+  add: _.throttle(function() {
     $.ajax({
       dataType: 'json',
       method: 'GET',
@@ -64,7 +64,7 @@ export default {
       }
     });
   }, 2000, {trailing: false}),
-  remove: (decision) => {
+  remove: function(decision) {
     $.ajax({
       dataType: 'json',
       method: 'DELETE',

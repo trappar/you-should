@@ -4,7 +4,7 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
 export default {
-  new: (decisionId) => {
+  new: function(decisionId) {
     AppDispatcher.dispatch({
       type: AppConstants.ANSWER.REMOVE,
       decisionId: decisionId
@@ -26,7 +26,7 @@ export default {
       }
     });
   },
-  logActivity: (choice) => {
+  logActivity: function(choice) {
     AppDispatcher.dispatch({
       type: AppConstants.ANSWER.ISDONE,
       answer: choice

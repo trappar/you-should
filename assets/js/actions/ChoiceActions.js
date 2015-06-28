@@ -5,14 +5,14 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import AppConstants from '../constants/AppConstants.js';
 
 export default {
-  update: (choice) => {
+  update: function(choice) {
     AppDispatcher.dispatch({
       type: AppConstants.CHOICE.UPDATE,
       choice: choice
     });
     this._updateApi(choice);
   },
-  _updateApi: _.debounce((choice) => {
+  _updateApi: _.debounce(function(choice) {
     $.ajax({
       accepts: 'json',
       dataType: 'json',
@@ -27,7 +27,7 @@ export default {
       }
     });
   }, 800),
-  add: _.throttle((decisionId) => {
+  add: _.throttle(function(decisionId) {
     $.ajax({
       dataType: 'json',
       method: 'GET',
@@ -44,7 +44,7 @@ export default {
       }
     });
   }, 2000, {trailing: false}),
-  remove: (choice) => {
+  remove: function(choice) {
     $.ajax({
       dataType: 'json',
       method: 'DELETE',
