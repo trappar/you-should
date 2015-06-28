@@ -14,7 +14,7 @@ class DefaultController extends Controller
 {
     public function reactRouterAction($url)
     {
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(13);
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['username' => 'user']);
         $this->get('manager.user')->setCurrentUser($user);
 
         return $this->render('react_router.html.twig');
