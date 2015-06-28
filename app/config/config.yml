@@ -85,8 +85,3 @@ jms_di_extra:
         directories:
             - "%kernel.root_dir%/../src/AppBundle/Manager"
             - "%kernel.root_dir%/../src/AppBundle/Security"
-
-kunstmaan_live_reload:
-    enabled: true
-    host: localhost
-    port: 35729
