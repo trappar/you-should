@@ -3,28 +3,25 @@
     "license": "GPLv3",
     "type": "project",
     "autoload": {
-        "psr-4": {
-            "": "src/",
-            "SymfonyStandard\\": "app/"
-        }
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "~2.7.0",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
+        "symfony/symfony": "2.8.*",
+        "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~3.0,>=3.0.12",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "sensio/distribution-bundle": "~5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "hautelook/alice-bundle": "^0.2.0",
-        "jms/di-extra-bundle": "^1.5",
+        "hautelook/alice-bundle": "^1.1.0",
+        "jms/di-extra-bundle": "^1.6",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "jms/serializer-bundle": "^0.13.0",
-        "kunstmaan/live-reload-bundle": "^3.1"
+        "jms/serializer-bundle": "^1.1.0",
+        "kunstmaan/live-reload-bundle": "^3.4",
+        "doctrine/data-fixtures": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

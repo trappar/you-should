@@ -1,7 +1,7 @@
 AppBundle\Entity\User:
     user1:
         username: user
-        password: <encodePassword('test')>
+        password: <password('test')>
         email: user@test.com
         roles: [ROLE_USER, ROLE_ADMIN]
 

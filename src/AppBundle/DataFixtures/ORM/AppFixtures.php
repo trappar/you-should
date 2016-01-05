@@ -2,28 +2,18 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\User;
-use Hautelook\AliceBundle\Alice\DataFixtureLoader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 use Nelmio\Alice\Fixtures;
 
-class AppFixtures extends DataFixtureLoader
+class AppFixtures extends AbstractLoader
 {
     /**
      * {@inheritDoc}
      */
-    protected function getFixtures()
+    public function getFixtures()
     {
         return  array(
             __DIR__ . '/fixtures.yml',
         );
-    }
-
-    public function encodePassword($data)
-    {
-        $user = new User();
-        $encoder = $this->container->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, $data);
-
-        return $password;
     }
 }
