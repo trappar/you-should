@@ -1,0 +1,49 @@
+@import "../../../colors";
+@import "swatch";
+
+.theme-picker-container {
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.theme-picker {
+  margin-left: 10px;
+
+  .swatch-container {
+    $bg-color: rgba(100, 100, 100, 0.75);
+
+    background: $bg-color;
+    position: absolute;
+    width: 238px;
+    top: -45px;
+    left: 105px;
+    padding: 5px;
+    border-radius: 10px;
+    z-index: 1;
+
+    &:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 7px 7px 7px 0;
+      border-color: transparent $bg-color;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: 55px;
+      left: -7px;
+    }
+
+    display: none;
+    &.open {
+      display: inline;
+    }
+
+    .swatch {
+      float: left;
+      margin: 2px;
+      border: 2px solid #eeeeee;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import "../../../colors";
+
+@mixin swatch-variant($color, $hover-color) {
+    background: $color;
+    &.clickable:hover {
+        background: $hover-color;
+    }
+}
+
+.swatch {
+    content: '';
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    user-select: none;
+    transition: background .7s;
+    cursor: pointer;
+    outline: none;
+
+    &.clickable:hover {
+        transition: none;
+    }
+
+    &.red { @include swatch-variant($red-500, $red-700); }
+    &.pink { @include swatch-variant($pink-500, $pink-600); }
+    &.purple { @include swatch-variant($purple-500, $purple-600); }
+    &.deep-purple { @include swatch-variant($deep-purple-500, $deep-purple-600); }
+    &.indigo { @include swatch-variant($indigo-500, $indigo-600); }
+    &.blue { @include swatch-variant($blue-500, $blue-600); }
+    &.cyan { @include swatch-variant($cyan-500, $cyan-600); }
+    &.teal { @include swatch-variant($teal-500, $teal-600); }
+    &.green { @include swatch-variant($green-500, $green-600); }
+    &.light-green { @include swatch-variant($light-green-500, $light-green-600); }
+    &.lime { @include swatch-variant($lime-300, $lime-400); }
+    &.yellow { @include swatch-variant($yellow-300, $yellow-400); }
+    &.amber { @include swatch-variant($amber-300, $amber-400); }
+    &.orange { @include swatch-variant($orange-500, $orange-600); }
+    &.deep-orange { @include swatch-variant($deep-orange-500, $deep-orange-600); }
+    &.brown { @include swatch-variant($brown-500, $brown-700); }
+    &.grey { @include swatch-variant($grey-500, $grey-700); }
+    &.blue-grey { @include swatch-variant($blue-grey-500, $blue-grey-600); }
+}

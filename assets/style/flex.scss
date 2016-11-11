@@ -1,0 +1,66 @@
+$responsive-sizes: (xs: 0, sm: 768px, md: 980px, lg: 1200px);
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+.container, .container-fluid {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.container-no-padding {
+  padding: 0;
+}
+
+@each $sizeName, $size in $responsive-sizes {
+  @media screen and (min-width: $size) {
+    @if $size > 0 {
+      .container {
+        width: $size;
+      }
+    }
+    .container-#{$sizeName}-no-padding {
+      padding: 0;
+    }
+    $allCols: '.col-shrink, .col-grow';
+    .col {
+      &-shrink {
+        flex: none;
+      }
+      &-grow {
+        flex: auto;
+        max-width: 100%;
+      }
+      @for $i from 1 through 12 {
+        $allCols: $allCols + ', .col-#{$sizeName}-#{$i}';
+        &-#{$sizeName}-#{$i} {
+          flex-basis: $i/12*100%;
+          max-width: $i/12*100%;
+        }
+        &-#{$sizeName}-offset-#{$i} {
+          margin-left: $i/12*100%;
+        }
+      }
+    }
+    #{$allCols} {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+    .col-#{$sizeName}-no-padding {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}
+
+.col-no-padding {
+  padding-right: 0;
+  padding-left: 0;
+}

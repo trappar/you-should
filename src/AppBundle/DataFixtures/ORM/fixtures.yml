@@ -1,46 +1,59 @@
 AppBundle\Entity\User:
     user1:
         username: user
-        password: <password('test')>
+        plainPassword: test
         email: user@test.com
-        roles: [ROLE_USER, ROLE_ADMIN]
+        roles: [ROLE_USER]
+        emailConfirmed: true
+    user2:
+        username: admin
+        plainPassword: test
+        email: admin@test.com
+        roles: [ROLE_ADMIN]
+        emailConfirmed: true
 
 AppBundle\Entity\Decision:
     decision1:
         question: What should I do?
-        user: @user1
+        user: '@user1'
         theme: indigo
     decision2:
         question: What should I eat?
-        user: @user1
+        user: '@user1'
         theme: red
     decision3:
         question: What board game should I play?
-        user: @user1
+        user: '@user1'
         theme: blue-grey
 
 AppBundle\Entity\Choice:
     choice1:
         name: Play Guitar
-        priority: 5.0
-        decision: @decision1
+        priority: 10.0
+        decision: '@decision1'
     choice2:
         name: Play Drums
-        priority: 5.0
-        decision: @decision1
+        priority: 20.0
+        decision: '@decision1'
     choice3:
         name: Play Piano
-        priority: 3.0
-        decision: @decision1
+        priority: 5.0
+        decision: '@decision1'
     choice4:
         name: Go outside
-        priority: 1.0
-        decision: @decision1
+        priority: 2.0
+        decision: '@decision1'
 
 AppBundle\Entity\Activity:
     activity{1..5}:
         date: <dateTimeBetween('-1 week', 'now')>
-        choice: @choice1
+        choice: '@choice1'
     activity{6..10}:
         date: <dateTimeBetween('-1 week', 'now')>
-        choice: @choice2
+        choice: '@choice2'
+
+AppBundle\Entity\Post:
+    post{1..5}:
+        subject: <sentence(6, true)>
+        body: <text(500)>
+        postedBy: '@user1'

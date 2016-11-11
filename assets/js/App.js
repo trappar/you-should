@@ -1,21 +1,46 @@
-import React, { PropTypes } from 'react';
-import { RouteHandler } from 'react-router';
-import Navigation from './components/navigation/Navigation.jsx';
+import React from 'react';
+import { BrowserRouter, Match, Miss } from 'react-router';
+import MatchWhenAuthorized from './components/primitives/MatchWhenAuthorized';
+import { Provider } from 'mobx-react';
+import Navigation from './components/navigation/Navigation';
+import NewsPage from './pages/NewsPage';
+import LoginPage from './pages/LoginPage';
+import DecisionsPage from './pages/DecisionsPage';
+import LogoutPage from './pages/LogoutPage';
+import NoMatch from './pages/NoMatch';
+import 'bootstrap/dist/js/bootstrap';
 
-export default React.createClass({
-  propTypes: {
-    params: PropTypes.object.isRequired,
-    query: PropTypes.object.isRequired
-  },
-  render: function() {
+let DevTools;
+if (process.env.NODE_ENV === 'development') {
+  DevTools = require('mobx-react-devtools').default;
+} else {
+  DevTools = () => null;
+}
+
+DevTools = () => null;
+
+export default class App extends React.Component {
+  render() {
+    const user = this.props.stores.user;
+
     return (
-      <div className='App'>
-        <Navigation />
-
-        <div className="container" role="main">
-          <RouteHandler {...this.props} />
-        </div>
-      </div>
+      <BrowserRouter>
+        <Provider {...this.props.stores}>
+          <div>
+            <Navigation />
+            <Match pattern="/" exactly={true} component={NewsPage}/>
+            <Match pattern="/(login|register)" component={LoginPage}/>
+            <MatchWhenAuthorized pattern="/decisions" component={DecisionsPage} user={user}/>
+            <MatchWhenAuthorized pattern="/logout" component={LogoutPage} user={user}/>
+            <Miss component={NoMatch}/>
+            <DevTools/>
+          </div>
+        </Provider>
+      </BrowserRouter>
     );
   }
-});
+}
+
+App.propTypes = {
+  stores: React.PropTypes.object.isRequired
+};

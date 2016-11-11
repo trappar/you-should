@@ -1,0 +1,59 @@
+@import '~bootstrap/scss/mixins/buttons';
+@import '../colors';
+
+@mixin decision-button-variant($color, $background, $hover) {
+  @include button-variant($color, $background, $background);
+  transition: color .7s, background .7s, border .7s;
+
+  &:hover {
+    transition: none;
+    background: $hover;
+    border-color: $hover;
+  }
+
+  &:focus,&:active {
+    background: $hover;
+    border-color: $hover;
+    outline: none !important;
+  }
+}
+
+.btn-red { @include decision-button-variant(#ffffff, $red-500, $red-700); }
+.btn-pink { @include decision-button-variant(#ffffff, $pink-500, $pink-600); }
+.btn-purple { @include decision-button-variant(#ffffff, $purple-500, $purple-600); }
+.btn-deep-purple { @include decision-button-variant(#ffffff, $deep-purple-500, $deep-purple-600); }
+.btn-indigo { @include decision-button-variant(#ffffff, $indigo-500, $indigo-600); }
+.btn-blue { @include decision-button-variant(#ffffff, $blue-500, $blue-600); }
+.btn-light-blue { @include decision-button-variant(#ffffff, $light-blue-500, $light-blue-600); }
+.btn-cyan { @include decision-button-variant(#ffffff, $cyan-500, $cyan-600); }
+.btn-teal { @include decision-button-variant(#ffffff, $teal-500, $teal-600); }
+.btn-green { @include decision-button-variant(#ffffff, $green-500, $green-600); }
+.btn-light-green { @include decision-button-variant(#ffffff, $light-green-500, $light-green-600); }
+.btn-lime { @include decision-button-variant(#333333, $lime-300, $lime-200); }
+.btn-yellow { @include decision-button-variant(#333333, $yellow-300, $yellow-200); }
+.btn-amber { @include decision-button-variant(#333333, $amber-300, $amber-200); }
+.btn-orange { @include decision-button-variant(#ffffff, $orange-500, $orange-600); }
+.btn-deep-orange { @include decision-button-variant(#ffffff, $deep-orange-500, $deep-orange-600); }
+.btn-brown { @include decision-button-variant(#ffffff, $brown-500, $brown-700); }
+.btn-grey { @include decision-button-variant(#ffffff, $grey-500, $grey-700); }
+.btn-blue-grey { @include decision-button-variant(#ffffff, $blue-grey-500, $blue-grey-600); }
+
+.btn-alt-red { @include decision-button-variant(#ffffff, $red-300, $red-400); }
+.btn-alt-pink { @include decision-button-variant(#ffffff, $pink-300, $pink-400); }
+.btn-alt-purple { @include decision-button-variant(#ffffff, $purple-300, $purple-400); }
+.btn-alt-deep-purple { @include decision-button-variant(#ffffff, $deep-purple-300, $deep-purple-400); }
+.btn-alt-indigo { @include decision-button-variant(#ffffff, $indigo-300, $indigo-400); }
+.btn-alt-blue { @include decision-button-variant(#ffffff, $blue-300, $blue-400); }
+.btn-alt-light-blue { @include decision-button-variant(#ffffff, $light-blue-300, $light-blue-400); }
+.btn-alt-cyan { @include decision-button-variant(#ffffff, $cyan-300, $cyan-400); }
+.btn-alt-teal { @include decision-button-variant(#ffffff, $teal-300, $teal-400); }
+.btn-alt-green { @include decision-button-variant(#ffffff, $green-300, $green-400); }
+.btn-alt-light-green { @include decision-button-variant(#ffffff, $light-green-300, $light-green-400); }
+.btn-alt-lime { @include decision-button-variant(#ffffff, $lime-600, $lime-700); }
+.btn-alt-yellow { @include decision-button-variant(#ffffff, $yellow-600, $yellow-700); }
+.btn-alt-amber { @include decision-button-variant(#ffffff, $amber-600, $amber-700); }
+.btn-alt-orange { @include decision-button-variant(#ffffff, $orange-A200, $orange-A400); }
+.btn-alt-deep-orange { @include decision-button-variant(#ffffff, $deep-orange-300, $deep-orange-400); }
+.btn-alt-brown { @include decision-button-variant(#ffffff, $brown-300, $brown-500); }
+.btn-alt-grey { @include decision-button-variant(#ffffff, $grey-500, $grey-400); }
+.btn-alt-blue-grey { @include decision-button-variant(#ffffff, $blue-grey-300, $blue-grey-400); }

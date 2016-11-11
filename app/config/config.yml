@@ -18,16 +18,18 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
+    serializer:
+        enabled: true
+        enable_annotations: true
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
 
@@ -35,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        domain: "%domain%"
 
 # Doctrine Configuration
 doctrine:
@@ -69,6 +73,7 @@ swiftmailer:
 jms_di_extra:
     locations:
         directories:
+            - "%kernel.root_dir%/../src/AppBundle/EventListener"
             - "%kernel.root_dir%/../src/AppBundle/Manager"
             - "%kernel.root_dir%/../src/AppBundle/Security"
-            - "%kernel.root_dir%/../src/AppBundle/DataFixtures/Faker"
+            - "%kernel.root_dir%/../src/AppBundle/Service"

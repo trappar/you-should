@@ -1,0 +1,51 @@
+@import "choice";
+@import "theme-picker/theme-picker";
+
+.config {
+  background: white;
+  color: #444;
+
+  ul {
+    list-style: none;
+  }
+
+  label.control-label {
+    text-align: left;
+  }
+
+  .add-choice {
+    cursor: pointer;
+  }
+
+  .choices-header-bar {
+    align-items: center;
+    margin-bottom: 15px;
+
+    .col-grow {
+      text-align: right;
+    }
+    ul {
+      margin: 0;
+    }
+  }
+
+  .choices-bottom-controls {
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+
+    .filter-container {
+      > input {
+        box-sizing: border-box;
+        padding-right: 30px;
+      }
+      > a {
+        cursor: pointer;
+        position: absolute;
+        top: 7px;
+        right: 10px;
+      }
+    }
+  }
+}

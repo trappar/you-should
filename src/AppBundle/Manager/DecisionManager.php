@@ -17,15 +17,35 @@ use JMS\DiExtraBundle\Annotation AS DI;
  */
 class DecisionManager
 {
-    public function getDecisionsForUserWithAnswers(User $user)
-    {
-        $decisions = $user->getDecisions();
+    /**
+     * @var EntityManager
+     */
+    private $em;
 
-        foreach ($decisions as $decision) {
-            $decision->setAnswer($this->pickChoice($decision));
+    /**
+     * DecisionManager constructor.
+     * @DI\InjectParams({
+     *     "em" = @DI\Inject("doctrine.orm.entity_manager")
+     * })
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em) {
+        $this->em = $em;
+    }
+
+    public function getDecisionsForUserWithAnswers(User $user = null)
+    {
+        if ($user) {
+            $decisions = $this->em->getRepository('AppBundle:Decision')->findDecisionsForUser($user);
+
+            foreach ($decisions as $decision) {
+                $decision->setAnswer($this->pickChoice($decision));
+            }
+
+            return $decisions;
         }
 
-        return $decisions;
+        return null;
     }
 
     /**
@@ -35,18 +55,18 @@ class DecisionManager
     public function pickChoice(Decision $decision)
     {
         $choices = $decision->getChoices();
-        $choices = $choices->filter(function($choice){
+        $choices = $choices->filter(function ($choice) {
             /** @var Choice $choice */
             return strlen($choice->getName());
         });
 
-        $totalPriority = array_reduce($choices->getValues(), function($total, $choice){
+        $totalPriority = array_reduce($choices->getValues(), function ($total, $choice) {
             /** @var Choice $choice */
             return $total + $choice->getAdjustedPriority();
         }, 0);
 
-        $random = rand() / getrandmax() * $totalPriority;
-        $current = 0;
+        $random       = rand() / getrandmax() * $totalPriority;
+        $current      = 0;
         $chosenChoice = null;
         foreach ($choices as $choice) {
             if ($random > $current && $random <= $current + $choice->getAdjustedPriority()) {

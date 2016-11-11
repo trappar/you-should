@@ -1,13 +1,24 @@
 /* global appState */
-import {} from 'bootstrap';
 import React from 'expose?React!react';
-import Routes from './Routes';
-import Router from 'react-router';
-import UserActions from './actions/UserActions.js';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import App from './App';
+import AppStores from './stores/AppStores';
+import 'whatwg-fetch';
 
-// This comes from the twig template
-UserActions.setUser(appState.user);
+const appStores = new AppStores(appState);
 
-Router.run(Routes, Router.HistoryLocation, (Handler, state) =>
-  React.render(<Handler {...state} />, document.getElementById('root'))
-);
+const renderApp = (App) => {
+  render((
+    <AppContainer>
+      <App stores={appStores}/>
+    </AppContainer>
+  ), document.getElementById('root'));
+};
+
+renderApp(App);
+
+// Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./App', () => renderApp(require('./App').default));
+}

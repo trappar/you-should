@@ -5,66 +5,61 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as SER;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Choice
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="ChoiceRepository")
- * @SER\ExclusionPolicy("none")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ChoiceRepository")
  */
 class Choice
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"decision"})
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"decision"})
      */
-    private $name;
+    private $name = '';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="priority", type="float")
+     * @ORM\Column(type="float")
+     * @Groups({"decision"})
      */
-    private $priority;
+    private $priority = 10;
 
     /**
      * @var Decision
      *
-     * @ORM\ManyToOne(targetEntity="Decision", inversedBy="choices")
-     * @ORM\JoinColumn(name="decision_id", referencedColumnName="id")
-     * @SER\Exclude()
+     * @ORM\ManyToOne(targetEntity="Decision", inversedBy="choices", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $decision;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice", cascade={"remove"})
-     * @SER\Exclude()
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="choice", cascade={"persist", "remove"})
      */
     private $activities;
 
-    /**
-     * @SER\Exclude()
-     */
     private $adjustedPriority;
 
     public function __construct()
     {
-        $this->name = "";
-        $this->priority = 10;
         $this->activities = new ArrayCollection();
     }
 
@@ -167,15 +162,5 @@ class Choice
         }
 
         return $this->adjustedPriority;
-    }
-
-    /**
-     * @SER\VirtualProperty()
-     * @SER\SerializedName("decisionId")
-     * @return int
-     */
-    public function getDecisionId()
-    {
-        return $this->getDecision()->getId();
     }
 }

@@ -1,12 +1,13 @@
 fos_js_routing:
-    resource: @FOSJsRoutingBundle/Resources/config/routing/routing.xml
+    resource: '@FOSJsRoutingBundle/Resources/config/routing/routing.xml'
 
 app:
-    resource: @AppBundle/Controller/
+    resource: '@AppBundle/Controller/'
     type: annotation
 
-login_check:
-    path: /login_check
+auth:
+    path: /user/auth.{_format}
+    requirements: {_format: "json|xml|yml"}
     options:
         expose: true
 
@@ -16,7 +17,9 @@ logout:
         expose: true
 
 react_router:
-    path: "{url}"
+    path: "/{url}"
     defaults:
         url: ""
         _controller: AppBundle:Default:reactRouter
+    requirements:
+        url: ".*"

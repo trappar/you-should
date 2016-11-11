@@ -17,13 +17,12 @@ security:
         default:
             anonymous: ~
             provider: db_users
-            form_login:
-                login_path: login
-                check_path: login_check
+            simple_form:
+                authenticator: user_authenticator
+                check_path: auth
                 success_handler: authentication_handler
                 failure_handler: authentication_handler
                 username_parameter: username
-                password_parameter: password
+                password_parameter: plainPassword
             logout:
                 path:   /logout
-                success_handler: authentication_handler

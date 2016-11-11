@@ -1,0 +1,31 @@
+@keyframes spinning {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@mixin spinning-animation() {
+  animation: spinning 700ms linear infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: translateX(0)
+  }
+  33% {
+    transform: translateX(-10px)
+  }
+  66% {
+    transform: translateX(10px)
+  }
+  100% {
+    transform: translateX(0)
+  }
+}
+
+.animate-shaking {
+  animation: shaking .15s linear 0s 2;
+}

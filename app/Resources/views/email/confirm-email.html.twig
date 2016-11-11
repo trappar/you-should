@@ -1,0 +1,4 @@
+{% set url = url('security_user_confirm', {token: token.token}) %}
+<p>Thank you for creating an account at {{ domain }}!</p>
+<p><a href="{{ url }}">Click here to confirm your account</a></p>
+<p>Or copy this URL into a web browser: {{ url }}</p>

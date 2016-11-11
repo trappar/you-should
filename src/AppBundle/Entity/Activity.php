@@ -9,14 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
  * Activity
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="ActivityRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ActivityRepository")
  */
 class Activity
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,7 +25,7 @@ class Activity
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
@@ -33,7 +33,7 @@ class Activity
      * @var Choice
      *
      * @ORM\ManyToOne(targetEntity="Choice", inversedBy="activities")
-     * @ORM\JoinColumn(name="choice_id", referencedColumnName="id")
+     * @ORM\JoinColumn()
      */
     private $choice;
 
@@ -96,13 +96,5 @@ class Activity
     public function getChoice()
     {
         return $this->choice;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }

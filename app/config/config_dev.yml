@@ -6,6 +6,11 @@ framework:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
         strict_requirements: true
     profiler: { only_exceptions: false }
+    assets:
+        packages:
+            webpack:
+                base_urls:
+                    - http://localhost:8080/
 
 web_profiler:
     toolbar: true
@@ -43,8 +48,3 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
-
-kunstmaan_live_reload:
-    enabled: true
-    host: localhost
-    port: 35729

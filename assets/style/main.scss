@@ -1,0 +1,16 @@
+$fa-font-path: "~font-awesome/fonts";
+
+@import 'bootstrap';
+@import '~font-awesome/scss/font-awesome';
+@import '~bootstrap-slider/dist/css/bootstrap-slider';
+
+body { padding-top: 80px; }
+
+@import 'flex';
+
+@import 'decision/decision';
+@import 'fade';
+@import 'pager';
+@import 'page/login';
+@import 'page/logout';
+@import 'animations';

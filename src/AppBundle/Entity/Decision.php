@@ -5,13 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as SER;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Decision
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\DecisionRepository")
- * @SER\ExclusionPolicy("none")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DecisionRepository")
  */
 class Decision
 {
@@ -21,6 +21,7 @@ class Decision
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"decision"})
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Decision
      * @var string
      *
      * @ORM\Column(name="question", type="text")
+     * @Groups({"decision"})
      */
     private $question;
 
@@ -35,13 +37,14 @@ class Decision
      * @var string
      *
      * @ORM\Column(name="theme", type="string", length=20)
+     * @Groups({"decision"})
      */
-    private $theme;
+    private $theme = 'indigo';
 
     /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision", cascade={"remove"})
+     * @var ArrayCollection|Choice[]
+     * @ORM\OneToMany(targetEntity="Choice", mappedBy="decision", cascade={"persist", "remove"})
+     * @Groups({"decision"})
      */
     private $choices;
 
@@ -50,12 +53,12 @@ class Decision
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="decisions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @SER\Exclude()
      */
     private $user;
 
     /**
      * @var Choice
+     * @Groups({"decision"})
      */
     private $answer;
 
@@ -152,5 +155,10 @@ class Decision
     public function setAnswer($answer)
     {
         $this->answer = $answer;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getId();
     }
 }

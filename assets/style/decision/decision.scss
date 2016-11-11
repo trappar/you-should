@@ -1,0 +1,40 @@
+@import "../colors";
+@import "buttons";
+@import "question";
+@import "answer";
+@import "./config/config";
+
+.decisions-container {
+  > .row {
+    align-items: flex-start;
+  }
+}
+
+.decision {
+  max-width: 600px;
+  margin: 0 auto 1rem auto;
+
+  > div {
+    box-shadow: 0 7px 35px -7px rgba(0, 0, 0, 0.4);
+    padding: 20px 20px;
+  }
+}
+
+.add-decision {
+  max-width: 600px;
+  margin: 0 auto 1rem auto;
+  font-size: 3.3em;
+  height: 80px;
+  cursor: pointer;
+  text-align: center;
+  background: #fff linear-gradient(10deg, rgba($blue-100, 0.6), rgba($red-100, 0.6));
+  color: $grey-600;
+  box-shadow: 0 7px 35px -7px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  transition: background-color .7s;
+  &:hover {
+    background-color: #e6e6e6;
+    transition: none;
+  }
+}

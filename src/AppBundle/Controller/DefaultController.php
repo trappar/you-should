@@ -2,21 +2,27 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Choice;
-use AppBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function reactRouterAction($url)
+    public function reactRouterAction(Request $request)
     {
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(['username' => 'user']);
-        $this->get('manager.user')->setCurrentUser($user);
+        $serializer      = $this->get('serializer');
+        $decisionManager = $this->get('manager.decision');
 
-        return $this->render('react_router.html.twig');
+        $appState = $serializer->serialize(
+            [
+                'user'      => $this->getUser(),
+                'decisions' => $decisionManager->getDecisionsForUserWithAnswers($this->getUser()),
+                'alerts'   => count($flashes = $request->getSession()->getFlashBag()->all()) ? $flashes : null,
+                'posts' => $this->getDoctrine()->getRepository('AppBundle:Post')->findBy([], ['id' => 'desc'], 5),
+            ],
+            'json',
+            ['groups' => ['user', 'decision', 'post']]
+        );
+
+        return $this->render('react_router.html.twig', ['appState' => $appState]);
     }
 }
