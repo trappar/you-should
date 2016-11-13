@@ -151,11 +151,10 @@ class DecisionController extends Controller
      * )
      * @Method({"GET"})
      *
-     * @param Choice  $choice
-     * @param Request $request
+     * @param Choice $choice
      * @return Response
      */
-    public function logActivityAction(Choice $choice, Request $request)
+    public function logActivityAction(Choice $choice)
     {
         $activity = new Activity();
         $activity->setChoice($choice);
@@ -164,7 +163,7 @@ class DecisionController extends Controller
         $em->persist($activity);
         $em->flush();
 
-        return $this->serialize($choice, $request->getRequestFormat());
+        return new Response(null);
     }
 
     private function serialize($data, $format)

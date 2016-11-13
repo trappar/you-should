@@ -74,5 +74,4 @@ module.exports = merge({
       publicPath: '/dist/',
     }),
   ],
-  devtool: 'source-map',
 }, require('./webpack.config.default'));

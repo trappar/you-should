@@ -12,6 +12,7 @@ export default class Decision extends Entity {
         question: '',
         theme: 'indigo',
         choices: [],
+        answer: null,
       },
       observed: {
         UI: {
@@ -20,14 +21,20 @@ export default class Decision extends Entity {
           deleteConfirmation: false,
           loading: false,
           filter: '',
+          answerAccepted: false,
         }
       },
       unobserved: {
         id: uuid.v4(),
         unacceptedChanges: null,
-        alerts: new AlertStore(),
+        alerts: null,
       }
     }
+  }
+
+  constructor(domain, alerts) {
+    super(domain);
+    this.alerts = alerts;
   }
 
   update(domain) {
@@ -129,5 +136,44 @@ export default class Decision extends Entity {
 
   @action removeChoice(choice) {
     this.choices.remove(choice);
+  }
+
+  @action acceptAnswer() {
+    this.UI.answerAccepted = true;
+    this.UI.loading = true;
+    fetch(`/choice/${this.answer.id}/logActivity.json`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then((response) => response.json())
+      .then(action('accept-answer', json => {
+        this.UI.loading = false;
+        this.alerts.parent.clearErrors();
+      }))
+      .catch(e => {
+        this.UI.loading = false;
+        this.UI.answerAccepted = false;
+        this.alerts.parent.setError('Error communicating with server. Try accepting the answer again.')
+      });
+  }
+
+  @action declineAnswer() {
+    this.UI.answerAccepted = false;
+    this.UI.loading = true;
+    fetch(`/decision/${this.id}/answer.json`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then((response) => response.json())
+      .then(action('decline-answer', json => {
+        this.UI.loading = false;
+        this.answer = new Choice(json);
+        this.alerts.parent.clearErrors();
+      }))
+      .catch(e => {
+        this.UI.loading = false;
+        this.UI.answerAccepted = false;
+        this.alerts.parent.setError('Error communicating with server. Try accepting the answer again.')
+      });
   }
 }

@@ -34,6 +34,7 @@
   transition: background .7s, color .7s;
   flex-wrap: nowrap;
   align-items: center;
+  touch-action: manipulation;
 
   &.clickable:hover {
     cursor: pointer;

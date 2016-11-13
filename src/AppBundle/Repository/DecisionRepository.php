@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Decision;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
@@ -25,7 +26,8 @@ class DecisionRepository extends EntityRepository
             ->leftJoin('decision.choices', 'choices')
             ->leftJoin('choices.activities', 'activities')
             ->where('decision.user = :user')
-            ->setParameter('user', $user);
+            ->setParameter('user', $user)
+            ->orderBy('decision.id', 'ASC');
 
         if ($id) {
             $qb->andWhere('decision.id = :id')

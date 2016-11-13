@@ -9,7 +9,8 @@
     "test": "jest",
     "start": "concurrently -k -p '{name}' -c 'magenta,blue' -n 'SYMFONY,WEBPACK' 'bin/console server:run' 'cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js'",
     "build": "rimraf web/dist/* && cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js",
-    "startProd": "npm run build && bin/console cache:clear --env=prod && bin/console server:run --env=prod"
+    "startProd": "npm run build && bin/console cache:clear --env=prod && bin/console server:run --env=prod",
+    "deploy": "npm run build && scp -r web/dist you-should:/srv/you-should/web && ssh you-should /srv/deploy.sh"
   },
   "jest": {
     "testPathDirs": [

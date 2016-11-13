@@ -54,10 +54,6 @@ export default class DecisionsContainer extends React.Component {
 
     return (
       <div className="decisions-container">
-        <div className="container-fluid">
-          <StandardAlerts alerts={this.decisions.alerts}/>
-        </div>
-
         <MediaQuery className="row" minWidth={1200}>
           {this.splitDecisions(3, renderedDecisions)}
         </MediaQuery>

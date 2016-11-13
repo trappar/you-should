@@ -2,20 +2,20 @@ import React from 'react';
 import classNames from 'classnames';
 
 export default function Input(props) {
+  const {errors, valid, label, ...restProps} = props;
+
   return (
-    <div className={classNames('form-group', { 'has-danger': props.errors }, { 'has-success': props.valid })}>
+    <div className={classNames('form-group', { 'has-danger': errors }, { 'has-success': valid })}>
       <input
-        type={props.type}
-        className={classNames('form-control', 'form-control-lg', { 'form-control-danger': props.errors }, { 'form-control-success': props.valid })}
-        name={props.name}
+        className={classNames('form-control', 'form-control-lg', { 'form-control-danger': errors }, { 'form-control-success': valid })}
         id={props.name}
-        value={props.value}
-        placeholder={props.label}
+        placeholder={label}
         onChange={props.onChange}
+        {...restProps}
       />
-      {props.errors && (
+      {errors && (
         <div className="form-control-feedback">
-          {props.errors.map((error, i) => (
+          {errors.map((error, i) => (
             <div key={i}>{error}</div>
           ))}
         </div>

@@ -63,7 +63,7 @@ export default class DecisionStore {
   }
 
   @action add(decision) {
-    this.decisions.push(new Decision(decision))
+    this.decisions.push(new Decision(decision, this.alerts.getChild()))
   }
 
   @action remove(decision) {

@@ -12,14 +12,14 @@ export default observer(StandardAlerts);
 function StandardAlerts({ alerts }) {
   return (
     <div>
-      <Alert type="danger" onDismiss={() => alerts.clearErrors(true)}>
-        {alerts.errors}
+      <Alert type="danger" onDismiss={() => alerts.clear('error', 'parent')}>
+        {alerts.get('error', 'parent')}
       </Alert>
-      <Alert type="warning" onDismiss={() => alerts.clearWarnings(true)}>
-        {alerts.warnings}
+      <Alert type="warning" onDismiss={() => alerts.clear('warning', 'parent')}>
+        {alerts.get('warning', 'parent')}
       </Alert>
-      <Alert type="success" onDismiss={() => alerts.clearSuccesses(true)}>
-        {alerts.successes}
+      <Alert type="success" onDismiss={() => alerts.clear('success', 'parent')}>
+        {alerts.get('success', 'parent')}
       </Alert>
     </div>
   );

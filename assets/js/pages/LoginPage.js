@@ -49,8 +49,8 @@ export default class LoginPage extends React.Component {
             this.alerts.setError(json.error);
           } else {
             this.alerts.clearAll(true);
-            this.props.decisions.fetchIfNeeded();
             this.props.user.update(json);
+            this.props.decisions.fetchIfNeeded();
           }
         }))
         .catch(action('login-server-error', error => {
@@ -102,7 +102,7 @@ export default class LoginPage extends React.Component {
     const username = (
       <Validator key="username" enabled={this.registering} refStore={this.inputs}
                  validators={[Validator.constraint.length.min(4), Validator.constraint.length.max(25)]}>
-        <Input name="username" label="Username"/>
+        <Input name="username" label="Username" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
       </Validator>
     );
     const password = (
@@ -122,7 +122,7 @@ export default class LoginPage extends React.Component {
             Validator.constraint.email,
             Validator.constraint.length.max(100)
           ]}>
-            <Input name="email" label="Email Address"/>
+            <Input name="email" type="email" label="Email Address"/>
           </Validator>
         ),
         password,
