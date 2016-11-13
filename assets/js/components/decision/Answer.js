@@ -27,20 +27,19 @@ export default class Answer extends React.Component {
             ?
             <div className="row">
               <div className="col-grow">
-                {this.decision.answer.name}
+                {this.UI.loading ? 'Loading...' : this.decision.answer.name}
               </div>
               <div className="col-shrink col-no-padding">
                 {
                   this.UI.answerAccepted
                     ?
-                    this.UI.loading
-                      ?
-                      'Saving...'
-                      :
+                    (
+                      this.UI.loading ||
                       <Button extraClasses="btn-green"
                               onClick={() => this.decision.declineAnswer()}>
                         Give me another
                       </Button>
+                    )
                     :
                     <div className="btn-group">
                       <Button key="okay" extraClasses="btn-green" disabled={this.UI.loading}
