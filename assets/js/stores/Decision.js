@@ -2,7 +2,6 @@ import Entity from './Entity';
 import {computed, action} from 'mobx';
 import uuid from 'uuid';
 import Choice from './Choice';
-import AlertStore from './AlertStore';
 import deepMerge from 'deepmerge';
 
 export default class Decision extends Entity {
@@ -146,7 +145,6 @@ export default class Decision extends Entity {
       credentials: 'include'
     })
       .then(action('accept-answer', response => {
-        debugger;
         if (response.ok) {
           this.UI.loading = false;
           this.alerts.parent.clearErrors();

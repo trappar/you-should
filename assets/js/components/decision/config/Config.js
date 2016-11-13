@@ -30,7 +30,7 @@ export default class Config extends React.Component {
     if (this.UI.configuring) {
       return (
         <div className="config">
-          <StandardAlerts alerts={this.decision.alerts}/>
+          <StandardAlerts alerts={this.decision.alerts} direction="self"/>
 
           <Pager
             items={this.decision.filteredChoices.map((choice) => {

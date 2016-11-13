@@ -9,21 +9,22 @@ export default observer(StandardAlerts);
  * @returns {Object|null}
  * @constructor
  */
-function StandardAlerts({ alerts }) {
+function StandardAlerts({ alerts, direction = 'parent' }) {
   return (
     <div>
-      <Alert type="danger" onDismiss={() => alerts.clear('error', 'parent')}>
-        {alerts.get('error', 'parent')}
+      <Alert type="danger" onDismiss={() => alerts.clear('error', direction)}>
+        {alerts.get('error', direction)}
       </Alert>
-      <Alert type="warning" onDismiss={() => alerts.clear('warning', 'parent')}>
-        {alerts.get('warning', 'parent')}
+      <Alert type="warning" onDismiss={() => alerts.clear('warning', direction)}>
+        {alerts.get('warning', direction)}
       </Alert>
-      <Alert type="success" onDismiss={() => alerts.clear('success', 'parent')}>
-        {alerts.get('success', 'parent')}
+      <Alert type="success" onDismiss={() => alerts.clear('success', direction)}>
+        {alerts.get('success', direction)}
       </Alert>
     </div>
   );
 }
 StandardAlerts.propTypes = {
-  alerts: React.PropTypes.instanceOf(AlertStore)
+  alerts: React.PropTypes.instanceOf(AlertStore),
+  direction: React.PropTypes.string,
 };

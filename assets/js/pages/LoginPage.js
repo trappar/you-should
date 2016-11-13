@@ -160,6 +160,7 @@ export default class LoginPage extends React.Component {
         <DocumentTitle title={title + " | You Should"}/>
 
         <h1>{title}</h1>
+        <hr/>
 
         {!this.registering && referrer && (
           <div className="text-danger">You must login first.</div>
