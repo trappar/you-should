@@ -145,16 +145,17 @@ export default class Decision extends Entity {
       method: 'GET',
       credentials: 'include'
     })
-      .then((response) => response.json())
-      .then(action('accept-answer', json => {
-        this.UI.loading = false;
-        this.alerts.parent.clearErrors();
+      .then(action('accept-answer', response => {
+        debugger;
+        if (response.ok) {
+          this.UI.loading = false;
+          this.alerts.parent.clearErrors();
+        } else {
+          this.UI.loading = false;
+          this.UI.answerAccepted = false;
+          this.alerts.parent.setError('Error communicating with server. Try accepting the answer again.')
+        }
       }))
-      .catch(e => {
-        this.UI.loading = false;
-        this.UI.answerAccepted = false;
-        this.alerts.parent.setError('Error communicating with server. Try accepting the answer again.')
-      });
   }
 
   @action declineAnswer() {
@@ -173,7 +174,7 @@ export default class Decision extends Entity {
       .catch(e => {
         this.UI.loading = false;
         this.UI.answerAccepted = false;
-        this.alerts.parent.setError('Error communicating with server. Try accepting the answer again.')
+        this.alerts.parent.setError('Error communicating with server. Try asking for another answer again.')
       });
   }
 }
