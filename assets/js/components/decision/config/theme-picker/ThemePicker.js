@@ -1,9 +1,8 @@
-import React, {PropTypes} from 'react';
-import debounce from 'lodash/debounce';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import Swatch from './Swatch.js';
-import {observable} from 'mobx';
-import {observer} from 'mobx-react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 
 let THEMES = [
   'red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'cyan', 'teal', 'green', 'light-green',
@@ -11,30 +10,17 @@ let THEMES = [
 ];
 
 @observer
-export default class ThemePicker extends React.Component {
+export default class ThemePicker extends Component {
   @observable open = false;
 
-  openContainer() {
-    this.closeContainer.cancel();
-    this.open = true;
-  }
-
-  closeContainer() {
-    this.open = false;
-  }
-
-  componentWillMount() {
-    this.closeContainer = debounce(this.closeContainer, 300);
-  }
-
-  componentWillUnmount() {
-    this.closeContainer.cancel();
-  }
+  toggleContainer = () => this.open = !this.open;
+  blurContainer = () => this.open = false;
+  changeTheme = (theme) => () => this.props.themeChanged(theme);
 
   render() {
     let containerClasses = classNames(
       'swatch-container',
-      {open: this.open}
+      { open: this.open }
     );
 
     let allSwatches = THEMES.map(function(theme) {
@@ -42,7 +28,7 @@ export default class ThemePicker extends React.Component {
         <Swatch
           theme={theme}
           key={theme}
-          onClick={() => this.props.themeChanged(theme)}
+          onMouseDown={this.changeTheme(theme)}
         />
       );
     }, this);
@@ -53,10 +39,8 @@ export default class ThemePicker extends React.Component {
 
         <div className="theme-picker">
           <Swatch
-            onClick={() => this.open = !this.open}
-            onBlur={debounce(() => {
-              this.open = false
-            }, 100)}
+            onClick={this.toggleContainer}
+            onBlur={this.blurContainer}
             theme={this.props.currentTheme}
           />
 
@@ -68,8 +52,7 @@ export default class ThemePicker extends React.Component {
     );
   }
 }
-
 ThemePicker.propTypes = {
-  currentTheme: PropTypes.string.isRequired,
-  themeChanged: PropTypes.func
+  currentTheme: PropTypes.string,
+  themeChanged: PropTypes.func,
 };

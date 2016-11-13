@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import NavItem from './NavItem';
 import { Link } from 'react-router';
 import { observer } from 'mobx-react';
 
 @observer(['user'])
-export default class Navigation extends React.Component {
+export default class Navigation extends Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-inverse navbar-fixed-top">

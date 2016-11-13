@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import StandardAlerts from '../components/primitives/StandardAlerts';
 import { observer } from 'mobx-react';
 
 @observer(['posts', 'alerts'])
-export default class NewsPage extends React.Component {
+export default class NewsPage extends Component {
   render() {
     return (
       <div className="container">

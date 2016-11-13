@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Button from '../../primitives/Button';
 import Pager from '../../primitives/Pager';
 import Icon from '../../primitives/Icon';
@@ -10,21 +10,21 @@ import Decision from '../../../stores/Decision';
 import StandardAlerts from '../../primitives/StandardAlerts';
 
 @observer
-export default class Config extends React.Component {
+export default class Config extends Component {
   constructor(props) {
     super(props);
     this.decision = props.decision;
     this.UI = props.decision.UI;
   }
 
-  addChoice() {
+  addChoice = () => {
     this.decision.setFilter();
     this.decision.addChoice();
-  }
-
-  removeChoice(choice) {
-    this.decision.removeChoice(choice);
-  }
+  };
+  removeChoice = (choice) => () => this.decision.removeChoice(choice);
+  setTheme = (theme) => this.decision.setTheme(theme);
+  clearFilter = () => this.decision.setFilter();
+  handleFilterChange = (event) => this.decision.setFilter(event.target.value);
 
   render() {
     if (this.UI.configuring) {
@@ -38,8 +38,8 @@ export default class Config extends React.Component {
                 <ChoiceControl
                   key={choice.id}
                   choice={choice}
-                  addChoice={() => this.addChoice()}
-                  removeChoice={() => this.removeChoice(choice)}
+                  addChoice={this.addChoice}
+                  removeChoice={this.removeChoice(choice)}
                 />
               );
             })}
@@ -62,7 +62,7 @@ export default class Config extends React.Component {
           <div>
             <div className="choices-bottom-controls row">
               <div className="col-grow col-no-padding">
-                <LinkButton className="add-choice" onClick={() => this.addChoice()}>
+                <LinkButton className="add-choice" onClick={this.addChoice}>
                   <Icon type="plus"/> Add Choice
                 </LinkButton>
               </div>
@@ -71,9 +71,9 @@ export default class Config extends React.Component {
                 <div className="col-xs-6 col-no-padding filter-container">
                   <input type="text" className="form-control" placeholder="Filter Choices"
                          value={this.UI.filter}
-                         onChange={(e) => this.decision.setFilter(e.target.value)}
+                         onChange={this.handleFilterChange}
                   />
-                  <a className="input-clear" onClick={() => this.decision.setFilter()}>
+                  <a className="input-clear" onClick={this.clearFilter}>
                     <Icon type="times-circle"/>
                   </a>
                 </div>
@@ -83,21 +83,21 @@ export default class Config extends React.Component {
 
           <ThemePicker
             currentTheme={this.decision.theme}
-            themeChanged={theme => this.decision.setTheme(theme)}
+            themeChanged={this.setTheme}
           />
 
           <div className="row">
             <div className="col-xs-offset-1 col-xs-5">
               <Button
                 extraClasses={`btn-${this.decision.theme} form-control`}
-                onClick={() => this.props.onSave()}>
+                onClick={this.props.onSave}>
                 Save
               </Button>
             </div>
             <div className="col-xs-5">
               <Button
                 extraClasses={`btn-${this.decision.theme} form-control`}
-                onClick={() => this.props.onCancel()}>
+                onClick={this.props.onCancel}>
                 Cancel
               </Button>
             </div>
@@ -111,7 +111,7 @@ export default class Config extends React.Component {
 }
 
 Config.propTypes = {
-  decision: React.PropTypes.instanceOf(Decision),
-  onSave: React.PropTypes.func,
-  onCancel: React.PropTypes.func,
+  decision: PropTypes.instanceOf(Decision),
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
 };

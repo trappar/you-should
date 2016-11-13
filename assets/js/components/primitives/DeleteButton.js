@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import omit from 'lodash/omit';
 import Button from './Button';
 import Icon from './Icon';
-import {observable} from 'mobx';
-import {observer} from 'mobx-react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 
 @observer
-export default class DeleteButton extends React.Component {
+export default class DeleteButton extends Component {
   @observable confirmation = false;
   @observable confirmed = false;
 
@@ -14,7 +15,7 @@ export default class DeleteButton extends React.Component {
     this.timeout = null;
   }
 
-  handleRemove(event) {
+  handleRemove = (event) => {
     event.stopPropagation();
     if (!this.confirmed) {
       if (this.confirmation === false) {
@@ -36,7 +37,7 @@ export default class DeleteButton extends React.Component {
         }
       }
     }
-  }
+  };
 
   render() {
     let buttonContents;
@@ -51,23 +52,21 @@ export default class DeleteButton extends React.Component {
       buttonContents = 'Removing';
     }
 
-    const {onDelete, onConfirm, delay, ...props} = this.props;
+    const props = omit(this.props, ['onDelete', 'onConfirm', 'delay']);
     props.disabled = props.disabled || this.confirmed;
 
     return (
-      <Button onClick={(e) => this.handleRemove(e)} {...props} >
+      <Button onClick={this.handleRemove} {...props} >
         {buttonContents}
       </Button>
     );
   }
 }
-
 DeleteButton.propTypes = {
-  onDelete: React.PropTypes.func,
-  onConfirm: React.PropTypes.func,
-  delay: React.PropTypes.number
+  onDelete: PropTypes.func,
+  onConfirm: PropTypes.func,
+  delay: PropTypes.number
 };
-
 DeleteButton.defaultProps = {
   delay: 1500
 };

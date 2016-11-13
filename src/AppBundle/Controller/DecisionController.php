@@ -115,7 +115,7 @@ class DecisionController extends Controller
 
     /**
      * @Route(
-     *   "/decision/{id}.{_format}",
+     *   "/decision/{id}",
      *   name="decision_remove",
      *   requirements={"id": "\d+"}
      * )
@@ -123,22 +123,15 @@ class DecisionController extends Controller
      * @Security("is_granted('manage', decision)")
      *
      * @param Decision $decision
-     * @param Request  $request
      * @return Response
      */
-    public function removeAction(Decision $decision, Request $request)
+    public function removeAction(Decision $decision)
     {
-        $response = [
-            'id' => $decision->getId()
-        ];
-
         $em = $this->getDoctrine()->getManager();
         $em->remove($decision);
         $em->flush();
 
-        $response['status'] = 'success';
-
-        return $this->serialize($response, $request->getRequestFormat());
+        return new Response();
     }
 
     /**

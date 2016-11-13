@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class AnimateHideShow extends React.Component {
+export default class AnimateHideShow extends Component {
   componentWillEnter(callback) {
     $(ReactDOM.findDOMNode(this)).hide();
     $(ReactDOM.findDOMNode(this)).show(this.props.showDuration, callback);
@@ -16,8 +16,8 @@ export default class AnimateHideShow extends React.Component {
   }
 }
 AnimateHideShow.propTypes = {
-  hideDuration: React.PropTypes.number,
-  showDuration: React.PropTypes.number,
+  hideDuration: PropTypes.number,
+  showDuration: PropTypes.number,
 };
 AnimateHideShow.defaultProps = {
   hideDuration: 100,

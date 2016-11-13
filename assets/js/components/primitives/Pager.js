@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { observable } from 'mobx';
-import { observer, PropTypes } from 'mobx-react';
+import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import classNames from 'classnames';
 import LinkButton from './LinkButton';
 import PropsProvider from 'props-provider';
 
 @observer
-export default class Pager extends React.Component {
+export default class Pager extends Component {
   @observable page = 0;
 
   constructor(props) {
@@ -34,6 +34,10 @@ export default class Pager extends React.Component {
     this.allItemsLength = newAllItemsLength
   }
 
+  previousPage = (canPrevious) => () => canPrevious && this.page--;
+  setPage = (page) => () => this.page = page;
+  nextPage = (canNext) => () => canNext && this.page++;
+
   render() {
     const { items, children, perPage } = this.props;
     let pages = [];
@@ -54,19 +58,19 @@ export default class Pager extends React.Component {
             <nav>
               <ul className="pagination pagination-sm">
                 <li className={classNames('page-item', { disabled: !canPrevious })}>
-                  <LinkButton className="page-link" onClick={() => canPrevious && this.page--}>
+                  <LinkButton className="page-link" onClick={this.previousPage(canPrevious)}>
                     <span>&laquo;</span>
                   </LinkButton>
                 </li>
                 {pages.map((node, i) => (
                   <li key={i} className={classNames('page-item', { active: this.page === i })}>
-                    <LinkButton className="page-link" onClick={() => this.page = i}>
+                    <LinkButton className="page-link" onClick={this.setPage(i)}>
                       {i + 1}
                     </LinkButton>
                   </li>
                 ))}
                 <li className={classNames('page-item', { disabled: !canNext })}>
-                  <LinkButton className="page-link" onClick={() => canNext && this.page++}>
+                  <LinkButton className="page-link" onClick={this.nextPage(canNext)}>
                     <span>&raquo;</span>
                   </LinkButton>
                 </li>
@@ -81,13 +85,13 @@ export default class Pager extends React.Component {
 }
 
 Pager.propTypes = {
-  items: React.PropTypes.arrayOf(React.PropTypes.node).isRequired,
-  allItems: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    PropTypes.observableArray
+  items: PropTypes.arrayOf(PropTypes.node).isRequired,
+  allItems: PropTypes.oneOfType([
+    PropTypes.array,
+    MobxPropTypes.observableArray
   ]),
   children: PropsProvider.PropType,
-  perPage: React.PropTypes.number
+  perPage: PropTypes.number
 };
 
 Pager.defaultProps = {

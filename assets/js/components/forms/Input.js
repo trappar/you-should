@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 export default function Input(props) {
-  const {errors, valid, label, ...restProps} = props;
+  const { errors, valid, label, ...restProps } = props;
 
   return (
     <div className={classNames('form-group', { 'has-danger': errors }, { 'has-success': valid })}>
@@ -24,11 +24,11 @@ export default function Input(props) {
   )
 }
 Input.propTypes = {
-  name: React.PropTypes.string,
-  label: React.PropTypes.string,
-  type: React.PropTypes.string,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  valid: React.PropTypes.bool,
-  errors: React.PropTypes.array,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  valid: PropTypes.bool,
+  errors: PropTypes.array,
 };

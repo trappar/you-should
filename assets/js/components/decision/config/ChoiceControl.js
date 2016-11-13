@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import DeleteButton from '../../primitives/DeleteButton.js';
 import BootstrapSlider from '../../primitives/BootstrapSlider.js';
 import Choice from '../../../stores/Choice';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 
 let ENTER_KEY_CODE = 13;
 let PLACEHOLDER_CHOICE = 'Enter an option here!';
 
 @observer
-export default class ChoiceControl extends React.Component {
+export default class ChoiceControl extends Component {
   constructor(props) {
     super(props);
     this.choice = props.choice;
@@ -21,11 +21,15 @@ export default class ChoiceControl extends React.Component {
     }
   }
 
-  _onKeyDown(event) {
+  onKeyDown = (event) => {
     if (event.keyCode === ENTER_KEY_CODE) {
       this.props.addChoice();
     }
-  }
+  };
+
+  setName = (event) => this.choice.setName(event.target.value);
+
+  setPriority = (value) => this.choice.setPriority(value);
 
   render() {
     return (
@@ -35,14 +39,14 @@ export default class ChoiceControl extends React.Component {
                  type="text"
                  className="form-control"
                  value={this.choice.name}
-                 onChange={(e) => this.choice.setName(e.target.value)}
-                 onKeyDown={(e) => this._onKeyDown(e)}
+                 onChange={this.setName}
+                 onKeyDown={this.onKeyDown}
                  placeholder={PLACEHOLDER_CHOICE}
           />
           <span className="input-group-btn">
                 <DeleteButton
                   extraClasses="btn-default"
-                  onDelete={() => this.props.removeChoice()}
+                  onDelete={this.props.removeChoice}
                 />
               </span>
         </div>
@@ -59,7 +63,7 @@ export default class ChoiceControl extends React.Component {
                 scale: 'logarithmic',
                 tooltip: 'hide'
               }}
-              onChange={(value) => this.choice.setPriority(value)}
+              onChange={this.setPriority}
             />
           </div>
         </div>
@@ -67,9 +71,8 @@ export default class ChoiceControl extends React.Component {
     );
   }
 }
-
 ChoiceControl.propTypes = {
-  choice: React.PropTypes.instanceOf(Choice).isRequired,
-  addChoice: React.PropTypes.func.isRequired,
-  removeChoice: React.PropTypes.func.isRequired
+  choice: PropTypes.instanceOf(Choice).isRequired,
+  addChoice: PropTypes.func.isRequired,
+  removeChoice: PropTypes.func.isRequired
 };

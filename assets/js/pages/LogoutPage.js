@@ -1,10 +1,10 @@
-import React from 'react';
-import Redirect from 'react-router/Redirect'
+import React, { Component } from 'react';
+import Redirect from 'react-router/Redirect';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 
 @observer(['alerts', 'user', 'decisions'])
-export default class LogoutPage extends React.Component {
+export default class LogoutPage extends Component {
   @observable redirect = false;
 
   constructor(props) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { BrowserRouter, Match, Miss } from 'react-router';
 import MatchWhenAuthorized from './components/primitives/MatchWhenAuthorized';
 import { Provider } from 'mobx-react';
@@ -17,9 +17,7 @@ if (process.env.NODE_ENV === 'development') {
   DevTools = () => null;
 }
 
-DevTools = () => null;
-
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     const user = this.props.stores.user;
 
@@ -42,5 +40,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  stores: React.PropTypes.object.isRequired
+  stores: PropTypes.object.isRequired
 };

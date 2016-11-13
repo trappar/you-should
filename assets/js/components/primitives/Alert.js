@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 /**
@@ -11,7 +11,7 @@ export default function Alert({ children, type, onDismiss }) {
 
   if (children) {
     return (
-      <div className={classNames('alert', 'alert-'+type, {'alert-dismissible': onDismiss})}>
+      <div className={classNames('alert', 'alert-' + type, { 'alert-dismissible': onDismiss })}>
         {
           onDismiss &&
           <button type="button" className="close" onClick={onDismiss}>
@@ -26,6 +26,6 @@ export default function Alert({ children, type, onDismiss }) {
   return false;
 }
 Alert.propTypes = {
-  type: React.PropTypes.string.isRequired,
-  onDismiss: React.PropTypes.func
+  type: PropTypes.string.isRequired,
+  onDismiss: PropTypes.func
 };

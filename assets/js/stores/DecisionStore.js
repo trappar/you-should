@@ -71,20 +71,19 @@ export default class DecisionStore {
     this.decisions.remove(decision);
 
     if (!decision.added) {
-      fetch(`/decision/${decision.id}.json`, {
+      fetch(`/decision/${decision.id}`, {
         method: 'DELETE',
         credentials: 'include'
       })
-        .then((response) => response.json())
-        .then(action('save-results', json => {
-          this.alerts.clearErrors();
-          console.log(json);
-        }))
-        .catch(e => {
-          decision.UI.deleteConfirmation = false;
-          this.decisions.splice(index, 0, decision);
-          this.alerts.setError(`Removing the Decision titled "${decision.question}". Please try again.`);
-        });
+        .then(response => {
+          if (response.ok) {
+            this.alerts.clearErrors();
+          } else {
+            decision.UI.deleteConfirmation = false;
+            this.decisions.splice(index, 0, decision);
+            this.alerts.setError(`Removing the Decision titled "${decision.question}". Please try again.`);
+          }
+        })
     }
   }
 }

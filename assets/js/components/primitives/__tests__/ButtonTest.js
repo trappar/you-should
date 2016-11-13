@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Button from '../Button';
 import {shallow} from 'enzyme';
 

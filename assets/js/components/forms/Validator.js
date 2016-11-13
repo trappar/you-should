@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -6,7 +6,7 @@ import PropsProvider from 'props-provider';
 import isEmail from 'validator/lib/isEmail';
 
 @observer
-export default class Validator extends React.Component {
+export default class Validator extends Component {
   @observable value = '';
   @observable validating;
   @observable shaking = false;
@@ -37,10 +37,10 @@ export default class Validator extends React.Component {
       .filter(error => error);
   }
 
-  @action setValue(value) {
+  setValue = action((event) => {
     this.validating = true;
-    this.value = value;
-  }
+    this.value = event.target.value;
+  });
 
   shake() {
     this.shaking = true;
@@ -52,7 +52,7 @@ export default class Validator extends React.Component {
 
   render() {
     const props = {
-      onChange: this.props.onChange || (e => this.setValue(e.target.value)),
+      onChange: this.setValue,
       value: this.value,
     };
     if (this.props.enabled) {
@@ -61,7 +61,7 @@ export default class Validator extends React.Component {
     }
 
     return (
-      <div className={classNames({'animate-shaking': this.shaking})}>
+      <div className={classNames({ 'animate-shaking': this.shaking })}>
         <PropsProvider {...props}>
           {this.props.children}
         </PropsProvider>
@@ -71,18 +71,16 @@ export default class Validator extends React.Component {
 }
 
 Validator.propTypes = {
-  validators: React.PropTypes.arrayOf(React.PropTypes.array),
-  defaultValue: React.PropTypes.string,
+  validators: PropTypes.arrayOf(PropTypes.array),
+  defaultValue: PropTypes.string,
   children: PropsProvider.PropType,
-  refStore: React.PropTypes.array,
-  enabled: React.PropTypes.bool
+  refStore: PropTypes.array,
+  enabled: PropTypes.bool
 };
-
 Validator.defaultProps = {
   validators: [],
   enabled: true
 };
-
 Validator.constraint = {
   notBlank: ['Must not be blank', (value) => value.length === 0],
   length: {

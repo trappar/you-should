@@ -1,6 +1,6 @@
 jest.useFakeTimers();
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import DeleteButton from '../DeleteButton';
 import {mount} from 'enzyme';
 

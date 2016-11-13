@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import DeleteButton from '../primitives/DeleteButton.js';
 import Button from '../primitives/Button.js';
-import {observer} from 'mobx-react';
+import Icon from '../primitives/Icon';
+import { observer } from 'mobx-react';
 import Decision from '../../stores/Decision';
 
 let PLACEHOLDER_QUESTION = 'Enter a question here!';
 
 @observer
-export default class Question extends React.Component {
+export default class Question extends Component {
   constructor(props) {
     super(props);
     this.decision = props.decision;
@@ -21,22 +22,24 @@ export default class Question extends React.Component {
     }
   }
 
-  answer() {
+  answer = () => {
     if (!this.UI.configuring) {
       this.UI.answering = !this.UI.answering
     }
-  }
+  };
+  edit = () => this.decision.edit();
+  setQuestion = (event) => this.decision.setQuestion(event.target.value);
 
   render() {
     let classes = classNames(
       'question', 'row',
       this.decision.theme,
-      {clickable: !this.UI.configuring && !this.UI.loading},
-      {loading: this.UI.loading}
+      { clickable: !this.UI.configuring && !this.UI.loading },
+      { loading: this.UI.loading }
     );
 
     return (
-      <div className={classes} onClick={() => this.answer()}>
+      <div className={classes} onClick={this.answer}>
         <div className="col-grow col-no-padding">
           {
             this.UI.configuring
@@ -44,7 +47,7 @@ export default class Question extends React.Component {
                        ref={c => this._input = c}
                        value={this.decision.question}
                        placeholder={PLACEHOLDER_QUESTION}
-                       onChange={e => this.decision.setQuestion(e.target.value)}/>
+                       onChange={this.setQuestion}/>
               : (this.decision.question.length > 0 ? this.decision.question : PLACEHOLDER_QUESTION)
           }
         </div>
@@ -53,10 +56,10 @@ export default class Question extends React.Component {
           <div className="col-shrink col-no-padding controls">
             {
               !this.UI.deleteConfirmation &&
-              <Button onClick={() => this.decision.edit()}
+              <Button onClick={this.edit}
                       extraClasses={`btn-alt-${this.decision.theme}`}
                       disabled={this.UI.configuring || this.UI.loading}>
-                <i className="fa fa-pencil" aria-hidden="true"/>
+                <Icon type="pencil"/>
               </Button>
             }
             <DeleteButton extraClasses={`btn-alt-${this.decision.theme}`}
@@ -71,6 +74,6 @@ export default class Question extends React.Component {
 }
 
 Question.propTypes = {
-  decision: React.PropTypes.instanceOf(Decision),
-  onRemove: React.PropTypes.func.isRequired
+  decision: PropTypes.instanceOf(Decision),
+  onRemove: PropTypes.func
 };

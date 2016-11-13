@@ -1,5 +1,5 @@
-import React from 'react';
-import {Match, Redirect} from 'react-router';
+import React, { Component } from 'react';
+import { Match, Redirect } from 'react-router';
 
 export default function MatchWhenAuthorized({ component: Component, user, ...rest }) {
   return (

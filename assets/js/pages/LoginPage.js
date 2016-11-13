@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import Input from '../components/forms/Input';
@@ -13,7 +13,7 @@ import AlertStore from '../stores/AlertStore';
 import DocumentTitle from 'react-document-title';
 
 @observer(['user', 'alerts', 'decisions'])
-export default class LoginPage extends React.Component {
+export default class LoginPage extends Component {
   @observable registering = false;
   @observable loading = false;
 
@@ -32,7 +32,7 @@ export default class LoginPage extends React.Component {
     this.registering = props.params[0] === 'register';
   }
 
-  login(event) {
+  login = (event) => {
     event.preventDefault();
 
     if (!this.loading) {
@@ -58,9 +58,9 @@ export default class LoginPage extends React.Component {
           this.alerts.setError('An unknown error occurred.');
         }));
     }
-  }
+  };
 
-  register(event) {
+  register = (event) => {
     event.preventDefault();
 
     this.inputs.forEach(input => input.validating = true);
@@ -96,13 +96,14 @@ export default class LoginPage extends React.Component {
           });
       }
     }
-  }
+  };
 
   renderInputs() {
     const username = (
       <Validator key="username" enabled={this.registering} refStore={this.inputs}
                  validators={[Validator.constraint.length.min(4), Validator.constraint.length.max(25)]}>
-        <Input name="username" label="Username" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+        <Input name="username" label="Username" autoComplete="off" autoCorrect="off" autoCapitalize="off"
+               spellCheck="false"/>
       </Validator>
     );
     const password = (
@@ -169,7 +170,7 @@ export default class LoginPage extends React.Component {
         <div className="row">
           <div className="col-lg-4 col-lg-offset-4 col-sm-8 col-sm-offset-2 col-xs-12">
             <StandardAlerts alerts={this.alerts}/>
-            <form onSubmit={(e) => this.registering ? this.register(e) : this.login(e)} ref={c => this.form = c}>
+            <form onSubmit={this.registering ? this.register : this.login} ref={c => this.form = c}>
               <br/>
               <ReactTransitionGroup>
                 {this.renderInputs().map(input => {
@@ -199,8 +200,7 @@ export default class LoginPage extends React.Component {
     );
   }
 }
-
 LoginPage.wrappedComponent.propTypes = {
-  user: React.PropTypes.instanceOf(UserStore),
-  alerts: React.PropTypes.instanceOf(AlertStore),
+  user: PropTypes.instanceOf(UserStore),
+  alerts: PropTypes.instanceOf(AlertStore),
 };
