@@ -24,7 +24,7 @@ class PostType extends AbstractType
                 'query_builder' => function(UserRepository $repo) {
                     return $repo->createQueryBuilder('user')
                         ->where('user.roles LIKE :role')
-                        ->setParameter('role', 'ROLE_ADMIN');
+                        ->setParameter('role', '%ROLE_ADMIN%');
                 },
                 'choice_label' => function(User $user) {
                     return $user->getUsername();
