@@ -29,7 +29,7 @@ export default class Answer extends React.Component {
               <div className="col-grow">
                 {this.UI.loading ? 'Loading...' : this.decision.answer.name}
               </div>
-              <div className="col-shrink col-no-padding">
+              <div className="col-grow col-no-padding" style={{textAlign: 'right'}}>
                 {
                   this.UI.answerAccepted
                     ?
