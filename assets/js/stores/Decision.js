@@ -9,7 +9,7 @@ export default class Decision extends Entity {
     return {
       tracked: {
         question: '',
-        theme: 'indigo',
+        theme: 'blue',
         choices: [],
         answer: null,
       },

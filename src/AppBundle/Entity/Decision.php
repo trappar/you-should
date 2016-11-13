@@ -39,7 +39,7 @@ class Decision
      * @ORM\Column(name="theme", type="string", length=20)
      * @Groups({"decision"})
      */
-    private $theme = 'indigo';
+    private $theme = 'blue';
 
     /**
      * @var ArrayCollection|Choice[]
