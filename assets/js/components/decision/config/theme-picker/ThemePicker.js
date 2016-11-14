@@ -5,8 +5,8 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 let THEMES = [
-  'red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'cyan', 'teal', 'green', 'light-green',
-  'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey'
+  'red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green',
+  'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'grey', 'blue-grey', 'brown',
 ];
 
 @observer

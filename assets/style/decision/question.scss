@@ -7,9 +7,11 @@
 
   @if $dark {
     $color: #fff;
+    $background-hover: darken($background-hover, 2%);
     $animatedColor: darken($background-hover, 7%)
   } @else {
     $color: #333;
+    $background-hover: lighten($background-hover, 3%);
     $animatedColor: lighten($background-hover, 7%)
   }
 
@@ -45,58 +47,23 @@
     margin-left: 5px;
   }
 
-  &.red {
-    @include question-variant($red-500, $red-700);
-  }
-  &.pink {
-    @include question-variant($pink-500, $pink-600);
-  }
-  &.purple {
-    @include question-variant($purple-500, $purple-600);
-  }
-  &.deep-purple {
-    @include question-variant($deep-purple-500, $deep-purple-600);
-  }
-  &.indigo {
-    @include question-variant($indigo-500, $indigo-700);
-  }
-  &.blue {
-    @include question-variant($blue-600, $blue-700);
-  }
-  &.cyan {
-    @include question-variant($cyan-500, $cyan-600);
-  }
-  &.teal {
-    @include question-variant($teal-500, $teal-600);
-  }
-  &.green {
-    @include question-variant($green-500, $green-600);
-  }
-  &.light-green {
-    @include question-variant($light-green-500, $light-green-600);
-  }
-  &.lime {
-    @include question-variant($lime-300, $lime-200, false);
-  }
-  &.yellow {
-    @include question-variant($yellow-300, $yellow-200, false);
-  }
-  &.amber {
-    @include question-variant($amber-300, $amber-200, false);
-  }
-  &.orange {
-    @include question-variant($orange-600, $orange-700);
-  }
-  &.deep-orange {
-    @include question-variant($deep-orange-500, $deep-orange-600);
-  }
-  &.brown {
-    @include question-variant($brown-500, $brown-700);
-  }
-  &.grey {
-    @include question-variant($grey-600, $grey-800);
-  }
-  &.blue-grey {
-    @include question-variant($blue-grey-500, $blue-grey-600);
-  }
+  &.red { @include question-variant($red-600, $red-700); }
+  &.pink { @include question-variant($pink-500, $pink-600); }
+  &.purple { @include question-variant($purple-500, $purple-600); }
+  &.deep-purple { @include question-variant($deep-purple-500, $deep-purple-600); }
+  &.indigo { @include question-variant($indigo-500, $indigo-600); }
+  &.blue { @include question-variant($blue-600, $blue-700); }
+  &.light-blue { @include question-variant($light-blue-300, $light-blue-200, false); }
+  &.cyan { @include question-variant($cyan-500, $cyan-600); }
+  &.teal { @include question-variant($teal-500, $teal-600); }
+  &.green { @include question-variant($green-500, $green-600); }
+  &.light-green { @include question-variant($light-green-500, $light-green-600); }
+  &.lime { @include question-variant($lime-300, $lime-200, false); }
+  &.yellow { @include question-variant($yellow-300, $yellow-200, false); }
+  &.amber { @include question-variant($amber-300, $amber-200, false); }
+  &.orange { @include question-variant($orange-600, $orange-700); }
+  &.deep-orange { @include question-variant($deep-orange-500, $deep-orange-600); }
+  &.brown { @include question-variant($brown-500, $brown-600); }
+  &.grey { @include question-variant($grey-600, $grey-700); }
+  &.blue-grey { @include question-variant($blue-grey-500, $blue-grey-600); }
 }

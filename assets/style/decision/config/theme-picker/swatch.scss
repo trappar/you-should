@@ -21,22 +21,23 @@
         transition: none;
     }
 
-    &.red { @include swatch-variant($red-500, $red-700); }
-    &.pink { @include swatch-variant($pink-500, $pink-600); }
-    &.purple { @include swatch-variant($purple-500, $purple-600); }
-    &.deep-purple { @include swatch-variant($deep-purple-500, $deep-purple-600); }
-    &.indigo { @include swatch-variant($indigo-500, $indigo-600); }
-    &.blue { @include swatch-variant($blue-500, $blue-600); }
-    &.cyan { @include swatch-variant($cyan-500, $cyan-600); }
-    &.teal { @include swatch-variant($teal-500, $teal-600); }
-    &.green { @include swatch-variant($green-500, $green-600); }
-    &.light-green { @include swatch-variant($light-green-500, $light-green-600); }
-    &.lime { @include swatch-variant($lime-300, $lime-400); }
-    &.yellow { @include swatch-variant($yellow-300, $yellow-400); }
-    &.amber { @include swatch-variant($amber-300, $amber-400); }
-    &.orange { @include swatch-variant($orange-500, $orange-600); }
-    &.deep-orange { @include swatch-variant($deep-orange-500, $deep-orange-600); }
+    &.red { @include swatch-variant($red-600, $red-800); }
+    &.pink { @include swatch-variant($pink-500, $pink-700); }
+    &.purple { @include swatch-variant($purple-500, $purple-700); }
+    &.deep-purple { @include swatch-variant($deep-purple-500, $deep-purple-800); }
+    &.indigo { @include swatch-variant($indigo-500, $indigo-700); }
+    &.light-blue { @include swatch-variant($light-blue-200, $light-blue-100); }
+    &.blue { @include swatch-variant($blue-500, $blue-700); }
+    &.cyan { @include swatch-variant($cyan-500, $cyan-700); }
+    &.teal { @include swatch-variant($teal-500, $teal-700); }
+    &.green { @include swatch-variant($green-500, $green-700); }
+    &.light-green { @include swatch-variant($light-green-500, $light-green-700); }
+    &.lime { @include swatch-variant($lime-300, $lime-200); }
+    &.yellow { @include swatch-variant($yellow-300, $yellow-200); }
+    &.amber { @include swatch-variant($amber-300, $amber-200); }
+    &.orange { @include swatch-variant($orange-500, $orange-700); }
+    &.deep-orange { @include swatch-variant($deep-orange-500, $deep-orange-700); }
     &.brown { @include swatch-variant($brown-500, $brown-700); }
     &.grey { @include swatch-variant($grey-500, $grey-700); }
-    &.blue-grey { @include swatch-variant($blue-grey-500, $blue-grey-600); }
+    &.blue-grey { @include swatch-variant($blue-grey-500, $blue-grey-700); }
 }

@@ -7,7 +7,7 @@ export default function Swatch(props) {
   let classes = classNames(
     'swatch',
     theme,
-    { clickable: props.onClick }
+    { clickable: props.onClick || props.onMouseDown }
   );
 
   return (

@@ -45,7 +45,7 @@ export default class ChoiceControl extends Component {
           />
           <span className="input-group-btn">
                 <DeleteButton
-                  extraClasses="btn-default"
+                  extraClasses={"btn-"+this.props.theme}
                   onDelete={this.props.removeChoice}
                 />
               </span>
@@ -74,5 +74,6 @@ export default class ChoiceControl extends Component {
 ChoiceControl.propTypes = {
   choice: PropTypes.instanceOf(Choice).isRequired,
   addChoice: PropTypes.func.isRequired,
-  removeChoice: PropTypes.func.isRequired
+  removeChoice: PropTypes.func.isRequired,
+  theme: PropTypes.string.isRequired,
 };

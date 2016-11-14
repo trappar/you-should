@@ -40,6 +40,7 @@ export default class Config extends Component {
                   choice={choice}
                   addChoice={this.addChoice}
                   removeChoice={this.removeChoice(choice)}
+                  theme={this.decision.theme}
                 />
               );
             })}
