@@ -35,7 +35,7 @@
 .btn-indigo { @include decision-button-variant($indigo-500, $indigo-700); }
 .btn-blue { @include decision-button-variant($blue-500, $blue-700); }
 .btn-light-blue { @include decision-button-variant($light-blue-200, $light-blue-100, false); }
-.btn-cyan { @include decision-button-variant($cyan-500, $cyan-700); }
+.btn-cyan { @include decision-button-variant($cyan-600, $cyan-800); }
 .btn-teal { @include decision-button-variant($teal-500, $teal-700); }
 .btn-green { @include decision-button-variant($green-500, $green-700); }
 .btn-light-green { @include decision-button-variant($light-green-500, $light-green-700); }
@@ -55,7 +55,7 @@
 .btn-alt-indigo { @include decision-button-variant($indigo-300, $indigo-400); }
 .btn-alt-blue { @include decision-button-variant($blue-300, $blue-400); }
 .btn-alt-light-blue { @include decision-button-variant($light-blue-500, $light-blue-400); }
-.btn-alt-cyan { @include decision-button-variant($cyan-300, $cyan-400); }
+.btn-alt-cyan { @include decision-button-variant($cyan-400, $cyan-500); }
 .btn-alt-teal { @include decision-button-variant($teal-300, $teal-400); }
 .btn-alt-green { @include decision-button-variant($green-300, $green-400); }
 .btn-alt-light-green { @include decision-button-variant($light-green-300, $light-green-400); }

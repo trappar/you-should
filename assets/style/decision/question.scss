@@ -54,7 +54,7 @@
   &.indigo { @include question-variant($indigo-500, $indigo-600); }
   &.blue { @include question-variant($blue-600, $blue-700); }
   &.light-blue { @include question-variant($light-blue-300, $light-blue-200, false); }
-  &.cyan { @include question-variant($cyan-500, $cyan-600); }
+  &.cyan { @include question-variant($cyan-600, $cyan-700); }
   &.teal { @include question-variant($teal-500, $teal-600); }
   &.green { @include question-variant($green-500, $green-600); }
   &.light-green { @include question-variant($light-green-500, $light-green-600); }

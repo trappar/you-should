@@ -28,7 +28,7 @@
     &.indigo { @include swatch-variant($indigo-500, $indigo-700); }
     &.light-blue { @include swatch-variant($light-blue-200, $light-blue-100); }
     &.blue { @include swatch-variant($blue-500, $blue-700); }
-    &.cyan { @include swatch-variant($cyan-500, $cyan-700); }
+    &.cyan { @include swatch-variant($cyan-600, $cyan-800); }
     &.teal { @include swatch-variant($teal-500, $teal-700); }
     &.green { @include swatch-variant($green-500, $green-700); }
     &.light-green { @include swatch-variant($light-green-500, $light-green-700); }
