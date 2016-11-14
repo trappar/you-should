@@ -6,7 +6,7 @@ import Icon from '../primitives/Icon';
 import { observer } from 'mobx-react';
 import Decision from '../../stores/Decision';
 
-let PLACEHOLDER_QUESTION = 'Enter a question here!';
+const ENTER_KEY_CODE = 13;
 
 @observer
 export default class Question extends Component {
@@ -29,6 +29,11 @@ export default class Question extends Component {
   };
   edit = () => this.decision.edit();
   setQuestion = (event) => this.decision.setQuestion(event.target.value);
+  handleQuestionKeyDown = (event) => {
+    if (event.keyCode === ENTER_KEY_CODE) {
+      this.decision.addChoice();
+    }
+  };
 
   render() {
     let classes = classNames(
@@ -46,9 +51,10 @@ export default class Question extends Component {
               ? <input type="text" className="form-control"
                        ref={c => this._input = c}
                        value={this.decision.question}
-                       placeholder={PLACEHOLDER_QUESTION}
-                       onChange={this.setQuestion}/>
-              : (this.decision.question.length > 0 ? this.decision.question : PLACEHOLDER_QUESTION)
+                       placeholder="Enter a question here"
+                       onChange={this.setQuestion}
+                       onKeyDown={this.handleQuestionKeyDown}/>
+              : (this.decision.question.length > 0 ? this.decision.question : 'No question configured')
           }
         </div>
         {

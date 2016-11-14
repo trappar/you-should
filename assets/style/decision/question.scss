@@ -8,11 +8,11 @@
   @if $dark {
     $color: #fff;
     $background-hover: darken($background-hover, 2%);
-    $animatedColor: darken($background-hover, 7%)
+    $animatedColor: darken($background-hover, 3%)
   } @else {
     $color: #333;
     $background-hover: lighten($background-hover, 3%);
-    $animatedColor: lighten($background-hover, 7%)
+    $animatedColor: lighten($background-hover, 3%)
   }
 
   color: $color;

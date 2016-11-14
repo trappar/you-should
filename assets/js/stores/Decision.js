@@ -130,6 +130,7 @@ export default class Decision extends Entity {
   }
 
   @action addChoice(choice) {
+    this.setFilter();
     this.choices.push(new Choice(choice))
   }
 

@@ -4,8 +4,7 @@ import BootstrapSlider from '../../primitives/BootstrapSlider.js';
 import Choice from '../../../stores/Choice';
 import { observer } from 'mobx-react';
 
-let ENTER_KEY_CODE = 13;
-let PLACEHOLDER_CHOICE = 'Enter an option here!';
+const ENTER_KEY_CODE = 13;
 
 @observer
 export default class ChoiceControl extends Component {
@@ -28,7 +27,6 @@ export default class ChoiceControl extends Component {
   };
 
   setName = (event) => this.choice.setName(event.target.value);
-
   setPriority = (value) => this.choice.setPriority(value);
 
   render() {
@@ -41,7 +39,7 @@ export default class ChoiceControl extends Component {
                  value={this.choice.name}
                  onChange={this.setName}
                  onKeyDown={this.onKeyDown}
-                 placeholder={PLACEHOLDER_CHOICE}
+                 placeholder='Enter an option here'
           />
           <span className="input-group-btn">
                 <DeleteButton

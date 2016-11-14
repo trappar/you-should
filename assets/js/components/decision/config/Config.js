@@ -17,10 +17,7 @@ export default class Config extends Component {
     this.UI = props.decision.UI;
   }
 
-  addChoice = () => {
-    this.decision.setFilter();
-    this.decision.addChoice();
-  };
+  addChoice = () => this.decision.addChoice();
   removeChoice = (choice) => () => this.decision.removeChoice(choice);
   setTheme = (theme) => this.decision.setTheme(theme);
   clearFilter = () => this.decision.setFilter();
